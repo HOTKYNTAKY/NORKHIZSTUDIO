@@ -1,244 +1,259 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Norkhiz Studio | Final Version</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>شبکه عصبی کوانتومی نکتو | NEXTO 3D</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;400;700&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
-        
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            background-color: #050505;
-            color: #ffffff;
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.2);
+            --neon-accent: #667eea;
+            --text-main: rgba(255, 255, 255, 0.9);
+            --text-muted: rgba(255, 255, 255, 0.6);
+        }
+
+        * {
             margin: 0;
-            overflow-x: hidden;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            font-family: 'Vazirmatn', sans-serif; /* اعمال فونت فارسی */
         }
 
-        /* لایه پس‌زمینه */
-        .bg-glow {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 30%, #1e1b4b 0%, #050505 100%);
-            z-index: -2;
+        body {
+            overflow: hidden;
+            background: #050508;
+            color: var(--text-main);
         }
 
-        /* استایل فیلدهای فرم - کاملاً تست شده برای تایپ */
-        .form-input {
+        canvas {
+            display: block;
             width: 100%;
-            background: rgba(255, 255, 255, 0.08) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            border-radius: 15px;
-            padding: 15px;
-            color: white !important;
-            font-size: 16px;
-            outline: none;
-            position: relative;
-            z-index: 50; /* بالاترین لایه برای کلیک */
-        }
-
-        .form-input:focus {
-            border-color: #6366f1 !important;
-            background: rgba(255, 255, 255, 0.12) !important;
-        }
-
-        /* انیمیشن دستیار (آواتار شما) */
-        #assistant {
-            position: fixed;
-            bottom: -150px;
-            right: 20px;
-            z-index: 1000;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-        }
-
-        #assistant.show { bottom: 30px; }
-
-        .chat-bubble {
+            height: 100%;
+            cursor: crosshair;
             position: absolute;
-            top: -45px;
-            right: 10px;
-            background: #6366f1;
-            color: white;
-            padding: 6px 14px;
-            border-radius: 15px 15px 0 15px;
-            font-size: 12px;
-            font-weight: bold;
-            white-space: nowrap;
-            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
-            animation: pulse 2s infinite;
+            top: 0;
+            left: 0;
+            z-index: 1;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        /* استایل پنل‌های شیشه‌ای */
+        .glass-panel {
+            backdrop-filter: blur(24px) saturate(120%);
+            -webkit-backdrop-filter: blur(24px) saturate(120%);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid var(--glass-highlight);
+            border-right: 1px solid var(--glass-highlight);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.02);
+            border-radius: 24px;
+            color: var(--text-main);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: absolute;
+            z-index: 10;
+            overflow: hidden;
         }
 
-        /* منوی ارتباطات */
-        #contact-menu {
-            position: fixed;
-            bottom: 115px;
-            right: 25px;
-            background: rgba(15, 15, 25, 0.98);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 25px;
-            padding: 20px;
-            display: none;
+        .glass-panel:hover {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+            transform: translateY(-2px);
+        }
+
+        #instructions-container {
+            top: 32px;
+            right: 32px; /* تغییر موقعیت به راست برای فارسی */
+            width: 280px;
+            padding: 24px;
+        }
+
+        #instruction-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff 30%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .instruction-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        #theme-selector {
+            top: 32px;
+            left: 32px; /* تم سلکتور به چپ منتقل شد */
+            padding: 24px;
+            display: flex;
             flex-direction: column;
-            gap: 18px;
-            z-index: 2000;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            gap: 16px;
             width: 220px;
         }
 
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 14px;
-            font-weight: bold;
-            transition: 0.3s;
+        #theme-selector-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 4px;
         }
 
-        .menu-item:hover { transform: translateX(-5px); opacity: 0.8; }
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .theme-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        #theme-1 { background: radial-gradient(circle at 30% 30%, #a78bfa, #4c1d95); }
+        #theme-2 { background: radial-gradient(circle at 30% 30%, #fb7185, #9f1239); }
+        #theme-3 { background: radial-gradient(circle at 30% 30%, #38bdf8, #0c4a6e); }
+
+        .theme-button.active::after {
+            content: '';
+            position: absolute;
+            top: -4px; left: -4px; right: -4px; bottom: -4px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        #density-controls {
+            margin-top: 8px;
+        }
+
+        .density-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .density-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .density-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        #control-buttons {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 16px;
+            z-index: 20;
+        }
+
+        .control-button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .control-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+            border-color: var(--neon-accent);
+        }
+
+        @media (max-width: 640px) {
+            #instructions-container, #theme-selector {
+                right: 16px; left: 16px; width: auto;
+            }
+            #instructions-container { top: 16px; }
+            #theme-selector { top: auto; bottom: 100px; flex-direction: row; }
+        }
     </style>
 </head>
+
 <body>
 
-    <div class="bg-glow"></div>
-
-    <audio id="notifSound" src="https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3" preload="auto"></audio>
-
-    <nav class="sticky top-0 z-[100] bg-black/60 backdrop-blur-md border-b border-white/5 py-4 px-6 flex justify-between items-center text-right">
-        <div class="font-black text-indigo-500 text-lg">NORKHIZ STUDIO</div>
-        <a href="tel:09906851367" class="bg-indigo-600 px-5 py-2 rounded-full text-xs font-bold shadow-lg">تماس فوری</a>
-    </nav>
-
-    <div class="px-6 text-center pt-12 pb-6">
-        <h1 class="text-3xl font-black mb-3">نورخیز استودیو</h1>
-        <p class="text-gray-400 text-sm">ثبت سفارش و ارتباط سریع</p>
-    </div>
-
-    <section id="order-section" class="px-6 pb-40">
-        <div class="max-w-md mx-auto bg-white/5 border border-white/10 rounded-[2.5rem] p-8 shadow-2xl relative">
-            <h2 class="text-xl font-bold mb-8 text-center text-indigo-400">اطلاعات پروژه را وارد کنید</h2>
-            <form id="mainOrderForm" class="space-y-5 text-right">
-                <div class="relative">
-                    <label class="block text-xs text-gray-500 mb-1 mr-2">نام و نام خانوادگی *</label>
-                    <input type="text" id="name" class="form-input" placeholder="مثلاً: علی رضایی" required>
-                </div>
-                
-                <div class="relative">
-                    <label class="block text-xs text-gray-500 mb-1 mr-2">شماره تماس *</label>
-                    <input type="tel" id="phone" class="form-input" placeholder="09123456789" required>
-                </div>
-
-                <div class="relative">
-                    <label class="block text-xs text-gray-500 mb-1 mr-2">ایمیل (اختیاری)</label>
-                    <input type="email" id="email" class="form-input" placeholder="info@mail.com">
-                </div>
-                
-                <div class="relative">
-                    <label class="block text-xs text-gray-500 mb-1 mr-2">نوع خدمات</label>
-                    <select id="serviceType" class="form-input cursor-pointer">
-                        <option value="عکاسی">📸 عکاسی حرفه‌ای</option>
-                        <option value="فیلمبرداری">🎥 فیلمبرداری</option>
-                        <option value="ادیت">🎨 ادیت و رتوش</option>
-                        <option value="تدوین">✂️ تدوین ویدئو</option>
-                    </select>
-                </div>
-
-                <div class="relative">
-                    <label class="block text-xs text-gray-500 mb-1 mr-2">توضیحات کوتاه</label>
-                    <textarea id="desc" rows="3" class="form-input" placeholder="جزئیات مدنظر شما..."></textarea>
-                </div>
-                
-                <button type="button" onclick="sendToTelegram()" class="w-full bg-indigo-600 py-4 rounded-xl font-black text-lg shadow-xl shadow-indigo-600/30 active:scale-95 transition-all mt-4">ارسال درخواست</button>
-            </form>
+    <div id="instructions-container" class="glass-panel">
+        <div id="instruction-title">شبکه عصبی کوانتومی</div>
+        <div class="instruction-text">
+            برای ارسال پالس انرژی کلیک کنید. <br>
+            برای کاوش در ساختار، تصویر را بکشید.
         </div>
-    </section>
-
-    <div id="assistant" onclick="toggleContactMenu()">
-        <div id="chat-msg" class="chat-bubble" style="display:none;">سوالی داری؟ در خدمتم!</div>
-        <img src="https://uploadkon.ir/uploads/779414_26InShot-20260215-011232037.jpg" class="w-20 h-20 rounded-full border-4 border-indigo-500 shadow-2xl object-cover">
     </div>
 
-    <div id="contact-menu">
-        <a href="https://wa.me/989906851367" class="menu-item text-green-400">
-            <i class="fab fa-whatsapp text-2xl"></i> واتساپ مدیریت
-        </a>
-        <a href="https://t.me/NORKHIZ_STUDIO" class="menu-item text-blue-400">
-            <i class="fab fa-telegram text-2xl"></i> تلگرام استودیو
-        </a>
-        <a href="https://www.instagram.com/norkhizstudio" class="menu-item text-pink-500">
-            <i class="fab fa-instagram text-2xl"></i> اینستاگرام
-        </a>
-        <a href="tel:09906851367" class="menu-item text-white">
-            <i class="fas fa-phone-alt text-xl"></i> تماس مستقیم
-        </a>
+    <div id="theme-selector" class="glass-panel">
+        <div style="flex: 1;">
+            <div id="theme-selector-title">پالت رنگی</div>
+            <div class="theme-grid">
+                <button class="theme-button active" id="theme-1" data-theme="0" title="سحابی بنفش"></button>
+                <button class="theme-button" id="theme-2" data-theme="1" title="آتش غروب"></button>
+                <button class="theme-button" id="theme-3" data-theme="2" title="شفق اقیانوسی"></button>
+            </div>
+        </div>
+        <div id="density-controls" style="flex: 1;">
+            <div class="density-label"><span>تراکم شبکه</span><span id="density-value">۱۰۰٪</span></div>
+            <input type="range" min="30" max="100" value="100" class="density-slider" id="density-slider">
+        </div>
     </div>
 
-    <script>
-        let soundPlayed = false;
+    <div id="control-buttons">
+        <button id="change-formation-btn" class="control-button">تغییر شکل</button>
+        <button id="pause-play-btn" class="control-button">توقف انیمیشن</button>
+        <button id="reset-camera-btn" class="control-button">بازنشانی دوربین</button>
+    </div>
 
-        // ظاهر شدن با اسکرول و پخش صدا
-        window.onscroll = function() {
-            let section = document.getElementById('order-section');
-            let assistant = document.getElementById('assistant');
-            let bubble = document.getElementById('chat-msg');
-            let sound = document.getElementById('notifSound');
+    <canvas id="neural-network-canvas"></canvas>
 
-            if (window.scrollY > (section.offsetTop - 550)) {
-                if (!assistant.classList.contains('show')) {
-                    assistant.classList.add('show');
-                    setTimeout(() => { bubble.style.display = 'block'; }, 800);
-                    
-                    if (!soundPlayed) {
-                        sound.play().catch(e => console.log("Audio play blocked"));
-                        soundPlayed = true;
-                    }
-                }
-            }
-        };
-
-        function toggleContactMenu() {
-            let menu = document.getElementById('contact-menu');
-            if (menu.style.display === 'flex') {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'flex';
-            }
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
         }
-
-        function sendToTelegram() {
-            const token = "7913811985:AAGMys4UDPNNNkv81XAMoGr4a5srRpKOUok";
-            const chatId = "8449439423";
-            
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value || "ثبت نشده";
-            const service = document.getElementById('serviceType').value;
-            const desc = document.getElementById('desc').value || "بدون توضیح";
-
-            if (!name || !phone) {
-                alert("لطفاً فیلدهای اجباری را پر کنید.");
-                return;
-            }
-
-            const message = `🚀 سفارش جدید نورخیز استودیو 🚀\n\n👤 مشتری: ${name}\n📞 تماس: ${phone}\n📧 ایمیل: ${email}\n🛠 خدمت: ${service}\n📝 توضیحات: ${desc}`;
-            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-
-            fetch(url).then(res => {
-                if(res.ok) {
-                    alert("درخواست شما با موفقیت به مدیریت ارسال شد. سپاس!");
-                    document.getElementById('mainOrderForm').reset();
-                }
-            }).catch(() => alert("خطا در شبکه! فیلترشکن را چک کنید."));
-        }
+    }
+    </script>
+    
+    <script type="module">
+        import * as THREE from 'three';
+        // ... (تمامی کدهای جاوااسکریپت فایل اصلی شما اینجا قرار می‌گیرند)
+        // تغییرات کوچک برای فارسی‌سازی در خروجی‌های متنی JS:
+        // مثلاً تغییر نام دکمه توقف در صورت کلیک:
+        // pausePlayBtn.querySelector('span').textContent = config.paused ? 'پخش' : 'توقف انیمیشن';
     </script>
 
-</body></html>
+</body>
+</html>

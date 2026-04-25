@@ -3,151 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V2BOX | خرید ترافیک اختصاصی</title>
+    <title>V2BOX PREMIUM | خرید اشتراک</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
-        body { font-family: 'Vazirmatn', sans-serif; background-color: #0f172a; color: white; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .plan-card.active { border-color: #3b82f6; background: rgba(59, 130, 246, 0.1); transform: scale(1.02); }
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;800&display=swap');
+        
+        :root { font-family: 'Vazirmatn', sans-serif; }
+        
+        body {
+            background: #050811;
+            background-image: radial-gradient(circle at top right, #1e293b 0%, #050811 50%),
+                              radial-gradient(circle at bottom left, #1e1b4b 0%, #050811 50%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .plan-option {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .plan-option:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .plan-option.active {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.1) 100%);
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="flex items-center justify-center p-4">
 
-    <div class="max-w-4xl mx-auto">
-        <header class="text-center mb-12">
-            <h1 class="text-3xl font-bold text-blue-500 mb-2">پنل فروش اختصاصی V2BOX</h1>
-            <p class="text-gray-400">سریع، امن و بدون قطعی</p>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="w-full max-w-5xl">
+        <div class="glass-card rounded-[2.5rem] overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl">
             
-            <div class="space-y-4">
-                <h2 class="text-xl font-bold mb-4"><i class="fas fa-box-open ml-2 text-blue-400"></i>انتخاب بسته:</h2>
-                
-                <div class="plan-card glass p-4 rounded-2xl cursor-pointer transition active" onclick="selectPlan(this, '1 گیگابایت', '430')">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold">1 گیگابایت</span>
-                        <span class="text-blue-400">430 تومان</span>
+            <div class="lg:col-span-7 p-8 md:p-12 border-b lg:border-b-0 lg:border-l border-white/5">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/40">
+                        <i class="fas fa-shield-halved text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-black tracking-tight">V2BOX <span class="text-blue-500 underline decoration-2 underline-offset-8">PRO</span></h1>
+                        <p class="text-xs text-gray-400 mt-1 uppercase tracking-widest">Premium Proxy Service</p>
                     </div>
                 </div>
 
-                <div class="plan-card glass p-4 rounded-2xl cursor-pointer transition" onclick="selectPlan(this, '2 گیگابایت', '850')">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold">2 گیگابایت</span>
-                        <span class="text-blue-400">850 تومان</span>
+                <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                    انتخاب ترافیک مصرفی
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div onclick="selectPlan(this, '1 گیگابایت', '430')" class="plan-option active glass-card p-5 rounded-2xl cursor-pointer">
+                        <div class="text-gray-400 text-xs mb-1">اقتصادی</div>
+                        <div class="text-xl font-extrabold">1 گیگابایت</div>
+                        <div class="text-blue-400 font-bold mt-2 text-sm">430,000 <span class="text-[10px] opacity-60">تومان</span></div>
+                    </div>
+
+                    <div onclick="selectPlan(this, '2 گیگابایت', '850')" class="plan-option glass-card p-5 rounded-2xl cursor-pointer">
+                        <div class="text-gray-400 text-xs mb-1">پرطرفدار</div>
+                        <div class="text-xl font-extrabold">2 گیگابایت</div>
+                        <div class="text-blue-400 font-bold mt-2 text-sm">850,000 <span class="text-[10px] opacity-60">تومان</span></div>
+                    </div>
+
+                    <div onclick="selectPlan(this, '3 گیگابایت', '1200')" class="plan-option glass-card p-5 rounded-2xl cursor-pointer">
+                        <div class="text-gray-400 text-xs mb-1">حرفه‌ای</div>
+                        <div class="text-xl font-extrabold">3 گیگابایت</div>
+                        <div class="text-blue-400 font-bold mt-2 text-sm">1,200,000 <span class="text-[10px] opacity-60">تومان</span></div>
+                    </div>
+
+                    <div onclick="selectPlan(this, '4 گیگابایت', '1600')" class="plan-option glass-card p-5 rounded-2xl cursor-pointer border-dashed">
+                        <div class="text-yellow-500 text-xs mb-1 font-bold italic">ویژه</div>
+                        <div class="text-xl font-extrabold text-yellow-500">4 گیگابایت</div>
+                        <div class="text-blue-400 font-bold mt-2 text-sm">1,600,000 <span class="text-[10px] opacity-60">تومان</span></div>
                     </div>
                 </div>
 
-                <div class="plan-card glass p-4 rounded-2xl cursor-pointer transition" onclick="selectPlan(this, '3 گیگابایت', '1200')">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold">3 گیگابایت</span>
-                        <span class="text-blue-400">1,200 تومان</span>
-                    </div>
-                </div>
-
-                <div class="plan-card glass p-4 rounded-2xl cursor-pointer transition" onclick="selectPlan(this, '4 گیگابایت', '1600')">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold">4 گیگابایت</span>
-                        <span class="text-blue-400">1,600 تومان</span>
-                    </div>
+                <div class="mt-10 grid grid-cols-2 gap-y-3 text-xs text-gray-400">
+                    <div class="flex items-center gap-2"><i class="fas fa-check-circle text-blue-500"></i> پینگ زیر 50 میلی ثانیه</div>
+                    <div class="flex items-center gap-2"><i class="fas fa-check-circle text-blue-500"></i> پروتکل اختصاصی VLESS</div>
+                    <div class="flex items-center gap-2"><i class="fas fa-check-circle text-blue-500"></i> لوکیشن‌های متنوع</div>
+                    <div class="flex items-center gap-2"><i class="fas fa-check-circle text-blue-500"></i> بدون محدودیت کاربر</div>
                 </div>
             </div>
 
-            <div class="glass p-6 rounded-3xl h-fit">
-                <h2 class="text-xl font-bold mb-6 text-center">تکمیل اطلاعات ارسال</h2>
+            <div class="lg:col-span-5 p-8 md:p-12 bg-white/[0.01]">
+                <h3 class="text-xl font-bold mb-8">ثبت اطلاعات نهایی</h3>
                 
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-1">نام و نام خانوادگی (اجباری)</label>
-                        <input type="text" id="userName" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition" placeholder="مثلاً: علی احمدی">
+                <div class="space-y-6">
+                    <div class="group">
+                        <label class="block text-[10px] uppercase tracking-widest text-gray-500 mb-2 mr-2">نام کامل شما</label>
+                        <input type="text" id="userName" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-blue-500/5 transition-all text-sm" placeholder="مثلاً: احمد نایبی">
                     </div>
 
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-1">آیدی تلگرام (اجباری)</label>
-                        <input type="text" id="userTelegram" dir="ltr" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition text-left" placeholder="@username">
-                    </div>
-
-                    <div class="pt-4">
-                        <div class="bg-blue-600/10 p-4 rounded-xl mb-6">
-                            <p class="text-sm">بسته انتخابی: <span id="selectedDisplay" class="font-bold text-blue-400">1 گیگابایت</span></p>
-                            <p class="text-sm">مبلغ قابل پرداخت: <span id="priceDisplay" class="font-bold text-blue-400">430 تومان</span></p>
+                    <div class="group">
+                        <label class="block text-[10px] uppercase tracking-widest text-gray-500 mb-2 mr-2">آیدی تلگرام (بدون @)</label>
+                        <div class="relative">
+                            <span class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500">@</span>
+                            <input type="text" id="userTelegram" dir="ltr" class="w-full bg-white/5 border border-white/10 rounded-2xl pl-5 pr-10 py-4 outline-none focus:border-blue-500 focus:bg-blue-500/5 transition-all text-sm text-left" placeholder="username">
                         </div>
-                        
-                        <button onclick="sendOrder()" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-blue-500/20">
-                            ثبت سفارش و پرداخت
-                        </button>
                     </div>
+
+                    <div class="bg-gradient-to-br from-blue-600/20 to-purple-600/20 p-6 rounded-[2rem] border border-blue-500/20 mt-4">
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-gray-400">بسته انتخابی:</span>
+                            <span id="selectedDisplay" class="font-bold">1 گیگابایت</span>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <span class="text-gray-400 text-sm">مبلغ نهایی:</span>
+                            <span id="priceDisplay" class="text-2xl font-black text-blue-400 tracking-tighter">430,000 <span class="text-[10px] text-gray-500">تومان</span></span>
+                        </div>
+                    </div>
+
+                    <button onclick="sendOrder()" id="submitBtn" class="shimmer w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-[2rem] transition shadow-2xl shadow-blue-600/30">
+                        تایید و دریافت فاکتور در تلگرام
+                    </button>
+
+                    <p class="text-[10px] text-center text-gray-500 px-4">
+                        پس از کلیک، اطلاعات برای پشتیبانی ارسال شده و لینک پرداخت برای شما فرستاده می‌شود.
+                    </p>
                 </div>
             </div>
-
         </div>
 
-        <footer class="mt-12 text-center">
-            <a href="https://t.me/V2BOX_SUPPORT_EP" class="text-gray-400 hover:text-white transition">
-                <i class="fab fa-telegram ml-1"></i> پشتیبانی: @V2BOX_SUPPORT_EP
+        <div class="mt-8 flex justify-center gap-6">
+            <a href="https://t.me/V2BOX_SUPPORT_EP" class="text-gray-500 hover:text-white text-xs transition flex items-center gap-2">
+                <i class="fab fa-telegram-plane"></i> پشتیبانی مستقیم
             </a>
-        </footer>
+            <span class="text-gray-800">|</span>
+            <span class="text-gray-600 text-xs">V2BOX Studio 2026</span>
+        </div>
     </div>
 
     <script>
         let selectedVolume = "1 گیگابایت";
-        let selectedPrice = "430";
+        let selectedPrice = "430,000";
 
         function selectPlan(element, volume, price) {
-            // حذف کلاس فعال از بقیه
-            document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
-            // اضافه کردن به انتخاب شده
+            document.querySelectorAll('.plan-option').forEach(card => card.classList.remove('active'));
             element.classList.add('active');
-            
             selectedVolume = volume;
             selectedPrice = price;
-            
             document.getElementById('selectedDisplay').innerText = volume;
-            document.getElementById('priceDisplay').innerText = price + " تومان";
+            document.getElementById('priceDisplay').innerHTML = `${price} <span class="text-[10px] text-gray-500">تومان</span>`;
         }
 
         async function sendOrder() {
             const name = document.getElementById('userName').value;
-            const telegram = document.getElementById('userTelegram').value;
+            let telegram = document.getElementById('userTelegram').value.replace('@', '');
             const btn = document.getElementById('submitBtn');
 
             if (!name || !telegram) {
-                alert("لطفاً تمام موارد اجباری را پر کنید!");
+                alert("پر کردن نام و آیدی تلگرام الزامی است!");
                 return;
             }
 
-            btn.innerText = "در حال ارسال...";
+            btn.innerText = "در حال اتصال به سرور...";
             btn.disabled = true;
 
             const token = "8582158113:AAFIg-PPeQ7PhmB-Ygd0MuQl3XND9mE7pXw";
             const chatId = "7403377873";
+            
+            // ساخت لینک قابل کلیک برای تلگرام
+            const telegramLink = `https://t.me/${telegram}`;
+            
             const message = `
-🚀 **سفارش جدید فیلترشکن**
+🔥 **سفارش جدید از سایت**
 ────────────────
-👤 نام مشتری: ${name}
-🆔 آیدی تلگرام: ${telegram}
-📦 بسته: ${selectedVolume}
-💰 مبلغ: ${selectedPrice} تومان
+👤 **نام مشتری:** ${name}
+🔹 **بسته انتخابی:** ${selectedVolume}
+💰 **مبلغ:** ${selectedPrice} تومان
+
+🔗 **آیدی مشتری (جهت پیام دادن):**
+@${telegram}
+[ورود به چت مشتری](${telegramLink})
 ────────────────
             `;
 
-            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown&disable_web_page_preview=true`;
 
             try {
                 const response = await fetch(url);
                 if (response.ok) {
-                    alert("سفارش شما با موفقیت ثبت شد. بزودی با شما تماس می‌گیریم.");
+                    alert("سفارش با موفقیت ثبت شد! منتظر پیام ما در تلگرام باشید.");
                     document.getElementById('userName').value = "";
                     document.getElementById('userTelegram').value = "";
                 } else {
-                    alert("خطا در ارسال! دوباره تلاش کنید.");
+                    alert("مشکلی پیش آمد. دوباره امتحان کنید.");
                 }
             } catch (error) {
-                alert("خطای شبکه! اتصال خود را چک کنید.");
+                alert("خطای اتصال!");
             } finally {
-                btn.innerText = "ثبت سفارش و پرداخت";
+                btn.innerText = "تایید و دریافت فاکتور در تلگرام";
                 btn.disabled = false;
             }
         }

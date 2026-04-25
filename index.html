@@ -3,145 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V2BOX PREMIUM | خرید اشتراک هوشمند</title>
+    <title>V2BOX PREMIUM | خرید و پشتیبانی آنی</title>
+    
+    <script type="text/javascript">
+      window.RAYCHAT_TOKEN = "e89e9b78-ac74-4205-9409-fa774b1f8286";
+      (function () {
+        d = document;
+        s = d.createElement("script");
+        s.src = "https://widget-react.raychat.io/install/widget.js";
+        s.async = 1;
+        d.getElementsByTagName("head")[0].appendChild(s);
+      })();
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;800&display=swap');
-        body { font-family: 'Vazirmatn', sans-serif; background: #050811; color: white; min-height: 100vh; }
-        .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .plan-option { transition: all 0.3s ease; }
-        .plan-option.active { border-color: #3b82f6; background: rgba(59, 130, 246, 0.1); transform: scale(1.02); }
-        #order-status { display: none; }
+        body { font-family: 'Vazirmatn', sans-serif; background: #050811; color: white; min-height: 100vh; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .plan-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .plan-card.active { border-color: #3b82f6; background: rgba(59, 130, 246, 0.1); transform: translateY(-5px); box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3); }
     </style>
 </head>
 <body class="p-4 md:p-10 flex flex-col items-center">
 
     <div class="w-full max-w-5xl">
-        <header class="text-center mb-12">
-            <div class="inline-block p-4 bg-blue-600 rounded-3xl mb-4 shadow-2xl shadow-blue-600/40">
-                <i class="fas fa-bolt text-3xl"></i>
-            </div>
-            <h1 class="text-4xl font-black mb-2">V2BOX <span class="text-blue-500">PREMIUM</span></h1>
-            <p class="text-gray-400 text-sm">سرعت بی‌مرز، پشتیبانی آنی</p>
+        <header class="text-center mb-10">
+            <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-2">V2BOX</h1>
+            <p class="text-gray-400">پنل رسمی فروش ترافیک اختصاصی</p>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-7 space-y-6">
-                <h2 class="text-xl font-bold mr-2"><i class="fas fa-list-ul ml-2 text-blue-500"></i>انتخاب ترافیک:</h2>
-                
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div onclick="selectPlan(this, '1 گیگابایت', '430')" class="plan-option active glass-card p-6 rounded-[2rem] cursor-pointer border border-white/5">
-                        <div class="text-xl font-black">1 گیگابایت</div>
+                    <div onclick="selectPlan(this, '1 گیگابایت', '430')" class="plan-card active glass p-6 rounded-[2rem] cursor-pointer border border-white/5">
+                        <div class="text-2xl font-black">1 گیگابایت</div>
                         <div class="text-blue-400 font-bold mt-2">430,000 تومان</div>
                     </div>
-
-                    <div onclick="selectPlan(this, '2 گیگابایت', '850')" class="plan-option glass-card p-6 rounded-[2rem] cursor-pointer border border-white/5">
-                        <div class="text-xl font-black">2 گیگابایت</div>
+                    <div onclick="selectPlan(this, '2 گیگابایت', '850')" class="plan-card glass p-6 rounded-[2rem] cursor-pointer border border-white/5">
+                        <div class="text-2xl font-black">2 گیگابایت</div>
                         <div class="text-blue-400 font-bold mt-2">850,000 تومان</div>
                     </div>
-
-                    <div onclick="selectPlan(this, '3 گیگابایت', '1200')" class="plan-option glass-card p-6 rounded-[2rem] cursor-pointer border border-white/5">
-                        <div class="text-xl font-black">3 گیگابایت</div>
+                    <div onclick="selectPlan(this, '3 گیگابایت', '1200')" class="plan-card glass p-6 rounded-[2rem] cursor-pointer border border-white/5">
+                        <div class="text-2xl font-black">3 گیگابایت</div>
                         <div class="text-blue-400 font-bold mt-2">1,200,000 تومان</div>
                     </div>
-
-                    <div onclick="selectPlan(this, '4 گیگابایت', '1600')" class="plan-option glass-card p-6 rounded-[2rem] cursor-pointer border border-white/5">
-                        <div class="text-xl font-black text-yellow-500">4 گیگابایت</div>
+                    <div onclick="selectPlan(this, '4 گیگابایت', '1600')" class="plan-card glass p-6 rounded-[2rem] cursor-pointer border border-white/5">
+                        <div class="text-2xl font-black">4 گیگابایت</div>
                         <div class="text-blue-400 font-bold mt-2">1,600,000 تومان</div>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-5">
-                <div id="main-form" class="glass-card rounded-[2.5rem] p-8 border border-white/10">
-                    <h3 class="text-xl font-bold mb-8 italic">تکمیل اطلاعات</h3>
-                    <div class="space-y-5">
-                        <input type="text" id="userName" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 transition-all" placeholder="نام و نام خانوادگی">
-                        <input type="text" id="userTelegram" dir="ltr" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 text-left transition-all" placeholder="@username">
+                <div id="orderForm" class="glass rounded-[2.5rem] p-8 border border-white/10 shadow-2xl">
+                    <h3 class="text-xl font-bold mb-6 italic">مشخصات خریدار</h3>
+                    <div class="space-y-4">
+                        <input type="text" id="custName" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 transition-all" placeholder="نام شما">
+                        <input type="text" id="custTele" dir="ltr" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 text-left" placeholder="@username">
                         
-                        <div class="bg-blue-600/5 p-5 rounded-2xl border border-blue-500/20">
-                            <div class="flex justify-between text-xs text-gray-400"><span>بسته:</span><span id="vDisplay">1 گیگابایت</span></div>
-                            <div class="flex justify-between font-black mt-2 text-blue-400"><span>مبلغ نهایی:</span><span id="pDisplay">430,000 تومان</span></div>
+                        <div class="bg-blue-600/10 p-5 rounded-2xl border border-blue-500/20">
+                            <div class="flex justify-between text-xs text-gray-400"><span>بسته انتخابی:</span><span id="volShow">1 گیگابایت</span></div>
+                            <div class="flex justify-between font-black mt-2 text-blue-400"><span>مبلغ قابل پرداخت:</span><span id="priceShow">430,000 تومان</span></div>
                         </div>
 
-                        <button onclick="sendOrder()" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl transition-all shadow-lg shadow-blue-600/20">
-                            ثبت سفارش و شروع چت
+                        <button onclick="submitOrder()" id="actionBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl transition-all shadow-lg shadow-blue-600/30">
+                            ثبت و دریافت اکانت
                         </button>
                     </div>
                 </div>
 
-                <div id="order-status" class="glass-card rounded-[2.5rem] p-10 text-center border border-green-500/30">
-                    <div class="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-check text-4xl"></i>
+                <div id="successBox" class="hidden glass rounded-[2.5rem] p-10 text-center">
+                    <div class="w-16 h-16 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-check text-2xl"></i>
                     </div>
-                    <h4 class="text-2xl font-bold mb-3">سفارش ثبت شد!</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-8">اطلاعات برای ادمین ارسال شد. حالا از طریق چت پایین صفحه، پیام دهید تا اکانت را دریافت کنید.</p>
-                    <button onclick="location.reload()" class="text-blue-500 font-bold border-b border-blue-500/30">ثبت سفارش جدید</button>
+                    <h4 class="text-xl font-bold mb-2">ارسال شد!</h4>
+                    <p class="text-gray-400 text-sm mb-6">گزارش برای ادمین ارسال شد. حالا برای دریافت اکانت، از دایره آبی رنگ پایین (رایچت) به ما پیام بدهید.</p>
+                    <button onclick="window.Raychat.open()" class="bg-blue-600 px-6 py-3 rounded-xl font-bold">باز کردن چت رایچت</button>
                 </div>
             </div>
         </div>
-
-        <footer class="mt-16 text-center text-gray-600 text-xs">
-            <p>V2BOX Studio &copy; 2026 | پشتیبانی: @V2BOX_SUPPORT_EP</p>
-        </footer>
     </div>
 
     <script>
-        let selectedVolume = "1 گیگابایت";
-        let selectedPrice = "430,000 تومان";
+        let vol = "1 گیگابایت";
+        let prc = "430,000 تومان";
 
-        function selectPlan(element, volume, price) {
-            document.querySelectorAll('.plan-option').forEach(c => c.classList.remove('active'));
-            element.classList.add('active');
-            selectedVolume = volume;
-            selectedPrice = price + " تومان";
-            document.getElementById('vDisplay').innerText = volume;
-            document.getElementById('pDisplay').innerText = selectedPrice;
+        function selectPlan(el, v, p) {
+            document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            vol = v;
+            prc = p + " تومان";
+            document.getElementById('volShow').innerText = v;
+            document.getElementById('priceShow').innerText = prc;
         }
 
-        async function sendOrder() {
-            const name = document.getElementById('userName').value;
-            const telegram = document.getElementById('userTelegram').value;
-            const btn = document.getElementById('submitBtn');
+        async function submitOrder() {
+            const name = document.getElementById('custName').value;
+            const tele = document.getElementById('custTele').value;
+            const btn = document.getElementById('actionBtn');
 
-            if(!name || !telegram) {
-                alert("لطفاً اطلاعات را کامل وارد کنید.");
-                return;
-            }
+            if(!name || !tele) { alert("نام و آیدی الزامی است!"); return; }
 
             btn.innerText = "در حال ثبت...";
             btn.disabled = true;
 
-            const token = "8582158113:AAFIg-PPeQ7PhmB-Ygd0MuQl3XND9mE7pXw";
-            const chatId = "7403377873";
-            const message = `🔔 **سفارش جدید سایت**\n\n👤 مشتری: ${name}\n🆔 آیدی: ${telegram}\n📦 بسته: ${selectedVolume}\n💰 مبلغ: ${selectedPrice}\n\n⚠️ مشتری هم‌اکنون در چت سایت منتظر شماست!`;
+            const botToken = "8582158113:AAFIg-PPeQ7PhmB-Ygd0MuQl3XND9mE7pXw";
+            const myId = "7403377873";
+            const text = `🚀 **سفارش جدید سایت**\n👤 مشتری: ${name}\n🆔 آیدی: ${tele}\n📦 بسته: ${vol}\n💰 مبلغ: ${prc}`;
 
             try {
-                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`);
-                document.getElementById('main-form').style.display = 'none';
-                document.getElementById('order-status').style.display = 'block';
+                await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${myId}&text=${encodeURIComponent(text)}&parse_mode=Markdown`);
+                document.getElementById('orderForm').classList.add('hidden');
+                document.getElementById('successBox').classList.remove('hidden');
                 
-                // باز کردن خودکار رایچت
-                if(window.Raychat) window.Raychat.open();
+                // تلاش برای باز کردن خودکار رایچت
+                setTimeout(() => { if(window.Raychat) window.Raychat.open(); }, 500);
             } catch (e) {
-                alert("خطا در ارسال! اینترنت را بررسی کنید.");
-            } finally {
-                btn.innerText = "ثبت سفارش و شروع چت";
+                alert("خطا در شبکه!");
                 btn.disabled = false;
+                btn.innerText = "ثبت و دریافت اکانت";
             }
         }
     </script>
-
-    <script type="text/javascript">
-        window.RAYCHAT_TOKEN = "e89e9b78-ac74-4205-9409-fa774b1f8286";
-        (function () {
-            d = document;
-            s = d.createElement("script");
-            s.src = "https://widget-react.raychat.io/install/widget.js";
-            s.async = 1;
-            d.getElementsByTagName("head")[0].appendChild(s);
-        })();
-    </script>
 </body>
 </html>
+

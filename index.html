@@ -3,180 +3,514 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V2BOX PREMIUM | NEXTO STUDIO</title>
+    <title>برای ستایش | For Setayesh</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
     
-    <script type="text/javascript">
-      window.RAYCHAT_TOKEN = "e89e9b78-ac74-4205-9409-fa774b1f8286";
-      window.LOAD_TYPE = "FAST_LOAD";
-      (function () {
-        d = document;
-        s = d.createElement("script");
-        s.src = "https://widget-react.raychat.io/install/widget.js";
-        s.async = 1;
-        d.getElementsByTagName("head")[0].appendChild(s);
-      })();
-    </script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;800&display=swap');
-        
-        body { 
-            font-family: 'Vazirmatn', sans-serif; 
-            background: radial-gradient(circle at 50% 0%, #1e293b, #020617); 
-            color: white; min-height: 100vh; margin: 0;
+        :root {
+            --bg-color: #080509;
+            --card-bg: rgba(22, 13, 25, 0.65);
+            --pink-primary: #ff3377;
+            --pink-light: #ff75a0;
+            --pink-glow: rgba(255, 51, 119, 0.4);
+            --text-gold: #f4d06f;
+            --text-light: #f3e5f5;
+            --text-dim: #a892b0;
+            --border-pink: rgba(255, 51, 119, 0.25);
         }
 
-        /* رفع مشکل تداخل لایه‌ها در موبایل */
-        .glass-container {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 2rem;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: 'Vazirmatn', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
             position: relative;
-            z-index: 10;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 51, 119, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(180, 30, 110, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(10, 5, 12, 1) 0%, rgba(5, 2, 7, 1) 100%);
+            background-attachment: fixed;
         }
 
-        .plan-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.3s;
+        /* Ambient Glowing Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+            animation: floatOrb 12s infinite alternate ease-in-out;
         }
-        .plan-item.active {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: #3b82f6;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        .orb-1 {
+            top: 10%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 51, 119, 0.18);
+        }
+        .orb-2 {
+            bottom: 10%;
+            right: 10%;
+            width: 350px;
+            height: 350px;
+            background: rgba(147, 51, 234, 0.15);
+            animation-delay: -6s;
         }
 
-        .step { display: none; }
-        .step.active { display: block; animation: slideUp 0.4s ease-out; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 40px) scale(1.15); }
+        }
 
-        .btn-glow { box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+        /* Background Particle Effect (Stars/Sparkles) */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #ff75a0, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 90px 40px, #ff3377, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #eeaeca, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 230px 190px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 300px 300px;
+            opacity: 0.4;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px 80px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Section */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .dedication-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 51, 119, 0.12);
+            border: 1px solid var(--border-pink);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            color: var(--pink-light);
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 51, 119, 0.15);
+        }
+
+        .dedication-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--pink-primary);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.25); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        h1.title-fa {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #ff8dae 50%, #ff3377 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 0 35px rgba(255, 51, 119, 0.3);
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle-en {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.4rem;
+            color: var(--pink-light);
+            opacity: 0.9;
+            direction: ltr;
+        }
+
+        /* Heart Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0 45px 0;
+        }
+        .divider .line {
+            height: 1px;
+            width: 100px;
+            background: linear-gradient(90deg, transparent, var(--pink-primary), transparent);
+        }
+        .divider .heart-icon {
+            color: var(--pink-primary);
+            font-size: 1.2rem;
+            filter: drop-shadow(0 0 8px var(--pink-primary));
+        }
+
+        /* Main Content Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        /* Video Showcase Box */
+        .video-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-pink);
+            border-radius: 24px;
+            padding: 20px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 51, 119, 0.15);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 51, 119, 0.25);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        video {
+            width: 100%;
+            max-height: 520px;
+            display: block;
+            border-radius: 16px;
+            object-fit: contain;
+            background: #050307;
+        }
+
+        /* Interactive Lyrics Section */
+        .lyrics-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 850px) {
+            .lyrics-section {
+                grid-template-columns: 1fr;
+            }
+            h1.title-fa {
+                font-size: 2.3rem;
+            }
+            .subtitle-en {
+                font-size: 1.8rem;
+            }
+        }
+
+        .lyrics-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-pink);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lyrics-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--pink-primary), transparent);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .card-header .icon-box {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255, 51, 119, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--pink-light);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* English Poem Style */
+        .poem-en {
+            direction: ltr;
+            font-family: 'Cinzel', serif;
+            line-height: 1.95;
+            font-size: 1.05rem;
+            color: #e2d5e6;
+        }
+
+        .poem-en p {
+            margin-bottom: 16px;
+            position: relative;
+            padding-left: 15px;
+            border-left: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .poem-en p:hover {
+            border-left-color: var(--pink-primary);
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 81, 142, 0.4);
+            transform: translateX(4px);
+        }
+
+        /* Persian Poem Style */
+        .poem-fa {
+            direction: rtl;
+            font-family: 'Vazirmatn', sans-serif;
+            line-height: 2.1;
+            font-size: 1.08rem;
+            color: #f1e4f5;
+            font-weight: 300;
+        }
+
+        .poem-fa p {
+            margin-bottom: 16px;
+            position: relative;
+            padding-right: 15px;
+            border-right: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .poem-fa p:hover {
+            border-right-color: var(--pink-primary);
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 81, 142, 0.4);
+            transform: translateX(-4px);
+        }
+
+        /* Quote / Message Box */
+        .quote-box {
+            margin-top: 40px;
+            background: linear-gradient(135deg, rgba(255, 51, 119, 0.1) 0%, rgba(20, 10, 25, 0.8) 100%);
+            border: 1px solid rgba(255, 51, 119, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(12px);
+        }
+
+        .quote-text {
+            font-size: 1.2rem;
+            color: #fce4ec;
+            font-weight: 400;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: var(--pink-light);
+            margin-top: 10px;
+            direction: ltr;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-dim);
+            font-size: 0.88rem;
+        }
+
+        footer span {
+            color: var(--pink-primary);
+        }
+
+        /* Floating Hearts Animation */
+        .heart-particle {
+            position: fixed;
+            bottom: -20px;
+            color: var(--pink-primary);
+            opacity: 0.6;
+            font-size: 14px;
+            pointer-events: none;
+            animation: floatUp 8s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-105vh) rotate(360deg) scale(1.3);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
-<body class="p-6 flex justify-center items-start pt-12 md:items-center">
+<body>
 
-    <div class="w-full max-w-lg">
-        <header class="text-center mb-10">
-            <span class="text-blue-500 font-bold tracking-widest text-[10px] uppercase block mb-2">Advanced Network Solutions</span>
-            <h1 class="text-4xl font-black italic tracking-tight">V2BOX <span class="text-blue-500">PREMIUM</span></h1>
-            <p class="text-gray-500 text-xs mt-2">Design by Norkhiz Studio</p>
+    <!-- Glowing Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="stars"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="dedication-badge">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                تقدیم با تمام عشق به ستایش
+            </div>
+            <h1 class="title-fa">ستایشِ نازنینم</h1>
+            <div class="subtitle-en">Forever & Always For Setayesh</div>
+
+            <div class="divider">
+                <div class="line"></div>
+                <span class="heart-icon">♥</span>
+                <div class="line"></div>
+            </div>
         </header>
 
-        <div class="glass-container p-6 md:p-10">
-            
-            <div id="step1" class="step active space-y-6">
-                <div class="grid grid-cols-2 gap-3">
-                    <div onclick="selectP(this, '1 GB', '430,000')" class="plan-item active p-4 rounded-2xl text-center cursor-pointer">
-                        <div class="text-xl font-bold">1 GB</div>
-                        <div class="text-blue-400 text-xs">430,000 ت</div>
-                    </div>
-                    <div onclick="selectP(this, '2 GB', '850,000')" class="plan-item p-4 rounded-2xl text-center cursor-pointer">
-                        <div class="text-xl font-bold">2 GB</div>
-                        <div class="text-blue-400 text-xs">850,000 ت</div>
-                    </div>
-                    <div onclick="selectP(this, '3 GB', '1,200,000')" class="plan-item p-4 rounded-2xl text-center cursor-pointer">
-                        <div class="text-xl font-bold">3 GB</div>
-                        <div class="text-blue-400 text-xs">1,200,000 ت</div>
-                    </div>
-                    <div onclick="selectP(this, '4 GB', '1,600,000')" class="plan-item p-4 rounded-2xl text-center cursor-pointer">
-                        <div class="text-xl font-bold">4 GB</div>
-                        <div class="text-blue-400 text-xs">1,600,000 ت</div>
-                    </div>
-                </div>
-
-                <div class="space-y-4">
-                    <input type="text" id="uName" class="w-full bg-white/5 border border-white/10 rounded-xl p-4 outline-none focus:border-blue-500" placeholder="نام و نام خانوادگی">
-                    <input type="text" id="uTele" dir="ltr" class="w-full bg-white/5 border border-white/10 rounded-xl p-4 outline-none focus:border-blue-500 text-left" placeholder="@Telegram_ID">
-                    <button onclick="go(2)" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-bold btn-glow transition-all">ادامه و پرداخت</button>
+        <div class="content-grid">
+            <!-- Video Player Box -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <video controls playsinline preload="metadata" poster="">
+                        <source src="https://s5.uupload.ir/files/aslidxx/noff_arts_20260721_191422_749.mp4?play" type="video/mp4">
+                        مرورگر شما از پخش این ویدئو پشتیبانی نمی‌کند.
+                    </video>
                 </div>
             </div>
 
-            <div id="step2" class="step space-y-6">
-                <div class="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-3xl relative overflow-hidden shadow-2xl">
-                    <div class="flex justify-between mb-8 opacity-60 text-[10px] font-bold">
-                        <span>V2BOX PREMIUM</span>
-                        <span>IRAN ZAMIN</span>
+            <!-- Lyrics Section -->
+            <div class="lyrics-section">
+                <!-- Persian Card -->
+                <div class="lyrics-card">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </div>
+                        <div class="card-title">ترجمه فارسی</div>
                     </div>
-                    <div class="text-xl md:text-2xl font-black tracking-widest mb-4">6219 8614 1704 8104</div>
-                    <div class="flex justify-between items-end">
-                        <div class="text-sm">بنام: <span class="font-bold">موسوی</span></div>
-                        <button onclick="copyC()" class="bg-white/20 px-3 py-1 rounded-lg text-[10px]">کپی شماره کارت</button>
+                    <div class="poem-fa">
+                        <p>تو به چهره‌ی رهگذران نگاه خواهی کرد،</p>
+                        <p>به امید چیزی که، حتی برای یک لحظه، مرا به تو برگرداند.</p>
+                        <p>شب‌های مهتابی را به طرز عجیبی خالی (سوت و کور) خواهی یافت،</p>
+                        <p>زیرا وقتی در میان آن‌ها نام مرا صدا می‌زنی، هیچ پاسخی در کار نخواهد بود.</p>
+                        <p>قلبت همیشه برای من به درد خواهد آمد،</p>
+                        <p>و ذهنت به تو این تسلیِ تردیدآمیز را می‌دهد که کار شجاعانه‌ای انجام داده‌ای.</p>
                     </div>
                 </div>
 
-                <div class="bg-white/5 p-4 rounded-2xl flex justify-between items-center text-sm">
-                    <span class="text-gray-400">مبلغ قابل پرداخت:</span>
-                    <span class="text-blue-400 font-black"><span id="finalPrice">430,000</span> تومان</span>
-                </div>
-
-                <div class="space-y-4 pt-4 border-t border-white/5">
-                    <p class="text-[10px] text-gray-500 text-center">پس از واریز، عکس رسید را در کادر زیر قرار دهید:</p>
-                    <input type="file" id="receipt" accept="image/*" class="w-full text-xs text-gray-400 file:bg-blue-600 file:border-none file:text-white file:px-4 file:py-2 file:rounded-lg file:mr-4 file:cursor-pointer">
-                    <button onclick="submit()" id="subBtn" class="w-full bg-green-600 hover:bg-green-700 py-4 rounded-xl font-bold transition-all shadow-lg shadow-green-600/20">تأیید واریز و ارسال رسید</button>
-                    <button onclick="go(1)" class="w-full text-gray-500 text-[10px] underline">بازگشت و ویرایش</button>
+                <!-- English Card -->
+                <div class="lyrics-card">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                            </svg>
+                        </div>
+                        <div class="card-title" style="direction: ltr; font-family: 'Cinzel', serif;">English Lyrics</div>
+                    </div>
+                    <div class="poem-en">
+                        <p>You will look into the faces of passers-by,</p>
+                        <p>hoping for something that will, for an instant, bring me back to you.</p>
+                        <p>You will find moonlit nights strangely empty,</p>
+                        <p>because when you call my name through them, there will be no answer.</p>
+                        <p>Always your heart will be aching for me,</p>
+                        <p>and your mind will give you the doubtful consolation that you did a brave thing.</p>
+                    </div>
                 </div>
             </div>
 
-            <div id="step3" class="step text-center space-y-6 py-8">
-                <div class="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto border border-green-500/30">
-                    <i class="fas fa-check text-3xl"></i>
+            <!-- Quote Box -->
+            <div class="quote-box">
+                <div class="quote-text">
+                    "هر ثانیه و هر لحظه، واژه‌ها و آهنگ‌ها فقط بهانه‌ای هستند برای یادآوریِ زیباییِ حضورِ تو..."
                 </div>
-                <div>
-                    <h3 class="text-xl font-black">رسید ارسال شد!</h3>
-                    <p class="text-gray-400 text-xs mt-2 px-6 leading-relaxed">اطلاعات شما برای تیم پشتیبانی نورخیز استودیو ارسال شد. اکانت شما تا دقایقی دیگر در تلگرام یا چت پایین ارسال می‌شود.</p>
-                </div>
+                <div class="signature">Created with love for Setayesh</div>
             </div>
-
         </div>
+
+        <!-- Footer -->
+        <footer>
+            طراحی شده با <span>♥</span> اختصاصی برای ستایش
+        </footer>
     </div>
 
+    <!-- Floating Hearts Generator -->
     <script>
-        let selectedV = "1 GB", selectedP = "430,000";
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '♥';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            heart.style.fontSize = (Math.random() * 12 + 10) + 'px';
+            heart.style.opacity = Math.random() * 0.6 + 0.3;
+            document.body.appendChild(heart);
 
-        function selectP(el, v, p) {
-            document.querySelectorAll('.plan-item').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            selectedV = v; selectedP = p;
-            document.getElementById('finalPrice').innerText = p;
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
         }
 
-        function go(s) {
-            if(s === 2 && (!document.getElementById('uName').value || !document.getElementById('uTele').value)) {
-                alert("لطفاً اطلاعات را تکمیل کنید."); return;
-            }
-            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
-            document.getElementById('step' + s).classList.add('active');
-        }
-
-        function copyC() {
-            navigator.clipboard.writeText("6219861417048104");
-            alert("شماره کارت کپی شد.");
-        }
-
-        async function submit() {
-            const file = document.getElementById('receipt').files[0];
-            const btn = document.getElementById('subBtn');
-            if (!file) { alert("لطفاً عکس رسید را انتخاب کنید."); return; }
-
-            btn.disabled = true; btn.innerText = "در حال ارسال...";
-
-            const formData = new FormData();
-            formData.append('chat_id', '7403377873');
-            formData.append('photo', file);
-            formData.append('caption', `💰 رسید جدید\n👤 نام: ${document.getElementById('uName').value}\n🆔 تلگرام: ${document.getElementById('uTele').value}\n📦 پلان: ${selectedV}\n💵 مبلغ: ${selectedP}`);
-
-            try {
-                await fetch(`https://api.telegram.org/bot8582158113:AAFIg-PPeQ7PhmB-Ygd0MuQl3XND9mE7pXw/sendPhoto`, { method: 'POST', body: formData });
-                go(3);
-            } catch (e) {
-                alert("خطا در ارسال. دوباره تلاش کنید.");
-                btn.disabled = false; btn.innerText = "تأیید واریز و ارسال رسید";
-            }
-        }
+        setInterval(createHeart, 800);
     </script>
 </body>
 </html>
-

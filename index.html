@@ -1,516 +1,497 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>برای ستایش | For Setayesh</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+    <title>ثبت نام تیم رسانه | ادیتور و تصویربردار</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <style>
         :root {
-            --bg-color: #080509;
-            --card-bg: rgba(22, 13, 25, 0.65);
-            --pink-primary: #ff3377;
-            --pink-light: #ff75a0;
-            --pink-glow: rgba(255, 51, 119, 0.4);
-            --text-gold: #f4d06f;
-            --text-light: #f3e5f5;
-            --text-dim: #a892b0;
-            --border-pink: rgba(255, 51, 119, 0.25);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --neon-primary: #00f3ff;
+            --neon-secondary: #bc13fe;
+            --bg-color: #050510;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-light);
             font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             overflow-x: hidden;
             position: relative;
-            background-image: 
-                radial-gradient(circle at 20% 20%, rgba(255, 51, 119, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(180, 30, 110, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(10, 5, 12, 1) 0%, rgba(5, 2, 7, 1) 100%);
-            background-attachment: fixed;
         }
 
-        /* Ambient Glowing Orbs */
+        /* Animated Background Orbs */
         .orb {
-            position: fixed;
+            position: absolute;
             border-radius: 50%;
             filter: blur(80px);
             z-index: 0;
-            pointer-events: none;
-            animation: floatOrb 12s infinite alternate ease-in-out;
+            animation: float 10s infinite ease-in-out alternate;
         }
+
         .orb-1 {
-            top: 10%;
-            left: 10%;
             width: 300px;
             height: 300px;
-            background: rgba(255, 51, 119, 0.18);
+            background: rgba(0, 243, 255, 0.4);
+            top: -50px;
+            right: -50px;
         }
+
         .orb-2 {
-            bottom: 10%;
-            right: 10%;
-            width: 350px;
-            height: 350px;
-            background: rgba(147, 51, 234, 0.15);
-            animation-delay: -6s;
+            width: 400px;
+            height: 400px;
+            background: rgba(188, 19, 254, 0.3);
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -5s;
         }
 
-        @keyframes floatOrb {
+        @keyframes float {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(30px, 40px) scale(1.15); }
+            100% { transform: translate(-30px, 50px) scale(1.1); }
         }
 
-        /* Background Particle Effect (Stars/Sparkles) */
-        .stars {
+        /* Glassmorphism Container */
+        .glass-container {
+            background: rgba(20, 20, 35, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.05);
+            z-index: 10;
+            width: 100%;
+            max-width: 500px;
+            margin: 20px;
+            border-radius: 24px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top highlight line for glass */
+        .glass-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-primary), transparent);
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Neon Text */
+        .neon-text {
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-primary), 0 0 20px var(--neon-primary);
+        }
+
+        /* Form Elements */
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .neon-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 12px 15px;
+            border-radius: 12px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .neon-input:focus {
+            border-color: var(--neon-primary);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .neon-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Checkboxes */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 400px) {
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .custom-checkbox {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            color: #ccc;
+        }
+
+        .custom-checkbox:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .custom-checkbox input {
+            display: none;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 6px;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .custom-checkbox input:checked + .checkmark {
+            background: var(--neon-primary);
+            border-color: var(--neon-primary);
+            box-shadow: 0 0 10px var(--neon-primary);
+        }
+
+        .custom-checkbox input:checked + .checkmark::after {
+            content: '✓';
+            color: #000;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .custom-checkbox input:checked ~ span {
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+
+        /* Neon Button */
+        .neon-btn {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            color: #fff;
+            border: 2px solid var(--neon-primary);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2), inset 0 0 10px rgba(0, 243, 255, 0.1);
+        }
+
+        .neon-btn:hover {
+            background: var(--neon-primary);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-primary), 0 0 40px var(--neon-primary);
+            text-shadow: none;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
             pointer-events: none;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #ff75a0, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(1.5px 1.5px at 90px 40px, #ff3377, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 160px 120px, #eeaeca, rgba(0,0,0,0)),
-                radial-gradient(1.5px 1.5px at 230px 190px, #fff, rgba(0,0,0,0));
-            background-repeat: repeat;
-            background-size: 300px 300px;
-            opacity: 0.4;
+            transition: opacity 0.3s ease;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px 80px 20px;
-            position: relative;
-            z-index: 1;
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        /* Header Section */
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .dedication-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 51, 119, 0.12);
-            border: 1px solid var(--border-pink);
-            padding: 8px 24px;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            color: var(--pink-light);
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px rgba(255, 51, 119, 0.15);
-        }
-
-        .dedication-badge svg {
-            width: 16px;
-            height: 16px;
-            fill: var(--pink-primary);
-            animation: pulse 1.8s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.25); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
-        }
-
-        h1.title-fa {
-            font-size: 3.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #ff8dae 50%, #ff3377 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            text-shadow: 0 0 35px rgba(255, 51, 119, 0.3);
-            letter-spacing: -0.5px;
-        }
-
-        .subtitle-en {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.4rem;
-            color: var(--pink-light);
-            opacity: 0.9;
-            direction: ltr;
-        }
-
-        /* Heart Divider */
-        .divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px 0 45px 0;
-        }
-        .divider .line {
-            height: 1px;
-            width: 100px;
-            background: linear-gradient(90deg, transparent, var(--pink-primary), transparent);
-        }
-        .divider .heart-icon {
-            color: var(--pink-primary);
-            font-size: 1.2rem;
-            filter: drop-shadow(0 0 8px var(--pink-primary));
-        }
-
-        /* Main Content Layout */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
-
-        /* Video Showcase Box */
-        .video-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-pink);
-            border-radius: 24px;
-            padding: 20px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 51, 119, 0.15);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .video-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 51, 119, 0.25);
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #000;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-        }
-
-        video {
-            width: 100%;
-            max-height: 520px;
-            display: block;
-            border-radius: 16px;
-            object-fit: contain;
-            background: #050307;
-        }
-
-        /* Interactive Lyrics Section */
-        .lyrics-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-
-        @media (max-width: 850px) {
-            .lyrics-section {
-                grid-template-columns: 1fr;
-            }
-            h1.title-fa {
-                font-size: 2.3rem;
-            }
-            .subtitle-en {
-                font-size: 1.8rem;
-            }
-        }
-
-        .lyrics-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-pink);
-            border-radius: 20px;
+        .modal-content {
+            background: rgba(20, 20, 35, 0.85);
+            border: 1px solid var(--neon-primary);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
             padding: 30px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lyrics-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--pink-primary), transparent);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 25px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .card-header .icon-box {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: rgba(255, 51, 119, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--pink-light);
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        /* English Poem Style */
-        .poem-en {
-            direction: ltr;
-            font-family: 'Cinzel', serif;
-            line-height: 1.95;
-            font-size: 1.05rem;
-            color: #e2d5e6;
-        }
-
-        .poem-en p {
-            margin-bottom: 16px;
-            position: relative;
-            padding-left: 15px;
-            border-left: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .poem-en p:hover {
-            border-left-color: var(--pink-primary);
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 81, 142, 0.4);
-            transform: translateX(4px);
-        }
-
-        /* Persian Poem Style */
-        .poem-fa {
-            direction: rtl;
-            font-family: 'Vazirmatn', sans-serif;
-            line-height: 2.1;
-            font-size: 1.08rem;
-            color: #f1e4f5;
-            font-weight: 300;
-        }
-
-        .poem-fa p {
-            margin-bottom: 16px;
-            position: relative;
-            padding-right: 15px;
-            border-right: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .poem-fa p:hover {
-            border-right-color: var(--pink-primary);
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 81, 142, 0.4);
-            transform: translateX(-4px);
-        }
-
-        /* Quote / Message Box */
-        .quote-box {
-            margin-top: 40px;
-            background: linear-gradient(135deg, rgba(255, 51, 119, 0.1) 0%, rgba(20, 10, 25, 0.8) 100%);
-            border: 1px solid rgba(255, 51, 119, 0.3);
             border-radius: 20px;
-            padding: 30px;
             text-align: center;
-            position: relative;
-            backdrop-filter: blur(12px);
+            color: white;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            max-width: 90%;
+            width: 350px;
         }
 
-        .quote-text {
-            font-size: 1.2rem;
-            color: #fce4ec;
-            font-weight: 400;
-            line-height: 1.8;
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 40px;
             margin-bottom: 15px;
         }
 
-        .signature {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2rem;
-            color: var(--pink-light);
-            margin-top: 10px;
-            direction: ltr;
+        .modal-close-btn {
+            margin-top: 20px;
+            padding: 8px 25px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--neon-primary);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-dim);
-            font-size: 0.88rem;
+        .modal-close-btn:hover {
+            background: var(--neon-primary);
+            color: black;
         }
 
-        footer span {
-            color: var(--pink-primary);
+        /* Loading Spinner */
+        .loader {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto;
         }
 
-        /* Floating Hearts Animation */
-        .heart-particle {
-            position: fixed;
-            bottom: -20px;
-            color: var(--pink-primary);
-            opacity: 0.6;
-            font-size: 14px;
-            pointer-events: none;
-            animation: floatUp 8s linear infinite;
-            z-index: 0;
+        .btn-content {
+            display: block;
         }
 
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg) scale(0.8);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-105vh) rotate(360deg) scale(1.3);
-                opacity: 0;
-            }
+        .loading .loader {
+            display: block;
         }
+
+        .loading .btn-content {
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Glowing Orbs -->
+    <!-- Background Animations -->
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
-    <div class="stars"></div>
 
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="dedication-badge">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                </svg>
-                تقدیم با تمام عشق به ستایش
-            </div>
-            <h1 class="title-fa">ستایشِ نازنینم</h1>
-            <div class="subtitle-en">Forever & Always For Setayesh</div>
-
-            <div class="divider">
-                <div class="line"></div>
-                <span class="heart-icon">♥</span>
-                <div class="line"></div>
-            </div>
-        </header>
-
-        <div class="content-grid">
-            <!-- Video Player Box -->
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <video controls playsinline preload="metadata" poster="">
-                        <source src="https://s5.uupload.ir/files/aslidxx/noff_arts_20260721_191422_749.mp4?play" type="video/mp4">
-                        مرورگر شما از پخش این ویدئو پشتیبانی نمی‌کند.
-                    </video>
-                </div>
-            </div>
-
-            <!-- Lyrics Section -->
-            <div class="lyrics-section">
-                <!-- Persian Card -->
-                <div class="lyrics-card">
-                    <div class="card-header">
-                        <div class="icon-box">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                            </svg>
-                        </div>
-                        <div class="card-title">ترجمه فارسی</div>
-                    </div>
-                    <div class="poem-fa">
-                        <p>تو به چهره‌ی رهگذران نگاه خواهی کرد،</p>
-                        <p>به امید چیزی که، حتی برای یک لحظه، مرا به تو برگرداند.</p>
-                        <p>شب‌های مهتابی را به طرز عجیبی خالی (سوت و کور) خواهی یافت،</p>
-                        <p>زیرا وقتی در میان آن‌ها نام مرا صدا می‌زنی، هیچ پاسخی در کار نخواهد بود.</p>
-                        <p>قلبت همیشه برای من به درد خواهد آمد،</p>
-                        <p>و ذهنت به تو این تسلیِ تردیدآمیز را می‌دهد که کار شجاعانه‌ای انجام داده‌ای.</p>
-                    </div>
-                </div>
-
-                <!-- English Card -->
-                <div class="lyrics-card">
-                    <div class="card-header">
-                        <div class="icon-box">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-                            </svg>
-                        </div>
-                        <div class="card-title" style="direction: ltr; font-family: 'Cinzel', serif;">English Lyrics</div>
-                    </div>
-                    <div class="poem-en">
-                        <p>You will look into the faces of passers-by,</p>
-                        <p>hoping for something that will, for an instant, bring me back to you.</p>
-                        <p>You will find moonlit nights strangely empty,</p>
-                        <p>because when you call my name through them, there will be no answer.</p>
-                        <p>Always your heart will be aching for me,</p>
-                        <p>and your mind will give you the doubtful consolation that you did a brave thing.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quote Box -->
-            <div class="quote-box">
-                <div class="quote-text">
-                    "هر ثانیه و هر لحظه، واژه‌ها و آهنگ‌ها فقط بهانه‌ای هستند برای یادآوریِ زیباییِ حضورِ تو..."
-                </div>
-                <div class="signature">Created with love for Setayesh</div>
-            </div>
+    <div class="glass-container">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold neon-text mb-2">ثبت نام تیم رسانه</h1>
+            <p class="text-gray-400 text-sm">عضویت در تیم ادیتورها، تصویربرداران و عکاسان</p>
         </div>
 
-        <!-- Footer -->
-        <footer>
-            طراحی شده با <span>♥</span> اختصاصی برای ستایش
-        </footer>
+        <form id="registrationForm">
+            <div class="input-group">
+                <input type="text" id="name" class="neon-input" placeholder="نام و نام خانوادگی *" required>
+            </div>
+            
+            <div class="input-group">
+                <input type="number" id="age" class="neon-input" placeholder="سن *" required min="10" max="99">
+            </div>
+
+            <div class="input-group">
+                <input type="tel" id="phone" class="neon-input" placeholder="شماره تماس (مثال: 0912...) *" required>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="telegram" class="neon-input" placeholder="آیدی تلگرام (بدون @) *" required>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-300 mb-2 text-sm">چه کارهایی رو می‌تونید انجام بدید؟ *</label>
+                <div class="checkbox-group">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="skills" value="ادیتور ویدیو">
+                        <div class="checkmark"></div>
+                        <span>ادیتور ویدیو</span>
+                    </label>
+                    
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="skills" value="تصویربردار">
+                        <div class="checkmark"></div>
+                        <span>تصویربردار</span>
+                    </label>
+                    
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="skills" value="عکاس">
+                        <div class="checkmark"></div>
+                        <span>عکاس</span>
+                    </label>
+
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="skills" value="گرافیست">
+                        <div class="checkmark"></div>
+                        <span>گرافیست / کاور زن</span>
+                    </label>
+                </div>
+                <p id="skillError" class="text-red-400 text-xs mt-2 hidden">لطفاً حداقل یک مهارت را انتخاب کنید.</p>
+            </div>
+
+            <button type="submit" id="submitBtn" class="neon-btn">
+                <span class="btn-content">ارسال فرم درخواست</span>
+                <div class="loader"></div>
+            </button>
+        </form>
     </div>
 
-    <!-- Floating Hearts Generator -->
-    <script>
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart-particle');
-            heart.innerHTML = '♥';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
-            heart.style.fontSize = (Math.random() * 12 + 10) + 'px';
-            heart.style.opacity = Math.random() * 0.6 + 0.3;
-            document.body.appendChild(heart);
+    <!-- Custom Modal Message Box -->
+    <div class="modal-overlay" id="messageModal">
+        <div class="modal-content">
+            <div class="modal-icon" id="modalIcon">✅</div>
+            <h3 class="text-xl font-bold mb-2" id="modalTitle">موفقیت‌آمیز</h3>
+            <p class="text-sm text-gray-300" id="modalDesc">اطلاعات شما با موفقیت برای ما ارسال شد.</p>
+            <button class="modal-close-btn" onclick="closeModal()">بستن</button>
+        </div>
+    </div>
 
-            setTimeout(() => {
-                heart.remove();
-            }, 10000);
+    <script>
+        // Telegram Configuration (From User Request)
+        const TELEGRAM_BOT_TOKEN = '8899315197:AAHfKqtG5tY9764ORGLXTJuIe12aLS9mGkc';
+        const TELEGRAM_CHAT_ID = '7403377873';
+
+        const form = document.getElementById('registrationForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const skillError = document.getElementById('skillError');
+        const modal = document.getElementById('messageModal');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if at least one skill is selected
+            const checkedSkills = document.querySelectorAll('input[name="skills"]:checked');
+            if(checkedSkills.length === 0) {
+                skillError.classList.remove('hidden');
+                return;
+            } else {
+                skillError.classList.add('hidden');
+            }
+
+            // UI Loading state
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+
+            // Get Values
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const phone = document.getElementById('phone').value;
+            const telegram = document.getElementById('telegram').value;
+            
+            let skillsArray = [];
+            checkedSkills.forEach(cb => skillsArray.push(cb.value));
+            const skillsText = skillsArray.join(' ، ');
+
+            // Construct Message for Telegram
+            const message = `
+🌟 <b>درخواست همکاری جدید</b> 🌟
+
+👤 <b>نام:</b> ${name}
+🎂 <b>سن:</b> ${age}
+📱 <b>شماره تماس:</b> ${phone}
+✈️ <b>آیدی تلگرام:</b> @${telegram}
+🎯 <b>مهارت‌ها:</b> ${skillsText}
+            `;
+
+            // Telegram API URL
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+            // Send Data via Fetch
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML' // Enables bold and HTML tags in telegram message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+
+                if(data.ok) {
+                    showModal('✅', 'ارسال موفق', 'اطلاعات شما با موفقیت ثبت و ارسال شد. به زودی با شما تماس می‌گیریم.');
+                    form.reset(); // Clear the form
+                } else {
+                    showModal('❌', 'خطا در ارسال', 'متأسفانه مشکلی در ارسال پیش آمد. لطفا دوباره تلاش کنید.');
+                    console.error("Telegram API Error: ", data);
+                }
+            })
+            .catch(error => {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                showModal('🔌', 'خطای اتصال', 'لطفا اتصال اینترنت (و یا VPN در صورت نیاز) خود را بررسی کنید.');
+                console.error("Network Error: ", error);
+            });
+        });
+
+        // Modal Logic
+        function showModal(icon, title, desc) {
+            document.getElementById('modalIcon').innerText = icon;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            
+            // Adjust colors based on success/error
+            if(icon === '❌' || icon === '🔌') {
+                document.querySelector('.modal-content').style.borderColor = '#ff0055';
+                document.querySelector('.modal-content').style.boxShadow = '0 0 30px rgba(255, 0, 85, 0.2)';
+                document.querySelector('.modal-close-btn').style.borderColor = '#ff0055';
+            } else {
+                document.querySelector('.modal-content').style.borderColor = 'var(--neon-primary)';
+                document.querySelector('.modal-content').style.boxShadow = '0 0 30px rgba(0, 243, 255, 0.2)';
+                document.querySelector('.modal-close-btn').style.borderColor = 'var(--neon-primary)';
+            }
+
+            modal.classList.add('active');
         }
 
-        setInterval(createHeart, 800);
+        function closeModal() {
+            modal.classList.remove('active');
+        }
     </script>
 </body>
 </html>
+
+```

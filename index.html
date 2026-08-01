@@ -1,497 +1,364 @@
-```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ثبت نام تیم رسانه | ادیتور و تصویربردار</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <title>قرارداد استخدام ادمین - نورخیز استودیو</title>
+    
+    <!-- کتابخانه برای تبدیل مستقیم HTML به PDF در مرورگر -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <style>
-        :root {
-            --neon-primary: #00f3ff;
-            --neon-secondary: #bc13fe;
-            --bg-color: #050510;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+        
         body {
-            font-family: 'Vazirmatn', sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+            color: #2c3e50;
+            line-height: 1.8;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            position: relative;
+            background-color: #f0f2f5; /* پس‌زمینه برای حالت وب */
+            font-size: 11pt;
         }
-
-        /* Animated Background Orbs */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 0;
-            animation: float 10s infinite ease-in-out alternate;
+        
+        /* بخشی که قرار است تبدیل به PDF شود */
+        #contract-content {
+            background-color: #faf8f5;
+            max-width: 210mm; /* اندازه تقریبی A4 */
+            min-height: 297mm;
+            margin: 20px auto;
+            padding: 15mm;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 4px;
         }
-
-        .orb-1 {
-            width: 300px;
-            height: 300px;
-            background: rgba(0, 243, 255, 0.4);
-            top: -50px;
-            right: -50px;
-        }
-
-        .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: rgba(188, 19, 254, 0.3);
-            bottom: -100px;
-            left: -100px;
-            animation-delay: -5s;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(-30px, 50px) scale(1.1); }
-        }
-
-        /* Glassmorphism Container */
-        .glass-container {
-            background: rgba(20, 20, 35, 0.4);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 40px rgba(0, 243, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.05);
-            z-index: 10;
-            width: 100%;
-            max-width: 500px;
-            margin: 20px;
-            border-radius: 24px;
-            padding: 40px 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Top highlight line for glass */
-        .glass-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -50%;
-            width: 200%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-primary), transparent);
-            animation: scan 4s linear infinite;
-        }
-
-        @keyframes scan {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        /* Neon Text */
-        .neon-text {
-            color: #fff;
-            text-shadow: 0 0 10px var(--neon-primary), 0 0 20px var(--neon-primary);
-        }
-
-        /* Form Elements */
-        .input-group {
-            position: relative;
+        
+        *, *::before, *::after { box-sizing: border-box; }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #d35400;
+            padding-bottom: 15px;
             margin-bottom: 25px;
         }
-
-        .neon-input {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 12px 15px;
-            border-radius: 12px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        .neon-input:focus {
-            border-color: var(--neon-primary);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-            background: rgba(0, 0, 0, 0.4);
-        }
-
-        .neon-input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Checkboxes */
-        .checkbox-group {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 10px;
+        
+        .header h1 {
+            color: #d35400;
+            font-size: 18pt;
+            margin: 0 0 5px 0;
         }
         
-        @media (max-width: 400px) {
-            .checkbox-group {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .custom-checkbox {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            color: #ccc;
-        }
-
-        .custom-checkbox:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .custom-checkbox input {
-            display: none;
-        }
-
-        .checkmark {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            border-radius: 6px;
-            margin-left: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .custom-checkbox input:checked + .checkmark {
-            background: var(--neon-primary);
-            border-color: var(--neon-primary);
-            box-shadow: 0 0 10px var(--neon-primary);
-        }
-
-        .custom-checkbox input:checked + .checkmark::after {
-            content: '✓';
-            color: #000;
-            font-size: 14px;
+        .header p {
+            font-size: 11pt;
+            margin: 0;
+            color: #7f8c8d;
             font-weight: bold;
         }
         
-        .custom-checkbox input:checked ~ span {
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5);
-        }
-
-        /* Neon Button */
-        .neon-btn {
-            width: 100%;
-            padding: 15px;
-            background: transparent;
-            color: #fff;
-            border: 2px solid var(--neon-primary);
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2), inset 0 0 10px rgba(0, 243, 255, 0.1);
-        }
-
-        .neon-btn:hover {
-            background: var(--neon-primary);
-            color: #000;
-            box-shadow: 0 0 20px var(--neon-primary), 0 0 40px var(--neon-primary);
-            text-shadow: none;
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-content {
-            background: rgba(20, 20, 35, 0.85);
-            border: 1px solid var(--neon-primary);
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            color: white;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-            max-width: 90%;
-            width: 350px;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-icon {
-            font-size: 40px;
+        h2 {
+            font-size: 13pt;
+            color: #2c3e50;
+            border-right: 4px solid #d35400;
+            padding-right: 10px;
+            margin-top: 25px;
             margin-bottom: 15px;
         }
-
-        .modal-close-btn {
-            margin-top: 20px;
-            padding: 8px 25px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid var(--neon-primary);
-            color: white;
+        
+        .section {
+            background-color: #ffffff;
+            padding: 15px;
             border-radius: 8px;
-            cursor: pointer;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 15px;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex: 1;
+            min-width: 220px;
+            align-items: center;
+        }
+        
+        .form-group-full {
+            display: flex;
+            flex: 1 1 100%;
+            align-items: center;
+        }
+        
+        .label {
+            font-weight: bold;
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+        
+        /* استایل ورودی‌ها (جاهای خالی) */
+        input[type="text"] {
+            flex-grow: 1;
+            border: none;
+            border-bottom: 2px dotted #95a5a6;
+            background-color: #fdfbf7;
+            font-family: inherit;
+            font-size: 11pt;
+            color: #000;
+            padding: 2px 5px;
+            outline: none;
             transition: all 0.3s;
         }
-
-        .modal-close-btn:hover {
-            background: var(--neon-primary);
-            color: black;
+        
+        input[type="text"]:focus {
+            border-bottom-color: #d35400;
+            background-color: #fff;
+        }
+        
+        ul {
+            margin: 10px 0;
+            padding-right: 25px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            text-align: justify;
+        }
+        
+        p {
+            text-align: justify;
+            margin-top: 0;
+        }
+        
+        .warning-box {
+            background-color: #fff3f3;
+            border: 2px solid #e74c3c;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .warning-box h3 {
+            color: #c0392b;
+            margin: 0 0 10px 0;
+            font-size: 13pt;
+        }
+        
+        .warning-box p {
+            margin: 0;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+        
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+        
+        .sig-box {
+            width: 40%;
+            text-align: center;
+            border-top: 1px solid #34495e;
+            padding-top: 10px;
+            font-weight: bold;
+        }
+        
+        /* استایل دکمه دانلود */
+        #download-container {
+            text-align: center;
+            padding: 20px;
+            position: sticky;
+            bottom: 0;
+            background-color: rgba(240, 242, 245, 0.9);
+            border-top: 1px solid #ddd;
+            z-index: 1000;
+        }
+        
+        #download-btn {
+            background-color: #d35400;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 14pt;
+            font-family: inherit;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        #download-btn:hover {
+            background-color: #b84a00;
         }
 
-        /* Loading Spinner */
-        .loader {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0,0,0,0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin: 0 auto;
+        /* برای اینکه در موبایل فرمول نشکند */
+        @media (max-width: 600px) {
+            #contract-content { padding: 10mm; }
+            .form-group { min-width: 100%; }
         }
-
-        .btn-content {
-            display: block;
+        
+        /* کلاسی که متن جایگزین اینپوت هنگام دانلود می‌شود */
+        .print-text {
+            border-bottom: 2px dotted #95a5a6;
+            flex-grow: 1;
+            padding: 2px 5px;
+            display: inline-block;
+            min-height: 25px;
+            color: #000;
         }
-
-        .loading .loader {
-            display: block;
-        }
-
-        .loading .btn-content {
-            display: none;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
     </style>
 </head>
 <body>
 
-    <!-- Background Animations -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-
-    <div class="glass-container">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold neon-text mb-2">ثبت نام تیم رسانه</h1>
-            <p class="text-gray-400 text-sm">عضویت در تیم ادیتورها، تصویربرداران و عکاسان</p>
+    <div id="contract-content">
+        <div class="header">
+            <h1>قرارداد همکاری ادمین شبکه‌های اجتماعی</h1>
+            <p>کارفرما: نورخیز استودیو</p>
         </div>
-
-        <form id="registrationForm">
-            <div class="input-group">
-                <input type="text" id="name" class="neon-input" placeholder="نام و نام خانوادگی *" required>
+        
+        <div class="section">
+            <h2>ماده ۱: مشخصات طرفین</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="label" for="name">نام و نام خانوادگی:</label>
+                    <input type="text" id="name" placeholder="مثال: علی رضایی">
+                </div>
+                <div class="form-group">
+                    <label class="label" for="age">سن:</label>
+                    <input type="text" id="age" placeholder="مثال: ۲۵">
+                </div>
             </div>
             
-            <div class="input-group">
-                <input type="number" id="age" class="neon-input" placeholder="سن *" required min="10" max="99">
-            </div>
-
-            <div class="input-group">
-                <input type="tel" id="phone" class="neon-input" placeholder="شماره تماس (مثال: 0912...) *" required>
-            </div>
-
-            <div class="input-group">
-                <input type="text" id="telegram" class="neon-input" placeholder="آیدی تلگرام (بدون @) *" required>
-            </div>
-
-            <div class="mb-6">
-                <label class="block text-gray-300 mb-2 text-sm">چه کارهایی رو می‌تونید انجام بدید؟ *</label>
-                <div class="checkbox-group">
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="skills" value="ادیتور ویدیو">
-                        <div class="checkmark"></div>
-                        <span>ادیتور ویدیو</span>
-                    </label>
-                    
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="skills" value="تصویربردار">
-                        <div class="checkmark"></div>
-                        <span>تصویربردار</span>
-                    </label>
-                    
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="skills" value="عکاس">
-                        <div class="checkmark"></div>
-                        <span>عکاس</span>
-                    </label>
-
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="skills" value="گرافیست">
-                        <div class="checkmark"></div>
-                        <span>گرافیست / کاور زن</span>
-                    </label>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="label" for="phone">شماره تماس:</label>
+                    <input type="text" id="phone" placeholder="مثال: 09120000000">
                 </div>
-                <p id="skillError" class="text-red-400 text-xs mt-2 hidden">لطفاً حداقل یک مهارت را انتخاب کنید.</p>
+                <div class="form-group">
+                    <label class="label" for="location">محل سکونت:</label>
+                    <input type="text" id="location" placeholder="مثال: تهران">
+                </div>
             </div>
+            
+            <div class="form-row">
+                <div class="form-group-full">
+                    <label class="label" for="hours">تعداد ساعات آزاد (بیکار) در روز:</label>
+                    <input type="text" id="hours" placeholder="مثال: ۵ ساعت">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group-full">
+                    <label class="label" for="skills">مهارت‌ها / تخصص‌های مرتبط:</label>
+                    <input type="text" id="skills" placeholder="مثال: مسلط به فتوشاپ و الگوریتم اینستاگرام">
+                </div>
+            </div>
+        </div>
 
-            <button type="submit" id="submitBtn" class="neon-btn">
-                <span class="btn-content">ارسال فرم درخواست</span>
-                <div class="loader"></div>
-            </button>
-        </form>
+        <div class="section">
+            <h2>ماده ۲: موضوع قرارداد</h2>
+            <p>مدیریت، تولید محتوا، پاسخگویی به مخاطبان و انجام امور مرتبط با شبکه‌های اجتماعی «نورخیز استودیو» بر اساس برنامه‌ریزی و استراتژی‌های تعیین شده از سوی کارفرما.</p>
+        </div>
+
+        <div class="section">
+            <h2>ماده ۳: حق‌الزحمه (مبلغ قرارداد)</h2>
+            <p>حقوق در نظر گرفته شده برای این جایگاه شغلی، متغیر بوده و در بازه <strong>۱,۰۰۰,۰۰۰ تا ۱,۵۰۰,۰۰۰ تومان</strong> تعیین می‌گردد. رقم دقیق پرداختی در پایان هر دوره، بر اساس فاکتورهای زیر مشخص خواهد شد:</p>
+            <ul>
+                <li>میزان ساعات فعال و در دسترس بودن ادمین</li>
+                <li>کیفیت انجام کار و خلاقیت در مدیریت پلتفرم‌ها</li>
+                <li>نظم در انتشار محتوا و پاسخگویی به موقع به مخاطبین</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>ماده ۴: تعهدات و شرایط کاری</h2>
+            <ul>
+                <li>ادمین موظف است حفظ امانت و محرمانگی اطلاعات استودیو را در اولویت قرار دهد.</li>
+                <li>ارائه گزارش کار مستمر به مدیریت استودیو در زمان‌های مقرر الزامی است.</li>
+                <li>رفتار حرفه‌ای و محترمانه با مخاطبین و مشتریان تحت هر شرایطی ضروری است.</li>
+            </ul>
+            
+            <div class="warning-box">
+                <h3>⚠️ هشدار و شرط اساسی همکاری ⚠️</h3>
+                <p>ادمین موظف است به کار خود کاملاً اهمیت داده و با جدیت و دلسوزی وظایف محوله را پیگیری کند. بی‌تفاوتی نسبت به وظایف، عدم پاسخگویی به موقع و جدی نگرفتن کار، خط قرمز استودیو بوده و به صورت یک‌طرفه موجب فسخ قرارداد خواهد شد.</p>
+            </div>
+        </div>
+
+        <div class="signatures">
+            <div class="sig-box">امضا و تاریخ (کارفرما)</div>
+            <div class="sig-box">امضا و تاریخ (ادمین)</div>
+        </div>
     </div>
 
-    <!-- Custom Modal Message Box -->
-    <div class="modal-overlay" id="messageModal">
-        <div class="modal-content">
-            <div class="modal-icon" id="modalIcon">✅</div>
-            <h3 class="text-xl font-bold mb-2" id="modalTitle">موفقیت‌آمیز</h3>
-            <p class="text-sm text-gray-300" id="modalDesc">اطلاعات شما با موفقیت برای ما ارسال شد.</p>
-            <button class="modal-close-btn" onclick="closeModal()">بستن</button>
-        </div>
+    <!-- دکمه دانلود -->
+    <div id="download-container">
+        <button id="download-btn" onclick="generatePDF()">📥 دانلود نسخه PDF فرم</button>
     </div>
 
     <script>
-        // Telegram Configuration (From User Request)
-        const TELEGRAM_BOT_TOKEN = '8899315197:AAHfKqtG5tY9764ORGLXTJuIe12aLS9mGkc';
-        const TELEGRAM_CHAT_ID = '7403377873';
+        function generatePDF() {
+            // تغییر دکمه به حالت در حال پردازش
+            const btn = document.getElementById('download-btn');
+            btn.innerText = "⏳ در حال ساخت PDF...";
+            btn.disabled = true;
 
-        const form = document.getElementById('registrationForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const skillError = document.getElementById('skillError');
-        const modal = document.getElementById('messageModal');
+            // گرفتن اسم وارد شده برای نام فایل
+            let userName = document.getElementById('name').value.trim();
+            let fileName = userName ? `قرارداد_استخدام_${userName}.pdf` : `قرارداد_استخدام_ادمین.pdf`;
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // برای اینکه مقادیر وارد شده در PDF درست بیفتند، اینپوت‌ها را موقتا تبدیل به متن می‌کنیم
+            const inputs = document.querySelectorAll('input[type="text"]');
+            const spans = [];
             
-            // Check if at least one skill is selected
-            const checkedSkills = document.querySelectorAll('input[name="skills"]:checked');
-            if(checkedSkills.length === 0) {
-                skillError.classList.remove('hidden');
-                return;
-            } else {
-                skillError.classList.add('hidden');
-            }
-
-            // UI Loading state
-            submitBtn.classList.add('loading');
-            submitBtn.disabled = true;
-
-            // Get Values
-            const name = document.getElementById('name').value;
-            const age = document.getElementById('age').value;
-            const phone = document.getElementById('phone').value;
-            const telegram = document.getElementById('telegram').value;
-            
-            let skillsArray = [];
-            checkedSkills.forEach(cb => skillsArray.push(cb.value));
-            const skillsText = skillsArray.join(' ، ');
-
-            // Construct Message for Telegram
-            const message = `
-🌟 <b>درخواست همکاری جدید</b> 🌟
-
-👤 <b>نام:</b> ${name}
-🎂 <b>سن:</b> ${age}
-📱 <b>شماره تماس:</b> ${phone}
-✈️ <b>آیدی تلگرام:</b> @${telegram}
-🎯 <b>مهارت‌ها:</b> ${skillsText}
-            `;
-
-            // Telegram API URL
-            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-
-            // Send Data via Fetch
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: message,
-                    parse_mode: 'HTML' // Enables bold and HTML tags in telegram message
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                submitBtn.classList.remove('loading');
-                submitBtn.disabled = false;
-
-                if(data.ok) {
-                    showModal('✅', 'ارسال موفق', 'اطلاعات شما با موفقیت ثبت و ارسال شد. به زودی با شما تماس می‌گیریم.');
-                    form.reset(); // Clear the form
-                } else {
-                    showModal('❌', 'خطا در ارسال', 'متأسفانه مشکلی در ارسال پیش آمد. لطفا دوباره تلاش کنید.');
-                    console.error("Telegram API Error: ", data);
-                }
-            })
-            .catch(error => {
-                submitBtn.classList.remove('loading');
-                submitBtn.disabled = false;
-                showModal('🔌', 'خطای اتصال', 'لطفا اتصال اینترنت (و یا VPN در صورت نیاز) خود را بررسی کنید.');
-                console.error("Network Error: ", error);
+            inputs.forEach(input => {
+                const span = document.createElement('span');
+                span.className = 'print-text';
+                span.innerText = input.value || '.........................'; // اگر خالی بود نقطه چین بگذار
+                
+                input.parentNode.insertBefore(span, input);
+                input.style.display = 'none';
+                spans.push({span: span, input: input});
             });
-        });
 
-        // Modal Logic
-        function showModal(icon, title, desc) {
-            document.getElementById('modalIcon').innerText = icon;
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalDesc').innerText = desc;
-            
-            // Adjust colors based on success/error
-            if(icon === '❌' || icon === '🔌') {
-                document.querySelector('.modal-content').style.borderColor = '#ff0055';
-                document.querySelector('.modal-content').style.boxShadow = '0 0 30px rgba(255, 0, 85, 0.2)';
-                document.querySelector('.modal-close-btn').style.borderColor = '#ff0055';
-            } else {
-                document.querySelector('.modal-content').style.borderColor = 'var(--neon-primary)';
-                document.querySelector('.modal-content').style.boxShadow = '0 0 30px rgba(0, 243, 255, 0.2)';
-                document.querySelector('.modal-close-btn').style.borderColor = 'var(--neon-primary)';
-            }
+            // تنظیمات فایل PDF
+            const element = document.getElementById('contract-content');
+            const opt = {
+                margin:       0, // مارجین را در CSS دادیم
+                filename:     fileName,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true }, // کیفیت بالا
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
 
-            modal.classList.add('active');
-        }
-
-        function closeModal() {
-            modal.classList.remove('active');
+            // ساخت و دانلود
+            html2pdf().set(opt).from(element).save().then(() => {
+                // برگرداندن فرم به حالت اول
+                spans.forEach(item => {
+                    item.span.remove();
+                    item.input.style.display = 'block';
+                });
+                btn.innerText = "📥 دانلود نسخه PDF فرم";
+                btn.disabled = false;
+            }).catch(err => {
+                alert('خطایی در ساخت فایل رخ داد!');
+                console.error(err);
+                
+                // برگرداندن فرم به حالت اول در صورت خطا
+                spans.forEach(item => {
+                    item.span.remove();
+                    item.input.style.display = 'block';
+                });
+                btn.innerText = "📥 دانلود نسخه PDF فرم";
+                btn.disabled = false;
+            });
         }
     </script>
 </body>
 </html>
-
-```

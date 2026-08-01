@@ -2,14 +2,20 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>قرارداد استخدام ادمین - نورخیز استودیو</title>
     
-    <!-- کتابخانه برای تبدیل مستقیم HTML به PDF در مرورگر -->
+    <!-- کتابخانه برای تبدیل مستقیم HTML به PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+        
+        * { 
+            box-sizing: border-box; 
+            margin: 0;
+            padding: 0;
+        }
         
         body {
             font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
@@ -17,24 +23,30 @@
             text-align: right;
             color: #2c3e50;
             line-height: 1.8;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f2f5; /* پس‌زمینه برای حالت وب */
+            background-color: #e9ecef; /* پس‌زمینه سایت */
             font-size: 11pt;
+            padding: 10px;
         }
         
-        /* بخشی که قرار است تبدیل به PDF شود */
+        /* کانتینر اصلی فرم */
         #contract-content {
             background-color: #faf8f5;
-            max-width: 210mm; /* اندازه تقریبی A4 */
-            min-height: 297mm;
-            margin: 20px auto;
-            padding: 15mm;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-radius: 4px;
+            width: 100%;
+            max-width: 210mm; /* عرض استاندارد A4 */
+            margin: 0 auto 80px auto; /* فاصله از پایین برای دکمه */
+            padding: 20px 15px; /* پدینگ مناسب موبایل */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            overflow-wrap: break-word; /* جلوگیری از بیرون زدن متن */
         }
         
-        *, *::before, *::after { box-sizing: border-box; }
+        /* در صفحات بزرگتر (تبلت و کامپیوتر) پدینگ بیشتر می‌شود */
+        @media (min-width: 768px) {
+            #contract-content {
+                padding: 40px;
+                margin-top: 20px;
+            }
+        }
         
         .header {
             text-align: center;
@@ -45,13 +57,12 @@
         
         .header h1 {
             color: #d35400;
-            font-size: 18pt;
-            margin: 0 0 5px 0;
+            font-size: 16pt;
+            margin-bottom: 5px;
         }
         
         .header p {
             font-size: 11pt;
-            margin: 0;
             color: #7f8c8d;
             font-weight: bold;
         }
@@ -73,24 +84,27 @@
             margin-bottom: 15px;
         }
         
+        /* چیدمان فرم - اصلاح شده برای موبایل */
         .form-row {
             display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
+            flex-direction: column; /* در موبایل زیر هم قرار می‌گیرند */
             gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        /* در صفحات بزرگ کنار هم قرار می‌گیرند */
+        @media (min-width: 600px) {
+            .form-row {
+                flex-direction: row;
+                gap: 20px;
+            }
         }
         
         .form-group {
             display: flex;
             flex: 1;
-            min-width: 220px;
-            align-items: center;
-        }
-        
-        .form-group-full {
-            display: flex;
-            flex: 1 1 100%;
-            align-items: center;
+            width: 100%;
+            align-items: flex-end;
         }
         
         .label {
@@ -99,25 +113,28 @@
             margin-left: 8px;
         }
         
-        /* استایل ورودی‌ها (جاهای خالی) */
+        /* استایل دقیق اینپوت برای جلوگیری از Overflow */
         input[type="text"] {
-            flex-grow: 1;
+            flex: 1;
+            min-width: 0; /* خیلی مهم: جلوگیری از بیرون زدن فیلد در فلکس‌باکس */
+            width: 100%;
             border: none;
             border-bottom: 2px dotted #95a5a6;
-            background-color: #fdfbf7;
+            background-color: transparent;
             font-family: inherit;
             font-size: 11pt;
             color: #000;
             padding: 2px 5px;
             outline: none;
-            transition: all 0.3s;
+            transition: border-color 0.3s;
         }
         
         input[type="text"]:focus {
-            border-bottom-color: #d35400;
-            background-color: #fff;
+            border-bottom: 2px solid #d35400;
+            background-color: #fff9f5;
         }
         
+        /* تنظیمات لیست‌ها و متن‌ها */
         ul {
             margin: 10px 0;
             padding-right: 25px;
@@ -130,7 +147,6 @@
         
         p {
             text-align: justify;
-            margin-top: 0;
         }
         
         .warning-box {
@@ -144,12 +160,11 @@
         
         .warning-box h3 {
             color: #c0392b;
-            margin: 0 0 10px 0;
-            font-size: 13pt;
+            margin-bottom: 10px;
+            font-size: 12pt;
         }
         
         .warning-box p {
-            margin: 0;
             font-weight: bold;
             color: #333;
             text-align: center;
@@ -158,25 +173,28 @@
         .signatures {
             display: flex;
             justify-content: space-between;
-            margin-top: 50px;
+            margin-top: 40px;
         }
         
         .sig-box {
-            width: 40%;
+            width: 45%;
             text-align: center;
             border-top: 1px solid #34495e;
             padding-top: 10px;
             font-weight: bold;
+            font-size: 10pt;
         }
         
-        /* استایل دکمه دانلود */
+        /* استایل دکمه دانلود چسبیده به پایین */
         #download-container {
-            text-align: center;
-            padding: 20px;
-            position: sticky;
+            position: fixed;
             bottom: 0;
-            background-color: rgba(240, 242, 245, 0.9);
-            border-top: 1px solid #ddd;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 15px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            text-align: center;
             z-index: 1000;
         }
         
@@ -184,11 +202,13 @@
             background-color: #d35400;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 14pt;
+            padding: 12px 25px;
+            font-size: 13pt;
             font-family: inherit;
-            border-radius: 30px;
+            border-radius: 8px;
             cursor: pointer;
+            width: 100%;
+            max-width: 400px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.2);
             font-weight: bold;
             transition: background-color 0.3s;
@@ -197,21 +217,25 @@
         #download-btn:hover {
             background-color: #b84a00;
         }
-
-        /* برای اینکه در موبایل فرمول نشکند */
-        @media (max-width: 600px) {
-            #contract-content { padding: 10mm; }
-            .form-group { min-width: 100%; }
-        }
         
-        /* کلاسی که متن جایگزین اینپوت هنگام دانلود می‌شود */
+        /* کلاس جایگزین متن برای پرینت تمیز */
         .print-text {
             border-bottom: 2px dotted #95a5a6;
-            flex-grow: 1;
+            flex: 1;
+            min-width: 0;
             padding: 2px 5px;
             display: inline-block;
             min-height: 25px;
             color: #000;
+        }
+        
+        /* تنظیمات مخصوص ساخت PDF - پنهان کردن المان‌های اضافی */
+        .pdf-mode {
+            padding: 20mm !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #fff !important;
         }
     </style>
 </head>
@@ -227,37 +251,37 @@
             <h2>ماده ۱: مشخصات طرفین</h2>
             <div class="form-row">
                 <div class="form-group">
-                    <label class="label" for="name">نام و نام خانوادگی:</label>
+                    <label class="label">نام و نام خانوادگی:</label>
                     <input type="text" id="name" placeholder="مثال: علی رضایی">
                 </div>
                 <div class="form-group">
-                    <label class="label" for="age">سن:</label>
+                    <label class="label">سن:</label>
                     <input type="text" id="age" placeholder="مثال: ۲۵">
                 </div>
             </div>
             
             <div class="form-row">
                 <div class="form-group">
-                    <label class="label" for="phone">شماره تماس:</label>
+                    <label class="label">شماره تماس:</label>
                     <input type="text" id="phone" placeholder="مثال: 09120000000">
                 </div>
                 <div class="form-group">
-                    <label class="label" for="location">محل سکونت:</label>
+                    <label class="label">محل سکونت:</label>
                     <input type="text" id="location" placeholder="مثال: تهران">
                 </div>
             </div>
             
             <div class="form-row">
-                <div class="form-group-full">
-                    <label class="label" for="hours">تعداد ساعات آزاد (بیکار) در روز:</label>
+                <div class="form-group">
+                    <label class="label">تعداد ساعات آزاد (بیکار) در روز:</label>
                     <input type="text" id="hours" placeholder="مثال: ۵ ساعت">
                 </div>
             </div>
             
             <div class="form-row">
-                <div class="form-group-full">
-                    <label class="label" for="skills">مهارت‌ها / تخصص‌های مرتبط:</label>
-                    <input type="text" id="skills" placeholder="مثال: مسلط به فتوشاپ و الگوریتم اینستاگرام">
+                <div class="form-group">
+                    <label class="label">مهارت‌ها / تخصص‌های مرتبط:</label>
+                    <input type="text" id="skills" placeholder="مثال: مسلط به فتوشاپ و اینستاگرام">
                 </div>
             </div>
         </div>
@@ -304,57 +328,64 @@
 
     <script>
         function generatePDF() {
-            // تغییر دکمه به حالت در حال پردازش
             const btn = document.getElementById('download-btn');
             btn.innerText = "⏳ در حال ساخت PDF...";
             btn.disabled = true;
 
-            // گرفتن اسم وارد شده برای نام فایل
+            const element = document.getElementById('contract-content');
+            
+            // استخراج نام کاربر برای اسم فایل
             let userName = document.getElementById('name').value.trim();
-            let fileName = userName ? `قرارداد_استخدام_${userName}.pdf` : `قرارداد_استخدام_ادمین.pdf`;
+            // جایگزینی فاصله‌ها با آندرلاین برای اسم فایل استانداردتر
+            let formattedName = userName.replace(/\s+/g, '_'); 
+            let fileName = userName ? `قرارداد_استخدام_${formattedName}.pdf` : `قرارداد_استخدام_ادمین.pdf`;
 
-            // برای اینکه مقادیر وارد شده در PDF درست بیفتند، اینپوت‌ها را موقتا تبدیل به متن می‌کنیم
+            // تبدیل موقت input ها به متن ساده برای پرینت دقیق‌تر
             const inputs = document.querySelectorAll('input[type="text"]');
             const spans = [];
             
             inputs.forEach(input => {
                 const span = document.createElement('span');
                 span.className = 'print-text';
-                span.innerText = input.value || '.........................'; // اگر خالی بود نقطه چین بگذار
+                span.innerText = input.value || '...................................'; 
                 
                 input.parentNode.insertBefore(span, input);
                 input.style.display = 'none';
                 spans.push({span: span, input: input});
             });
 
-            // تنظیمات فایل PDF
-            const element = document.getElementById('contract-content');
+            // اعمال کلاس مخصوص PDF برای حذف فاصله‌های اضافی
+            element.classList.add('pdf-mode');
+
             const opt = {
-                margin:       0, // مارجین را در CSS دادیم
+                margin:       0,
                 filename:     fileName,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true }, // کیفیت بالا
+                image:        { type: 'jpeg', quality: 1 },
+                // تنظیم windowWidth باعث میشه موقع پرینت از موبایل، فرمتِ عریض و تمیزِ دسکتاپ رندر بشه
+                html2canvas:  { scale: 2, useCORS: true, windowWidth: 800 }, 
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            // ساخت و دانلود
             html2pdf().set(opt).from(element).save().then(() => {
-                // برگرداندن فرم به حالت اول
+                // بازگردانی تغییرات به حالت اول بعد از دانلود
                 spans.forEach(item => {
                     item.span.remove();
                     item.input.style.display = 'block';
                 });
+                element.classList.remove('pdf-mode');
+                
                 btn.innerText = "📥 دانلود نسخه PDF فرم";
                 btn.disabled = false;
             }).catch(err => {
-                alert('خطایی در ساخت فایل رخ داد!');
+                alert('خطایی رخ داد! لطفاً دوباره تلاش کنید.');
                 console.error(err);
                 
-                // برگرداندن فرم به حالت اول در صورت خطا
                 spans.forEach(item => {
                     item.span.remove();
                     item.input.style.display = 'block';
                 });
+                element.classList.remove('pdf-mode');
+                
                 btn.innerText = "📥 دانلود نسخه PDF فرم";
                 btn.disabled = false;
             });
@@ -362,3 +393,4 @@
     </script>
 </body>
 </html>
+

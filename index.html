@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>قرارداد استخدام ادمین - نورخیز استودیو</title>
     
-    <!-- کتابخانه برای تبدیل مستقیم HTML به PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
         
@@ -23,24 +20,21 @@
             text-align: right;
             color: #2c3e50;
             line-height: 1.8;
-            background-color: #e9ecef; /* پس‌زمینه سایت */
+            background-color: #e9ecef;
             font-size: 11pt;
             padding: 10px;
         }
         
-        /* کانتینر اصلی فرم */
         #contract-content {
             background-color: #faf8f5;
             width: 100%;
-            max-width: 210mm; /* عرض استاندارد A4 */
-            margin: 0 auto 80px auto; /* فاصله از پایین برای دکمه */
-            padding: 20px 15px; /* پدینگ مناسب موبایل */
+            max-width: 210mm; 
+            margin: 0 auto 90px auto; 
+            padding: 20px 15px; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             border-radius: 8px;
-            overflow-wrap: break-word; /* جلوگیری از بیرون زدن متن */
         }
         
-        /* در صفحات بزرگتر (تبلت و کامپیوتر) پدینگ بیشتر می‌شود */
         @media (min-width: 768px) {
             #contract-content {
                 padding: 40px;
@@ -84,15 +78,13 @@
             margin-bottom: 15px;
         }
         
-        /* چیدمان فرم - اصلاح شده برای موبایل */
         .form-row {
             display: flex;
-            flex-direction: column; /* در موبایل زیر هم قرار می‌گیرند */
+            flex-direction: column; 
             gap: 15px;
             margin-bottom: 15px;
         }
         
-        /* در صفحات بزرگ کنار هم قرار می‌گیرند */
         @media (min-width: 600px) {
             .form-row {
                 flex-direction: row;
@@ -113,17 +105,17 @@
             margin-left: 8px;
         }
         
-        /* استایل دقیق اینپوت برای جلوگیری از Overflow */
         input[type="text"] {
             flex: 1;
-            min-width: 0; /* خیلی مهم: جلوگیری از بیرون زدن فیلد در فلکس‌باکس */
+            min-width: 0; 
             width: 100%;
             border: none;
             border-bottom: 2px dotted #95a5a6;
             background-color: transparent;
             font-family: inherit;
             font-size: 11pt;
-            color: #000;
+            color: #d35400; /* رنگ متفاوت برای تشخیص پر کردن */
+            font-weight: bold;
             padding: 2px 5px;
             outline: none;
             transition: border-color 0.3s;
@@ -134,7 +126,12 @@
             background-color: #fff9f5;
         }
         
-        /* تنظیمات لیست‌ها و متن‌ها */
+        input[type="text"]::placeholder {
+            color: #95a5a6;
+            font-weight: normal;
+            font-size: 10pt;
+        }
+        
         ul {
             margin: 10px 0;
             padding-right: 25px;
@@ -185,7 +182,6 @@
             font-size: 10pt;
         }
         
-        /* استایل دکمه دانلود چسبیده به پایین */
         #download-container {
             position: fixed;
             bottom: 0;
@@ -214,28 +210,75 @@
             transition: background-color 0.3s;
         }
         
-        #download-btn:hover {
-            background-color: #b84a00;
+        .instruction {
+            font-size: 9pt;
+            color: #7f8c8d;
+            margin-top: 5px;
         }
         
-        /* کلاس جایگزین متن برای پرینت تمیز */
-        .print-text {
-            border-bottom: 2px dotted #95a5a6;
-            flex: 1;
-            min-width: 0;
-            padding: 2px 5px;
-            display: inline-block;
-            min-height: 25px;
-            color: #000;
-        }
-        
-        /* تنظیمات مخصوص ساخت PDF - پنهان کردن المان‌های اضافی */
-        .pdf-mode {
-            padding: 20mm !important;
-            margin: 0 !important;
-            box-shadow: none !important;
-            border-radius: 0 !important;
-            background-color: #fff !important;
+        /* 
+         * ==============================================
+         * استایل‌های مخصوص پرینت (راز اصلی بدون مشکل بودن فایل)
+         * ==============================================
+         */
+        @media print {
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+            
+            body {
+                background-color: white !important;
+                padding: 0 !important;
+                font-size: 11pt !important;
+                color: black !important;
+            }
+            
+            #contract-content {
+                box-shadow: none !important;
+                max-width: 100% !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background-color: white !important;
+            }
+            
+            .section {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 0 10px 0 !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .form-row {
+                flex-direction: row !important;
+                gap: 15px !important;
+            }
+            
+            input[type="text"] {
+                color: black !important;
+                border-bottom: 2px dotted black !important;
+            }
+            
+            input[type="text"]::placeholder {
+                color: transparent !important; /* پنهان کردن مثال‌ها هنگام پرینت */
+            }
+            
+            .warning-box {
+                border: 1px solid black !important;
+                background-color: transparent !important;
+            }
+            
+            /* مخفی کردن دکمه هنگام ذخیره PDF */
+            #download-container {
+                display: none !important;
+            }
+            
+            /* برای رفع باگ پس زمینه فرم ها در کروم */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
         }
     </style>
 </head>
@@ -273,15 +316,15 @@
             
             <div class="form-row">
                 <div class="form-group">
-                    <label class="label">تعداد ساعات آزاد (بیکار) در روز:</label>
+                    <label class="label">تعداد ساعات آزاد در روز:</label>
                     <input type="text" id="hours" placeholder="مثال: ۵ ساعت">
                 </div>
             </div>
             
             <div class="form-row">
                 <div class="form-group">
-                    <label class="label">مهارت‌ها / تخصص‌های مرتبط:</label>
-                    <input type="text" id="skills" placeholder="مثال: مسلط به فتوشاپ و اینستاگرام">
+                    <label class="label">مهارت‌ها / تخصص‌ها:</label>
+                    <input type="text" id="skills" placeholder="مثال: مسلط به فتوشاپ">
                 </div>
             </div>
         </div>
@@ -323,72 +366,22 @@
 
     <!-- دکمه دانلود -->
     <div id="download-container">
-        <button id="download-btn" onclick="generatePDF()">📥 دانلود نسخه PDF فرم</button>
+        <button id="download-btn" onclick="saveAsPDF()">📥 ساخت و دریافت PDF</button>
+        <div class="instruction">پس از کلیک، در پنجره باز شده گزینه <b>Save as PDF</b> را انتخاب کنید.</div>
     </div>
 
     <script>
-        function generatePDF() {
-            const btn = document.getElementById('download-btn');
-            btn.innerText = "⏳ در حال ساخت PDF...";
-            btn.disabled = true;
-
-            const element = document.getElementById('contract-content');
-            
-            // استخراج نام کاربر برای اسم فایل
+        function saveAsPDF() {
+            // تغییر نام فایل پیش‌فرض در مرورگر به اسم شخص (در صورت پشتیبانی مرورگر)
             let userName = document.getElementById('name').value.trim();
-            // جایگزینی فاصله‌ها با آندرلاین برای اسم فایل استانداردتر
-            let formattedName = userName.replace(/\s+/g, '_'); 
-            let fileName = userName ? `قرارداد_استخدام_${formattedName}.pdf` : `قرارداد_استخدام_ادمین.pdf`;
-
-            // تبدیل موقت input ها به متن ساده برای پرینت دقیق‌تر
-            const inputs = document.querySelectorAll('input[type="text"]');
-            const spans = [];
+            if(userName) {
+                document.title = "قرارداد_استودیو_" + userName;
+            } else {
+                document.title = "قرارداد_نورخیز_استودیو";
+            }
             
-            inputs.forEach(input => {
-                const span = document.createElement('span');
-                span.className = 'print-text';
-                span.innerText = input.value || '...................................'; 
-                
-                input.parentNode.insertBefore(span, input);
-                input.style.display = 'none';
-                spans.push({span: span, input: input});
-            });
-
-            // اعمال کلاس مخصوص PDF برای حذف فاصله‌های اضافی
-            element.classList.add('pdf-mode');
-
-            const opt = {
-                margin:       0,
-                filename:     fileName,
-                image:        { type: 'jpeg', quality: 1 },
-                // تنظیم windowWidth باعث میشه موقع پرینت از موبایل، فرمتِ عریض و تمیزِ دسکتاپ رندر بشه
-                html2canvas:  { scale: 2, useCORS: true, windowWidth: 800 }, 
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            html2pdf().set(opt).from(element).save().then(() => {
-                // بازگردانی تغییرات به حالت اول بعد از دانلود
-                spans.forEach(item => {
-                    item.span.remove();
-                    item.input.style.display = 'block';
-                });
-                element.classList.remove('pdf-mode');
-                
-                btn.innerText = "📥 دانلود نسخه PDF فرم";
-                btn.disabled = false;
-            }).catch(err => {
-                alert('خطایی رخ داد! لطفاً دوباره تلاش کنید.');
-                console.error(err);
-                
-                spans.forEach(item => {
-                    item.span.remove();
-                    item.input.style.display = 'block';
-                });
-                element.classList.remove('pdf-mode');
-                
-                btn.innerText = "📥 دانلود نسخه PDF فرم";
-                btn.disabled = false;
-            });
+            // استفاده از قابلیت پرینت بومی مرورگر که در موبایل و وب بی‌نقص کار می‌کند
+            window.print();
         }
     </script>
 </body>

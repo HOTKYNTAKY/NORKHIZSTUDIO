@@ -2,388 +2,508 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>قرارداد استخدام ادمین - نورخیز استودیو</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منوی کافه نورخیز</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
-        
-        * { 
-            box-sizing: border-box; 
-            margin: 0;
-            padding: 0;
+        :root {
+            --bg: #f6efe6;
+            --paper: #fffaf4;
+            --ink: #2b2118;
+            --muted: #7a6a5c;
+            --terracotta: #c45c26;
+            --gold: #c9a227;
+            --line: rgba(43, 33, 24, 0.1);
+            --shadow: 0 18px 40px rgba(43, 33, 24, 0.12);
         }
-        
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
-            direction: rtl;
-            text-align: right;
-            color: #2c3e50;
-            line-height: 1.8;
-            background-color: #e9ecef;
-            font-size: 11pt;
-            padding: 10px;
+            font-family: "Vazirmatn", Tahoma, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.7;
         }
-        
-        #contract-content {
-            background-color: #faf8f5;
-            width: 100%;
-            max-width: 210mm; 
-            margin: 0 auto 90px auto; 
-            padding: 20px 15px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border-radius: 8px;
-        }
-        
-        @media (min-width: 768px) {
-            #contract-content {
-                padding: 40px;
-                margin-top: 20px;
-            }
-        }
-        
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #d35400;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .header h1 {
-            color: #d35400;
-            font-size: 16pt;
-            margin-bottom: 5px;
-        }
-        
-        .header p {
-            font-size: 11pt;
-            color: #7f8c8d;
-            font-weight: bold;
-        }
-        
-        h2 {
-            font-size: 13pt;
-            color: #2c3e50;
-            border-right: 4px solid #d35400;
-            padding-right: 10px;
-            margin-top: 25px;
-            margin-bottom: 15px;
-        }
-        
-        .section {
-            background-color: #ffffff;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            margin-bottom: 15px;
-        }
-        
-        .form-row {
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
             display: flex;
-            flex-direction: column; 
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        
-        @media (min-width: 600px) {
-            .form-row {
-                flex-direction: row;
-                gap: 20px;
-            }
-        }
-        
-        .form-group {
-            display: flex;
-            flex: 1;
-            width: 100%;
-            align-items: flex-end;
-        }
-        
-        .label {
-            font-weight: bold;
-            white-space: nowrap;
-            margin-left: 8px;
-        }
-        
-        input[type="text"] {
-            flex: 1;
-            min-width: 0; 
-            width: 100%;
-            border: none;
-            border-bottom: 2px dotted #95a5a6;
-            background-color: transparent;
-            font-family: inherit;
-            font-size: 11pt;
-            color: #d35400; /* رنگ متفاوت برای تشخیص پر کردن */
-            font-weight: bold;
-            padding: 2px 5px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        
-        input[type="text"]:focus {
-            border-bottom: 2px solid #d35400;
-            background-color: #fff9f5;
-        }
-        
-        input[type="text"]::placeholder {
-            color: #95a5a6;
-            font-weight: normal;
-            font-size: 10pt;
-        }
-        
-        ul {
-            margin: 10px 0;
-            padding-right: 25px;
-        }
-        
-        li {
-            margin-bottom: 8px;
-            text-align: justify;
-        }
-        
-        p {
-            text-align: justify;
-        }
-        
-        .warning-box {
-            background-color: #fff3f3;
-            border: 2px solid #e74c3c;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        
-        .warning-box h3 {
-            color: #c0392b;
-            margin-bottom: 10px;
-            font-size: 12pt;
-        }
-        
-        .warning-box p {
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-        }
-        
-        .signatures {
-            display: flex;
+            align-items: center;
             justify-content: space-between;
-            margin-top: 40px;
+            gap: 12px;
+            padding: 10px 18px;
+            background: rgba(246, 239, 230, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
         }
-        
-        .sig-box {
-            width: 45%;
-            text-align: center;
-            border-top: 1px solid #34495e;
-            padding-top: 10px;
-            font-weight: bold;
-            font-size: 10pt;
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
         }
-        
-        #download-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
+
+        .brand img {
+            width: 46px;
+            height: 46px;
+            object-fit: cover;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(196, 92, 38, 0.2);
+        }
+
+        .brand h1 {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .brand span {
+            display: block;
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .hours {
+            font-size: 12px;
+            color: var(--terracotta);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .hero {
+            position: relative;
+            height: min(52vh, 420px);
+            overflow: hidden;
+        }
+
+        .hero img {
             width: 100%;
-            background-color: #ffffff;
-            padding: 15px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            text-align: center;
-            z-index: 1000;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
-        
-        #download-btn {
-            background-color: #d35400;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 13pt;
-            font-family: inherit;
-            border-radius: 8px;
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(43, 33, 24, 0.15) 20%, rgba(43, 33, 24, 0.72) 100%);
+        }
+
+        .hero-copy {
+            position: absolute;
+            inset-inline: 0;
+            bottom: 28px;
+            z-index: 1;
+            text-align: center;
+            color: #fff;
+            padding: 0 16px;
+        }
+
+        .hero-copy p {
+            letter-spacing: 0.2em;
+            font-size: 12px;
+            opacity: 0.85;
+            margin-bottom: 6px;
+        }
+
+        .hero-copy h2 {
+            font-size: clamp(26px, 5vw, 42px);
+            font-weight: 800;
+        }
+
+        .cats {
+            position: sticky;
+            top: 67px;
+            z-index: 30;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 12px 16px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--line);
+            scrollbar-width: none;
+        }
+
+        .cats::-webkit-scrollbar { display: none; }
+
+        .cats button {
+            flex: 0 0 auto;
+            border: 1px solid var(--line);
+            background: var(--paper);
+            color: var(--ink);
+            font: inherit;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 8px 16px;
+            border-radius: 999px;
             cursor: pointer;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            font-weight: bold;
-            transition: background-color 0.3s;
         }
-        
-        .instruction {
-            font-size: 9pt;
-            color: #7f8c8d;
-            margin-top: 5px;
+
+        .cats button.active {
+            background: var(--terracotta);
+            color: #fff;
+            border-color: var(--terracotta);
         }
-        
-        /* 
-         * ==============================================
-         * استایل‌های مخصوص پرینت (راز اصلی بدون مشکل بودن فایل)
-         * ==============================================
-         */
-        @media print {
-            @page {
-                size: A4;
-                margin: 15mm;
-            }
-            
-            body {
-                background-color: white !important;
-                padding: 0 !important;
-                font-size: 11pt !important;
-                color: black !important;
-            }
-            
-            #contract-content {
-                box-shadow: none !important;
-                max-width: 100% !important;
-                border: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                background-color: white !important;
-            }
-            
-            .section {
-                border: none !important;
-                box-shadow: none !important;
-                padding: 0 0 10px 0 !important;
-                margin-bottom: 10px !important;
-            }
-            
-            .form-row {
-                flex-direction: row !important;
-                gap: 15px !important;
-            }
-            
-            input[type="text"] {
-                color: black !important;
-                border-bottom: 2px dotted black !important;
-            }
-            
-            input[type="text"]::placeholder {
-                color: transparent !important; /* پنهان کردن مثال‌ها هنگام پرینت */
-            }
-            
-            .warning-box {
-                border: 1px solid black !important;
-                background-color: transparent !important;
-            }
-            
-            /* مخفی کردن دکمه هنگام ذخیره PDF */
-            #download-container {
-                display: none !important;
-            }
-            
-            /* برای رفع باگ پس زمینه فرم ها در کروم */
-            * {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
+
+        main {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 8px 16px 80px;
+        }
+
+        .section {
+            padding-top: 28px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .section-head img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-head h3 {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .list {
+            background: var(--paper);
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px 16px;
+            padding: 16px 18px;
+            border-bottom: 1px dashed var(--line);
+        }
+
+        .item:last-child { border-bottom: none; }
+
+        .item h4 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .item p {
+            grid-column: 1;
+            color: var(--muted);
+            font-size: 12.5px;
+        }
+
+        .price {
+            color: var(--terracotta);
+            font-weight: 800;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-right: 6px;
+            background: #f3e2c7;
+            color: #8a5a1f;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 1px 7px;
+            border-radius: 999px;
+            vertical-align: middle;
+        }
+
+        footer {
+            text-align: center;
+            padding: 8px 16px 32px;
+            color: var(--muted);
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
+    <header class="topbar">
+        <a class="brand" href="#top">
+            <img src="images/logo.png" alt="لوگوی کافه نورخیز">
+            <div>
+                <h1>کافه نورخیز</h1>
+                <span>Norkhiz Cafe</span>
+            </div>
+        </a>
+        <div class="hours">۸ صبح تا ۱۲ شب</div>
+    </header>
 
-    <div id="contract-content">
-        <div class="header">
-            <h1>قرارداد همکاری ادمین شبکه‌های اجتماعی</h1>
-            <p>کارفرما: نورخیز استودیو</p>
+    <section class="hero" id="top">
+        <img src="images/hero.jpg" alt="فضای داخلی کافه نورخیز">
+        <div class="hero-copy">
+            <p>منوی امروز</p>
+            <h2>طعم آفتاب در هر فنجان</h2>
         </div>
-        
-        <div class="section">
-            <h2>ماده ۱: مشخصات طرفین</h2>
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="label">نام و نام خانوادگی:</label>
-                    <input type="text" id="name" placeholder="مثال: علی رضایی">
-                </div>
-                <div class="form-group">
-                    <label class="label">سن:</label>
-                    <input type="text" id="age" placeholder="مثال: ۲۵">
+    </section>
+
+    <nav class="cats" id="cats" aria-label="دسته‌بندی منو">
+        <button class="active" data-target="breakfast">صبحانه</button>
+        <button data-target="hot">نوشیدنی گرم</button>
+        <button data-target="cold">نوشیدنی سرد</button>
+        <button data-target="starter">پیش‌غذا</button>
+        <button data-target="main">غذای اصلی</button>
+        <button data-target="dessert">کیک و دسر</button>
+    </nav>
+
+    <main>
+        <section class="section" id="breakfast">
+            <div class="section-head">
+                <img src="images/breakfast.jpg" alt="صبحانه">
+                <div>
+                    <h3>صبحانه</h3>
+                    <p>از ساعت ۸ تا ۱۲ ظهر</p>
                 </div>
             </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="label">شماره تماس:</label>
-                    <input type="text" id="phone" placeholder="مثال: 09120000000">
-                </div>
-                <div class="form-group">
-                    <label class="label">محل سکونت:</label>
-                    <input type="text" id="location" placeholder="مثال: تهران">
+            <div class="list">
+                <article class="item">
+                    <h4>صبحانه ایرانی نورخیز <span class="badge">پیشنهاد سرآشپز</span></h4>
+                    <span class="price">۲۲۰٬۰۰۰</span>
+                    <p>نان تازه، پنیر، کره، عسل، گردو، خیار و گوجه</p>
+                </article>
+                <article class="item">
+                    <h4>املت سبزیجات</h4>
+                    <span class="price">۱۶۵٬۰۰۰</span>
+                    <p>تخم‌مرغ، سبزی معطر، پنیر و نان سنگک</p>
+                </article>
+                <article class="item">
+                    <h4>املت مخصوص</h4>
+                    <span class="price">۱۸۵٬۰۰۰</span>
+                    <p>قارچ، گوجه، پنیر پیتزا و سبزی تازه</p>
+                </article>
+                <article class="item">
+                    <h4>پنکیک توت‌فرنگی</h4>
+                    <span class="price">۱۹۵٬۰۰۰</span>
+                    <p>پنکیک نرم، سس توت، عسل و خامه</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="hot">
+            <div class="section-head">
+                <img src="images/coffee.jpg" alt="قهوه">
+                <div>
+                    <h3>نوشیدنی گرم</h3>
+                    <p>دانه‌های تازه آسیاب‌شده</p>
                 </div>
             </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="label">تعداد ساعات آزاد در روز:</label>
-                    <input type="text" id="hours" placeholder="مثال: ۵ ساعت">
+            <div class="list">
+                <article class="item">
+                    <h4>اسپرسو</h4>
+                    <span class="price">۸۵٬۰۰۰</span>
+                    <p>شات غلیظ و کلاسیک</p>
+                </article>
+                <article class="item">
+                    <h4>لاته</h4>
+                    <span class="price">۱۲۰٬۰۰۰</span>
+                    <p>اسپرسو و شیر مخملی</p>
+                </article>
+                <article class="item">
+                    <h4>کاپوچینو</h4>
+                    <span class="price">۱۲۵٬۰۰۰</span>
+                    <p>فوم ضخیم و دارچین</p>
+                </article>
+                <article class="item">
+                    <h4>چای ماسالا</h4>
+                    <span class="price">۱۱۰٬۰۰۰</span>
+                    <p>ادویه هندی، شیر و عسل</p>
+                </article>
+                <article class="item">
+                    <h4>هات‌چاکلت</h4>
+                    <span class="price">۱۳۰٬۰۰۰</span>
+                    <p>شکلات تلخ بلژیکی و خامه</p>
+                </article>
+                <article class="item">
+                    <h4>چای ایرانی</h4>
+                    <span class="price">۵۵٬۰۰۰</span>
+                    <p>چای سیاه دم‌شده با نبات</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="cold">
+            <div class="section-head">
+                <img src="images/drink.jpg" alt="نوشیدنی سرد">
+                <div>
+                    <h3>نوشیدنی سرد</h3>
+                    <p>خنک و تازه</p>
                 </div>
             </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="label">مهارت‌ها / تخصص‌ها:</label>
-                    <input type="text" id="skills" placeholder="مثال: مسلط به فتوشاپ">
+            <div class="list">
+                <article class="item">
+                    <h4>آیس لاته</h4>
+                    <span class="price">۱۳۵٬۰۰۰</span>
+                    <p>اسپرسو، شیر سرد و یخ</p>
+                </article>
+                <article class="item">
+                    <h4>موهیتو نعنا</h4>
+                    <span class="price">۱۴۵٬۰۰۰</span>
+                    <p>نعنا تازه، لیمو و سودا</p>
+                </article>
+                <article class="item">
+                    <h4>لیموناد</h4>
+                    <span class="price">۱۲۰٬۰۰۰</span>
+                    <p>آب لیمو طبیعی و برگ نعنا</p>
+                </article>
+                <article class="item">
+                    <h4>شیک شکلات</h4>
+                    <span class="price">۱۶۵٬۰۰۰</span>
+                    <p>بستنی وانیل و سس شکلات</p>
+                </article>
+                <article class="item">
+                    <h4>اسموتی توت‌فرنگی</h4>
+                    <span class="price">۱۵۵٬۰۰۰</span>
+                    <p>توت‌فرنگی تازه و ماست یونانی</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="starter">
+            <div class="section-head">
+                <img src="images/starter.jpg" alt="پیش‌غذا">
+                <div>
+                    <h3>پیش‌غذا</h3>
+                    <p>برای شروع</p>
                 </div>
             </div>
-        </div>
-
-        <div class="section">
-            <h2>ماده ۲: موضوع قرارداد</h2>
-            <p>مدیریت، تولید محتوا، پاسخگویی به مخاطبان و انجام امور مرتبط با شبکه‌های اجتماعی «نورخیز استودیو» بر اساس برنامه‌ریزی و استراتژی‌های تعیین شده از سوی کارفرما.</p>
-        </div>
-
-        <div class="section">
-            <h2>ماده ۳: حق‌الزحمه (مبلغ قرارداد)</h2>
-            <p>حقوق در نظر گرفته شده برای این جایگاه شغلی، متغیر بوده و در بازه <strong>۱,۰۰۰,۰۰۰ تا ۱,۵۰۰,۰۰۰ تومان</strong> تعیین می‌گردد. رقم دقیق پرداختی در پایان هر دوره، بر اساس فاکتورهای زیر مشخص خواهد شد:</p>
-            <ul>
-                <li>میزان ساعات فعال و در دسترس بودن ادمین</li>
-                <li>کیفیت انجام کار و خلاقیت در مدیریت پلتفرم‌ها</li>
-                <li>نظم در انتشار محتوا و پاسخگویی به موقع به مخاطبین</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>ماده ۴: تعهدات و شرایط کاری</h2>
-            <ul>
-                <li>ادمین موظف است حفظ امانت و محرمانگی اطلاعات استودیو را در اولویت قرار دهد.</li>
-                <li>ارائه گزارش کار مستمر به مدیریت استودیو در زمان‌های مقرر الزامی است.</li>
-                <li>رفتار حرفه‌ای و محترمانه با مخاطبین و مشتریان تحت هر شرایطی ضروری است.</li>
-            </ul>
-            
-            <div class="warning-box">
-                <h3>⚠️ هشدار و شرط اساسی همکاری ⚠️</h3>
-                <p>ادمین موظف است به کار خود کاملاً اهمیت داده و با جدیت و دلسوزی وظایف محوله را پیگیری کند. بی‌تفاوتی نسبت به وظایف، عدم پاسخگویی به موقع و جدی نگرفتن کار، خط قرمز استودیو بوده و به صورت یک‌طرفه موجب فسخ قرارداد خواهد شد.</p>
+            <div class="list">
+                <article class="item">
+                    <h4>سیب‌زمینی سرخ‌کرده</h4>
+                    <span class="price">۹۵٬۰۰۰</span>
+                    <p>با سس مخصوص خانه</p>
+                </article>
+                <article class="item">
+                    <h4>نان سیر</h4>
+                    <span class="price">۱۱۰٬۰۰۰</span>
+                    <p>کره سیر، پنیر و ریحان</p>
+                </article>
+                <article class="item">
+                    <h4>بال مرغ باربیکیو</h4>
+                    <span class="price">۱۸۵٬۰۰۰</span>
+                    <p>سوخاری ترد با سس دودی</p>
+                </article>
             </div>
-        </div>
+        </section>
 
-        <div class="signatures">
-            <div class="sig-box">امضا و تاریخ (کارفرما)</div>
-            <div class="sig-box">امضا و تاریخ (ادمین)</div>
-        </div>
-    </div>
+        <section class="section" id="main">
+            <div class="section-head">
+                <img src="images/main.jpg" alt="غذای اصلی">
+                <div>
+                    <h3>غذای اصلی</h3>
+                    <p>گرم و سیرکننده</p>
+                </div>
+            </div>
+            <div class="list">
+                <article class="item">
+                    <h4>برگر مخصوص نورخیز <span class="badge">محبوب</span></h4>
+                    <span class="price">۲۹۵٬۰۰۰</span>
+                    <p>گوشت تازه، پنیر چدار، سیب‌زمینی</p>
+                </article>
+                <article class="item">
+                    <h4>استیک مرغ گریل</h4>
+                    <span class="price">۳۲۰٬۰۰۰</span>
+                    <p>مرغ گریل‌شده با سبزیجات روز</p>
+                </article>
+                <article class="item">
+                    <h4>پاستا آلفردو</h4>
+                    <span class="price">۲۸۵٬۰۰۰</span>
+                    <p>سس خامه، قارچ و پارمزان</p>
+                </article>
+                <article class="item">
+                    <h4>پاستا پستو</h4>
+                    <span class="price">۲۷۵٬۰۰۰</span>
+                    <p>ریحان تازه، گردو و روغن زیتون</p>
+                </article>
+                <article class="item">
+                    <h4>سالاد سزار</h4>
+                    <span class="price">۲۱۰٬۰۰۰</span>
+                    <p>کاهو، مرغ گریل، نان تست و سس سزار</p>
+                </article>
+            </div>
+        </section>
 
-    <!-- دکمه دانلود -->
-    <div id="download-container">
-        <button id="download-btn" onclick="saveAsPDF()">📥 ساخت و دریافت PDF</button>
-        <div class="instruction">پس از کلیک، در پنجره باز شده گزینه <b>Save as PDF</b> را انتخاب کنید.</div>
-    </div>
+        <section class="section" id="dessert">
+            <div class="section-head">
+                <img src="images/dessert.jpg" alt="دسر">
+                <div>
+                    <h3>کیک و دسر</h3>
+                    <p>شیرینی روز</p>
+                </div>
+            </div>
+            <div class="list">
+                <article class="item">
+                    <h4>چیزکیک نیویورک</h4>
+                    <span class="price">۱۷۵٬۰۰۰</span>
+                    <p>با سس توت‌فرنگی</p>
+                </article>
+                <article class="item">
+                    <h4>تیرامیسو</h4>
+                    <span class="price">۱۸۵٬۰۰۰</span>
+                    <p>قهوه، ماسکارپونه و کاکائو</p>
+                </article>
+                <article class="item">
+                    <h4>براونی</h4>
+                    <span class="price">۱۴۵٬۰۰۰</span>
+                    <p>شکلات تلخ با گردو</p>
+                </article>
+                <article class="item">
+                    <h4>بستنی دست‌ساز</h4>
+                    <span class="price">۹۵٬۰۰۰</span>
+                    <p>دو اسکوپ به انتخاب شما</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>کافه نورخیز · قیمت‌ها به تومان</footer>
 
     <script>
-        function saveAsPDF() {
-            // تغییر نام فایل پیش‌فرض در مرورگر به اسم شخص (در صورت پشتیبانی مرورگر)
-            let userName = document.getElementById('name').value.trim();
-            if(userName) {
-                document.title = "قرارداد_استودیو_" + userName;
-            } else {
-                document.title = "قرارداد_نورخیز_استودیو";
-            }
-            
-            // استفاده از قابلیت پرینت بومی مرورگر که در موبایل و وب بی‌نقص کار می‌کند
-            window.print();
-        }
+        const buttons = [...document.querySelectorAll(".cats button")];
+        const sections = buttons.map((btn) => document.getElementById(btn.dataset.target));
+
+        buttons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                document.getElementById(btn.dataset.target).scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            const visible = entries
+                .filter((entry) => entry.isIntersecting)
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (!visible) return;
+            buttons.forEach((btn) => btn.classList.toggle("active", btn.dataset.target === visible.target.id));
+        }, { rootMargin: "-30% 0px -55% 0px", threshold: [0.1, 0.3, 0.6] });
+
+        sections.forEach((section) => observer.observe(section));
     </script>
 </body>
 </html>
-

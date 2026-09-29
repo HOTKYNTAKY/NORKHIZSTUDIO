@@ -18,33 +18,32 @@ window.SecretAdminVault = {
   uploadedThumbBase64: '',
   uploadedThumbName: '',
 
-  init() {
-    const handleTapTrigger = () => {
-      this.brandTapCount += 1;
-      if (this.brandTapTimer) {
-        clearTimeout(this.brandTapTimer);
-      }
-      if (this.brandTapCount >= 3) {
-        this.brandTapCount = 0;
-        this.openVault();
-        return;
-      }
-      this.brandTapTimer = setTimeout(() => {
-        if (this.brandTapCount === 1 && window.VelvetApp) {
-          window.VelvetApp.switchView('discover');
-        }
-        this.brandTapCount = 0;
-      }, 2200);
-    };
-
-    // 1. 3x Tap on Site Name / Brand Logo or Footer Shield to open Secret Admin Panel
-    const brandTrigger = document.getElementById('brandLogoTrigger');
-    if (brandTrigger) {
-      brandTrigger.onclick = handleTapTrigger;
+  registerBrandTap(e) {
+    if (e) e.preventDefault();
+    this.brandTapCount = (this.brandTapCount || 0) + 1;
+    if (this.brandTapTimer) {
+      clearTimeout(this.brandTapTimer);
     }
+    if (this.brandTapCount === 2) {
+      window.VelvetToast.show('🔐 یک ضربه دیگر برای باز شدن پنل مدیریت...');
+    }
+    if (this.brandTapCount >= 3) {
+      this.brandTapCount = 0;
+      this.openVault();
+      return;
+    }
+    this.brandTapTimer = setTimeout(() => {
+      if (this.brandTapCount === 1 && window.VelvetApp) {
+        window.VelvetApp.switchView('discover');
+      }
+      this.brandTapCount = 0;
+    }, 2500);
+  },
+
+  init() {
     const footerTrigger = document.getElementById('footerStealthTrigger');
     if (footerTrigger) {
-      footerTrigger.onclick = handleTapTrigger;
+      footerTrigger.onclick = (e) => this.registerBrandTap(e);
     }
 
     // 2. Keyboard shortcut fallback: Ctrl + Shift + A

@@ -8,9 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/main.css?v=3.5" />
-  <link rel="stylesheet" href="/css/player.css?v=3.5" />
-  <link rel="stylesheet" href="/css/admin.css?v=3.5" />
+  <link rel="stylesheet" href="/css/main.css?v=3.6" />
+  <link rel="stylesheet" href="/css/player.css?v=3.6" />
+  <link rel="stylesheet" href="/css/admin.css?v=3.6" />
 </head>
 <body>
 
@@ -49,7 +49,7 @@
     <div class="header-inner">
       <!-- Top Row: Brand Name (3x Tap = Secret Admin) + VIP Button -->
       <div class="header-top-row">
-        <div id="brandLogoTrigger" class="brand-logo" role="button" tabindex="0">
+        <div id="brandLogoTrigger" class="brand-logo" role="button" tabindex="0" onclick="window.SecretAdminVault.registerBrandTap(event)">
           <div class="brand-emblem">V</div>
           <div class="brand-text-wrap">
             <div id="headerBrandName" class="brand-title">
@@ -234,9 +234,9 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script src="/js/age-gate.js?v=3.5"></script>
-  <script src="/js/player.js?v=3.5"></script>
-  <script src="/js/admin-panel.js?v=3.5"></script>
-  <script src="/js/app.js?v=3.5"></script>
+  <script src="/js/age-gate.js?v=3.6"></script>
+  <script src="/js/player.js?v=3.6"></script>
+  <script src="/js/admin-panel.js?v=3.6"></script>
+  <script src="/js/app.js?v=3.6"></script>
 </body>
 </html>

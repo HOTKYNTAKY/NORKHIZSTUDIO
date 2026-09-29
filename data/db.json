@@ -1054,6 +1054,13 @@
   ],
   "auditLogs": [
     {
+      "id": "log-1790716519510-1gos",
+      "action": "ADMIN_LOGIN_SUCCESS",
+      "ip": "127.0.0.1",
+      "details": "Secret Admin Vault unlocked successfully",
+      "timestamp": "2026-09-29T21:15:19.510Z"
+    },
+    {
       "id": "log-init",
       "action": "SYSTEM_INITIALIZED",
       "ip": "127.0.0.1",

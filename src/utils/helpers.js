@@ -27,7 +27,7 @@ function sendJson(res, statusCode, payload) {
   res.end(body);
 }
 
-function parseJsonBody(req, maxBytes = 100 * 1024 * 1024) {
+function parseJsonBody(req, maxBytes = 512 * 1024 * 1024) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     let total = 0;

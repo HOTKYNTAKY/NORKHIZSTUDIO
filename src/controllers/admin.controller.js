@@ -88,6 +88,15 @@ class AdminController {
       const body = await parseJsonBody(req);
       const ip = getClientIp(req);
 
+      if (body.videoFileData && body.videoFileData.startsWith('data:')) {
+        const savedVideo = StorageService.saveBase64File(
+          body.videoFileData,
+          'video',
+          body.videoFileName || 'uploaded-video.mp4'
+        );
+        body.streamUrl = savedVideo.publicUrl;
+      }
+
       if (body.thumbnailFileData && body.thumbnailFileData.startsWith('data:')) {
         const savedThumb = StorageService.saveBase64File(
           body.thumbnailFileData,

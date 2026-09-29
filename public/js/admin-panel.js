@@ -1,6 +1,7 @@
 /**
  * public/js/admin-panel.js
- * Stealth Secret Admin Vault Panel (Opened by 3 taps on the Site Name)
+ * Ultra-Clean Secret Admin Panel (3x Tap on Brand Name | Password: eiman1387)
+ * Features organized step-by-step Video Upload, Description, Interactive Category Picker & Edit Mode
  */
 
 window.SecretAdminVault = {
@@ -9,6 +10,11 @@ window.SecretAdminVault = {
   dashboardData: null,
   brandTapCount: 0,
   brandTapTimer: null,
+
+  // Form State for Add / Edit Video
+  editingVideoId: null,
+  selectedCategories: ['4K Ultra HD', 'Exclusive VIP'],
+  categorySearchFilter: '',
   uploadedVideoBase64: '',
   uploadedVideoName: '',
   uploadedThumbBase64: '',
@@ -78,7 +84,7 @@ window.SecretAdminVault = {
     this.token = '';
     localStorage.removeItem('vv_admin_token');
     this.renderLoginView();
-    window.VelvetToast.show('از پنل مخفی ادمین خارج شدید.');
+    window.VelvetToast.show('پنل مدیریت قفل شد.');
   },
 
   async submitLogin(e) {
@@ -92,13 +98,13 @@ window.SecretAdminVault = {
     });
     const data = await res.json();
     if (!data.success) {
-      window.VelvetToast.show(data.message || 'رمز وارد شده اشتباه است!', 'warning');
+      window.VelvetToast.show('رمز عبور وارد شده اشتباه است!', 'warning');
       return;
     }
 
     this.token = data.token;
     localStorage.setItem('vv_admin_token', data.token);
-    window.VelvetToast.show(data.message, 'success');
+    window.VelvetToast.show('خوش آمدید! پنل مدیریت باز شد.', 'success');
     await this.loadDashboard();
   },
 
@@ -129,28 +135,66 @@ window.SecretAdminVault = {
     root.innerHTML = `
       <div class="admin-login-box">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
-          <h2 style="color:#fcd34d;font-size:20px;">🔐 ورود به پنل مخفی مدیریت</h2>
+          <h2 style="color:#fff;font-size:19px;">🔐 ورود به پنل مخفی مدیریت</h2>
           <button onclick="window.SecretAdminVault.closeVault()" class="player-close-btn">بستن ✕</button>
         </div>
         <p style="color:#a1a1aa;font-size:13px;margin-bottom:20px;">
-          لطفاً رمز عبور مدیریت را جهت دسترسی به بخش افزودن ویدیو و تنظیمات وارد نمایید.
+          رمز عبور مدیریت را جهت افزودن ویدیو، نوشتن توضیحات و مدیریت دسته‌بندی‌ها وارد کنید.
         </p>
         <form onsubmit="window.SecretAdminVault.submitLogin(event)">
           <div class="admin-form-group">
             <label class="admin-label">رمز عبور ادمین</label>
-            <input id="adminSecretKeyInput" type="password" class="admin-input" style="direction:ltr;text-align:center;font-size:16px;letter-spacing:2px;" placeholder="•••••••••" required autofocus />
+            <input id="adminSecretKeyInput" type="password" class="admin-input" style="direction:ltr;text-align:center;font-size:17px;letter-spacing:2px;" placeholder="•••••••••" required autofocus />
           </div>
-          <div style="display:flex;gap:10px;margin-top:20px;">
-            <button type="submit" class="btn-admin-gold" style="width:100%;">ورود به پنل مدیریت</button>
-          </div>
+          <button type="submit" class="btn-admin-gold" style="width:100%;margin-top:12px;">
+            ورود به پنل مدیریت
+          </button>
         </form>
       </div>
     `;
   },
 
-  switchTab(tabName) {
+  switchTab(tabName, resetEdit = true) {
+    if (resetEdit && tabName === 'add-video') {
+      this.editingVideoId = null;
+      this.uploadedVideoBase64 = '';
+      this.uploadedThumbBase64 = '';
+      this.selectedCategories = ['4K Ultra HD', 'Exclusive VIP'];
+    }
     this.activeTab = tabName;
     this.renderDashboardView();
+  },
+
+  startEditVideo(videoId) {
+    const vid = (this.dashboardData?.videos || []).find((v) => v.id === videoId);
+    if (!vid) return;
+    this.editingVideoId = vid.id;
+    this.selectedCategories = [...(vid.categories || ['4K Ultra HD'])];
+    this.uploadedVideoBase64 = '';
+    this.uploadedThumbBase64 = '';
+    this.activeTab = 'add-video';
+    this.renderDashboardView();
+
+    // Populate fields with existing video data
+    setTimeout(() => {
+      const titleEl = document.getElementById('newVidTitle');
+      const descEl = document.getElementById('newVidDesc');
+      const perfEl = document.getElementById('newVidPerformer');
+      const urlEl = document.getElementById('newVidStreamUrl');
+      const qualEl = document.getElementById('newVidQuality');
+      const durEl = document.getElementById('newVidDuration');
+      const vipEl = document.getElementById('newVidVip');
+      const featEl = document.getElementById('newVidFeatured');
+
+      if (titleEl) titleEl.value = vid.title || '';
+      if (descEl) descEl.value = vid.description || '';
+      if (perfEl) perfEl.value = vid.performer || '';
+      if (urlEl) urlEl.value = vid.streamUrl || '';
+      if (qualEl) qualEl.value = vid.quality || '4K UHD';
+      if (durEl) durEl.value = vid.duration || '35:00';
+      if (vipEl) vipEl.checked = Boolean(vid.isVip);
+      if (featEl) featEl.checked = Boolean(vid.isFeatured);
+    }, 50);
   },
 
   renderDashboardView() {
@@ -163,53 +207,53 @@ window.SecretAdminVault = {
       <div class="admin-dashboard-container">
         <div class="admin-header">
           <div>
-            <h2 style="color:#fcd34d;font-size:21px;display:flex;align-items:center;gap:10px;">
-              <span>🛡️ پنل مخفی مدیریت سایت (${settings.siteName})</span>
+            <h2 style="color:#fff;font-size:19px;display:flex;align-items:center;gap:8px;">
+              <span>🎬 پنل مدیریت محتوا و ویدیوها (${settings.siteName})</span>
             </h2>
-            <p style="font-size:12.5px;color:#a1a1aa;margin-top:4px;">
-              مجوز فعال: <strong style="color:#34d399;">${settings.licenseNumber}</strong>
+            <p style="font-size:12px;color:#a1a1aa;margin-top:3px;">
+              مجوز رسمی: <strong style="color:#34d399;">${settings.licenseNumber}</strong>
             </p>
           </div>
-          <div style="display:flex;gap:10px;">
-            <button onclick="window.SecretAdminVault.logout()" class="btn-admin-danger">قفل کردن پنل</button>
-            <button onclick="window.SecretAdminVault.closeVault()" class="player-close-btn">بازگشت به سایت ✕</button>
+          <div style="display:flex;gap:8px;">
+            <button onclick="window.SecretAdminVault.logout()" class="btn-admin-danger">قفل پنل</button>
+            <button onclick="window.SecretAdminVault.closeVault()" class="player-close-btn">بستن ✕</button>
           </div>
         </div>
 
         <div class="admin-nav-tabs">
           <button class="admin-tab-btn ${this.activeTab === 'add-video' ? 'active' : ''}" onclick="window.SecretAdminVault.switchTab('add-video')">
-            ➕ افزودن ویدیو جدید
+            ${this.editingVideoId ? '✏️ ویرایش ویدیو' : '➕ افزودن ویدیو جدید'}
           </button>
           <button class="admin-tab-btn ${this.activeTab === 'manage-videos' ? 'active' : ''}" onclick="window.SecretAdminVault.switchTab('manage-videos')">
-            🎬 مدیریت ویدیوها (${videos.length})
+            🎞️ لیست ویدیوها (${videos.length})
           </button>
           <button class="admin-tab-btn ${this.activeTab === 'categories' ? 'active' : ''}" onclick="window.SecretAdminVault.switchTab('categories')">
-            🏷️ دسته‌بندی‌های انگلیسی (${categories.length})
+            🏷️ دسته‌بندی‌ها (${categories.length})
           </button>
           <button class="admin-tab-btn ${this.activeTab === 'performers' ? 'active' : ''}" onclick="window.SecretAdminVault.switchTab('performers')">
-            ⭐ بازیگران و مدل‌ها (${performers.length})
+            ⭐ بازیگران (${performers.length})
           </button>
           <button class="admin-tab-btn ${this.activeTab === 'server' ? 'active' : ''}" onclick="window.SecretAdminVault.switchTab('server')">
-            ⚙️ تنظیمات مجوز و وضعیت سرور
+            ⚙️ تنظیمات سایت
           </button>
         </div>
 
         <div class="admin-body">
           <div class="admin-stats-grid">
             <div class="admin-stat-card">
-              <div class="admin-stat-label">کل ویدیوهای سایت</div>
+              <div class="admin-stat-label">تعداد ویدیوها</div>
               <div class="admin-stat-value">${stats.catalog.totalVideos}</div>
             </div>
             <div class="admin-stat-card">
-              <div class="admin-stat-label">دسته‌بندی‌های خارجی (English)</div>
+              <div class="admin-stat-label">دسته‌بندی‌ها</div>
               <div class="admin-stat-value" style="color:#fda4af;">${stats.catalog.totalCategories}</div>
             </div>
             <div class="admin-stat-card">
-              <div class="admin-stat-label">مجموع بازدیدها</div>
+              <div class="admin-stat-label">کل بازدیدها</div>
               <div class="admin-stat-value" style="color:#34d399;">${stats.catalog.totalViews.toLocaleString()}</div>
             </div>
             <div class="admin-stat-card">
-              <div class="admin-stat-label">مصرف رم سرور Ubuntu</div>
+              <div class="admin-stat-label">رم سرور Ubuntu</div>
               <div class="admin-stat-value" style="color:#fcd34d;">${stats.server.memory.percent}%</div>
             </div>
           </div>
@@ -227,168 +271,268 @@ window.SecretAdminVault = {
   renderTabBody(tab) {
     const { stats, ffmpeg, settings, videos, categories, performers } = this.dashboardData;
 
+    // =========================================================================
+    // TAB 1: ULTRA-CLEAN ADD / EDIT VIDEO FORM
+    // =========================================================================
     if (tab === 'add-video') {
       return `
-        <h3 style="margin-bottom:18px;color:#fff;">➕ آپلود و انتشار ویدیو جدید در سایت</h3>
-        <form onsubmit="window.SecretAdminVault.handleCreateVideo(event)">
-          <div class="admin-form-grid">
-            <div class="admin-form-group">
-              <label class="admin-label">عنوان ویدیو</label>
-              <input id="newVidTitle" class="admin-input" placeholder="e.g. Exclusive 4K Penthouse Suite — Episode V" required />
-            </div>
-            <div class="admin-form-group">
-              <label class="admin-label">نام بازیگر / مدل (Performer / Star)</label>
-              <input id="newVidPerformer" class="admin-input" list="performerSuggestions" placeholder="e.g. Eva Laurent" required />
-              <datalist id="performerSuggestions">
-                ${performers.map((p) => `<option value="${p.name}"></option>`).join('')}
-              </datalist>
+        <form onsubmit="window.SecretAdminVault.handleSaveVideo(event)">
+
+          <!-- گام ۱: عنوان، توضیحات و بازیگر -->
+          <div class="admin-step-card">
+            <div class="admin-step-header">
+              <div class="admin-step-num">۱</div>
+              <div class="admin-step-title">مشخصات اصلی و توضیحات ویدیو</div>
+              ${
+                this.editingVideoId
+                  ? `<button type="button" onclick="window.SecretAdminVault.switchTab('add-video', true)" class="btn-admin-danger" style="margin-right:auto;">لغو ویرایش</button>`
+                  : ''
+              }
             </div>
 
-            <div class="admin-form-group">
-              <label class="admin-label">آپلود فایل ویدیو از گوشی/سیستم (.mp4 / .webm)</label>
-              <input id="newVidFileInput" type="file" accept="video/mp4,video/webm" class="admin-input" />
-              <small id="newVidFileStatus" style="color:#34d399;font-size:11.5px;"></small>
-            </div>
-            <div class="admin-form-group">
-              <label class="admin-label">یا لینک مستقیم ویدیو (.mp4 / .m3u8)</label>
-              <input id="newVidStreamUrl" class="admin-input" placeholder="https://.../video.mp4" />
-            </div>
-
-            <div class="admin-form-group">
-              <label class="admin-label">آپلود تصویر کاور (Thumbnail) — اختیاری</label>
-              <input id="newVidThumbInput" type="file" accept="image/*" class="admin-input" />
-              <small id="newVidThumbStatus" style="color:#34d399;font-size:11.5px;">در صورت عدم آپلود، پوستر 4K به صورت خودکار ساخته می‌شود.</small>
-            </div>
-            <div class="admin-form-group">
-              <label class="admin-label">کیفیت و مدت زمان</label>
-              <div style="display:flex;gap:10px;">
-                <select id="newVidQuality" class="admin-select" style="flex:1;">
-                  <option value="4K UHD">4K UHD (2160p)</option>
-                  <option value="1080p HD">1080p Full HD</option>
-                  <option value="VR 360°">VR 360° Stereoscopic</option>
-                  <option value="720p HD">720p HD</option>
-                </select>
-                <input id="newVidDuration" class="admin-input" style="width:120px;" placeholder="36:20" value="38:15" />
+            <div class="admin-form-grid">
+              <div class="admin-form-group">
+                <label class="admin-label">
+                  <span>عنوان ویدیو (Title) *</span>
+                </label>
+                <input id="newVidTitle" class="admin-input" placeholder="مثال: Midnight Velvet Suite — 4K Exclusive" required />
               </div>
-            </div>
 
-            <div class="admin-form-group full">
-              <label class="admin-label">انتخاب دسته‌بندی‌های خارجی (English Categories)</label>
-              <div class="admin-cat-checkbox-grid">
-                ${categories
-                  .map(
-                    (c, idx) => `
-                  <label class="cat-check-item">
-                    <input type="checkbox" name="newVidCatCheck" value="${c.name}" ${idx < 2 ? 'checked' : ''} />
-                    <span>${c.name}</span>
-                  </label>
-                `
-                  )
-                  .join('')}
+              <div class="admin-form-group">
+                <label class="admin-label">
+                  <span>نام بازیگر یا مدل (Performer) *</span>
+                </label>
+                <input id="newVidPerformer" class="admin-input" list="performerSuggestions" placeholder="مثال: Eva Laurent" required />
+                <datalist id="performerSuggestions">
+                  ${performers.map((p) => `<option value="${p.name}"></option>`).join('')}
+                </datalist>
               </div>
-            </div>
 
-            <div class="admin-form-group full">
-              <label class="admin-label">توضیحات ویدیو</label>
-              <textarea id="newVidDesc" rows="3" class="admin-textarea" placeholder="توضیحات ویدیو..."></textarea>
-            </div>
-
-            <div class="admin-form-group">
-              <label style="display:flex;align-items:center;gap:10px;cursor:pointer;color:#fcd34d;font-weight:700;">
-                <input id="newVidVip" type="checkbox" checked />
-                <span>نشان ویژه VIP Exclusive</span>
-              </label>
-            </div>
-            <div class="admin-form-group">
-              <label style="display:flex;align-items:center;gap:10px;cursor:pointer;color:#fda4af;font-weight:700;">
-                <input id="newVidFeatured" type="checkbox" checked />
-                <span>نمایش در بنر اصلی بالای سایت</span>
-              </label>
+              <div class="admin-form-group full">
+                <label class="admin-label">
+                  <span>توضیحات کامل ویدیو (Description) *</span>
+                  <span style="font-size:11.5px;color:#a1a1aa;">زیر پلیر ویدیو و در بنر اصلی نمایش داده می‌شود</span>
+                </label>
+                <textarea id="newVidDesc" rows="3" class="admin-textarea" placeholder="توضیحات کامل درباره داستان ویدیو، کیفیت فیلمبرداری، ستارگان حاضر در صحنه و جزئیات را اینجا بنویسید..." required></textarea>
+              </div>
             </div>
           </div>
 
-          <button type="submit" class="btn-admin-gold" style="margin-top:10px;">
-            🚀 ثبت و انتشار فوری ویدیو در سایت
-          </button>
+          <!-- گام ۲: انتخاب دسته‌بندی مورد نظر (Interactive Category Selector) -->
+          <div class="admin-step-card">
+            <div class="admin-step-header">
+              <div class="admin-step-num">۲</div>
+              <div class="admin-step-title">انتخاب دسته‌بندی‌های ویدیو (Categories)</div>
+            </div>
+
+            <div style="margin-bottom:8px;font-size:12.5px;color:#d4d4d8;">
+              دسته‌بندی‌های انتخاب‌شده برای این ویدیو (برای حذف روی هر کدام بزنید):
+            </div>
+            <div id="selectedCatsBar" class="selected-cats-bar">
+              ${this.renderSelectedCategoryBadges()}
+            </div>
+
+            <!-- جستجوی سریع یا افزودن دسته‌بندی جدید در لحظه -->
+            <div class="cat-picker-toolbar">
+              <input
+                id="catFilterSearchInput"
+                type="text"
+                class="admin-input"
+                style="flex:1;min-width:180px;direction:ltr;"
+                placeholder="🔍 Search category (e.g. MILF, Latina, Anal, 4K, POV)..."
+                oninput="window.SecretAdminVault.filterCategoryChips(this.value)"
+              />
+              <div style="display:flex;gap:6px;flex:1;min-width:220px;">
+                <input
+                  id="quickNewCatInput"
+                  type="text"
+                  class="admin-input"
+                  style="direction:ltr;"
+                  placeholder="+ New English Category..."
+                />
+                <button type="button" onclick="window.SecretAdminVault.quickAddCategoryInline()" class="btn-admin-edit" style="white-space:nowrap;">
+                  ➕ افزودن سریع
+                </button>
+              </div>
+            </div>
+
+            <div style="font-size:12px;color:#a1a1aa;margin-bottom:8px;">
+              روی هر دسته‌بندی در لیست زیر ضربه بزنید تا به ویدیو اضافه یا کم شود:
+            </div>
+            <div id="catChipsContainer" class="cat-chips-container">
+              ${this.renderCategoryChipsList()}
+            </div>
+          </div>
+
+          <!-- گام ۳: آپلود فایل ویدیو و تصویر کاور -->
+          <div class="admin-step-card">
+            <div class="admin-step-header">
+              <div class="admin-step-num">۳</div>
+              <div class="admin-step-title">فایل ویدیو و تصویر کاور (Thumbnail)</div>
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="upload-box-card">
+                <div style="font-size:24px;margin-bottom:6px;">📹</div>
+                <div style="font-weight:800;color:#fff;margin-bottom:6px;font-size:14px;">
+                  ۱. انتخاب فایل ویدیو از گالری گوشی یا کامپیوتر
+                </div>
+                <input id="newVidFileInput" type="file" accept="video/mp4,video/webm,video/quicktime" class="admin-input" style="margin-bottom:8px;" />
+                <div id="newVidFileStatus" style="color:#34d399;font-size:12px;margin-bottom:10px;"></div>
+
+                <div style="font-size:12px;color:#a1a1aa;margin:8px 0;">— یا وارد کردن لینک مستقیم ویدیو —</div>
+                <input id="newVidStreamUrl" class="admin-input" style="direction:ltr;" placeholder="https://example.com/video.mp4" />
+              </div>
+
+              <div class="upload-box-card">
+                <div style="font-size:24px;margin-bottom:6px;">🖼️</div>
+                <div style="font-weight:800;color:#fff;margin-bottom:6px;font-size:14px;">
+                  ۲. انتخاب تصویر کاور ویدیو (Thumbnail)
+                </div>
+                <input id="newVidThumbInput" type="file" accept="image/*" class="admin-input" style="margin-bottom:8px;" />
+                <div id="newVidThumbStatus" style="color:#a1a1aa;font-size:12px;">
+                  در صورت انتخاب نکردن عکس، پوستر نئونی 4K با عنوان ویدیو به صورت خودکار ساخته می‌شود.
+                </div>
+                <img id="newVidThumbPreview" style="display:none;margin:10px auto 0;max-height:110px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);" />
+              </div>
+            </div>
+          </div>
+
+          <!-- گام ۴: کیفیت، زمان و نحوه نمایش -->
+          <div class="admin-step-card">
+            <div class="admin-step-header">
+              <div class="admin-step-num">۴</div>
+              <div class="admin-step-title">کیفیت پخش، مدت زمان و جایگاه نمایش</div>
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="admin-form-group">
+                <label class="admin-label">کیفیت ویدیو (Quality Badge)</label>
+                <select id="newVidQuality" class="admin-select">
+                  <option value="4K UHD">💎 4K Ultra HD (2160p)</option>
+                  <option value="1080p HD">🔥 1080p Full HD (60FPS)</option>
+                  <option value="VR 360°">🥽 VR 360° Stereoscopic</option>
+                  <option value="720p HD">📹 720p HD</option>
+                </select>
+              </div>
+
+              <div class="admin-form-group">
+                <label class="admin-label">مدت زمان ویدیو (Duration)</label>
+                <input id="newVidDuration" class="admin-input" style="direction:ltr;text-align:center;" placeholder="38:15" value="38:15" />
+              </div>
+
+              <div class="admin-form-group">
+                <label style="display:flex;align-items:center;gap:10px;cursor:pointer;color:#fcd34d;font-weight:700;padding:10px;background:#0c0c16;border-radius:10px;border:1px solid rgba(245,158,11,0.25);">
+                  <input id="newVidVip" type="checkbox" checked style="width:18px;height:18px;" />
+                  <span>👑 درج نشان ویژه VIP Exclusive روی ویدیو</span>
+                </label>
+              </div>
+
+              <div class="admin-form-group">
+                <label style="display:flex;align-items:center;gap:10px;cursor:pointer;color:#fda4af;font-weight:700;padding:10px;background:#0c0c16;border-radius:10px;border:1px solid rgba(225,29,72,0.25);">
+                  <input id="newVidFeatured" type="checkbox" checked style="width:18px;height:18px;" />
+                  <span>🌟 نمایش در بنر بزرگ بالای صفحه اول (Spotlight)</span>
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-admin-gold" style="width:100%;margin-top:12px;font-size:16px;">
+              ${this.editingVideoId ? '💾 ذخیره تغییرات ویدیو' : '🚀 ثبت و انتشار فوری ویدیو در سایت'}
+            </button>
+          </div>
         </form>
       `;
     }
 
+    // =========================================================================
+    // TAB 2: CLEAN VIDEO LIST WITH EDIT & DELETE
+    // =========================================================================
     if (tab === 'manage-videos') {
       return `
-        <h3 style="margin-bottom:16px;color:#fff;">🎬 لیست تمام ویدیوهای موجود در سایت</h3>
-        <div class="admin-table-wrap">
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>عنوان ویدیو</th>
-                <th>بازیگر</th>
-                <th>کیفیت</th>
-                <th>دسته‌بندی‌ها</th>
-                <th>بازدید</th>
-                <th>وضعیت</th>
-                <th>عملیات</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${videos
-                .map(
-                  (v) => `
-                <tr>
-                  <td style="font-weight:700;color:#fff;direction:ltr;text-align:left;">${v.title}</td>
-                  <td style="color:#fda4af;">${v.performer}</td>
-                  <td><span class="badge-quality">${v.quality}</span></td>
-                  <td style="direction:ltr;font-size:11.5px;color:#a1a1aa;">${(v.categories || []).slice(0, 4).join(', ')}</td>
-                  <td>${(v.views || 0).toLocaleString()}</td>
-                  <td>${v.isVip ? '<span class="badge-vip">VIP</span>' : 'Public'}</td>
-                  <td>
-                    <button class="btn-admin-danger" onclick="window.SecretAdminVault.handleDeleteVideo('${v.id}')">حذف ویدیو</button>
-                  </td>
-                </tr>
-              `
-                )
-                .join('')}
-            </tbody>
-          </table>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+          <h3 style="color:#fff;">🎞️ لیست ویدیوهای منتشر شده (${videos.length})</h3>
+          <button class="btn-admin-gold" style="padding:9px 18px;font-size:13px;" onclick="window.SecretAdminVault.switchTab('add-video', true)">
+            ➕ افزودن ویدیو جدید
+          </button>
+        </div>
+
+        <div class="admin-video-list">
+          ${videos
+            .map(
+              (v) => `
+            <div class="admin-video-row">
+              <div class="admin-video-row-info">
+                <img src="${v.thumbnail}" alt="${v.title}" class="admin-video-thumb" />
+                <div style="min-width:0;flex:1;">
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
+                    <span class="badge-quality">${v.quality}</span>
+                    ${v.isVip ? '<span class="badge-vip">VIP</span>' : ''}
+                    <strong style="color:#fff;font-size:14.5px;direction:ltr;">${v.title}</strong>
+                  </div>
+                  <div style="font-size:12.5px;color:#a1a1aa;margin-bottom:6px;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;overflow: hidden;">
+                    ${v.description || 'بدون توضیحات'}
+                  </div>
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:11.5px;">
+                    <span style="color:#fda4af;">⭐ ${v.performer}</span>
+                    <span>•</span>
+                    <span style="color:#34d399;">🏷️ ${(v.categories || []).join(' , ')}</span>
+                    <span>•</span>
+                    <span style="color:#a1a1aa;">👁️ ${(v.views || 0).toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:flex;gap:8px;">
+                <button class="btn-admin-edit" onclick="window.SecretAdminVault.startEditVideo('${v.id}')">
+                  ✏️ ویرایش
+                </button>
+                <button class="btn-admin-danger" onclick="window.SecretAdminVault.handleDeleteVideo('${v.id}')">
+                  🗑️ حذف
+                </button>
+              </div>
+            </div>
+          `
+            )
+            .join('')}
         </div>
       `;
     }
 
+    // =========================================================================
+    // TAB 3: ENGLISH CATEGORIES MANAGER
+    // =========================================================================
     if (tab === 'categories') {
       return `
-        <div class="admin-form-grid" style="margin-bottom:24px;">
-          <div class="admin-stat-card" style="grid-column:1 / -1;">
-            <h3 style="margin-bottom:14px;color:#fcd34d;">➕ افزودن دسته‌بندی انگلیسی جدید</h3>
-            <form onsubmit="window.SecretAdminVault.handleCreateCategory(event)" style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
-              <div style="flex:1;min-width:200px;">
-                <label class="admin-label">نام دسته‌بندی به انگلیسی (English Name)</label>
-                <input id="newCatName" class="admin-input" style="width:100%;direction:ltr;" placeholder="e.g. Wet Look & Shower" required />
-              </div>
-              <div style="width:180px;">
-                <label class="admin-label">گروه</label>
-                <select id="newCatGroup" class="admin-select" style="width:100%;">
-                  <option value="Popular">Popular</option>
-                  <option value="International">International</option>
-                  <option value="Appearance">Appearance</option>
-                  <option value="Fantasy">Fantasy</option>
-                  <option value="Production">Production</option>
-                </select>
-              </div>
-              <div style="width:130px;">
-                <label class="admin-label">نشان</label>
-                <input id="newCatBadge" class="admin-input" style="width:100%;direction:ltr;" placeholder="HOT / 4K / VIP" value="HOT" />
-              </div>
-              <button type="submit" class="btn-admin-gold">افزودن دسته‌بندی</button>
-            </form>
-          </div>
+        <div class="admin-step-card">
+          <h3 style="margin-bottom:14px;color:#fff;">➕ افزودن دسته‌بندی انگلیسی جدید</h3>
+          <form onsubmit="window.SecretAdminVault.handleCreateCategory(event)" style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
+            <div style="flex:1;min-width:200px;">
+              <label class="admin-label">نام دسته‌بندی (به انگلیسی)</label>
+              <input id="newCatName" class="admin-input" style="direction:ltr;" placeholder="e.g. Wet Look & Shower" required />
+            </div>
+            <div style="width:170px;">
+              <label class="admin-label">گروه</label>
+              <select id="newCatGroup" class="admin-select">
+                <option value="Popular">Popular</option>
+                <option value="International">International</option>
+                <option value="Appearance">Appearance</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Production">Production</option>
+              </select>
+            </div>
+            <div style="width:120px;">
+              <label class="admin-label">نشان</label>
+              <input id="newCatBadge" class="admin-input" style="direction:ltr;" value="HOT" />
+            </div>
+            <button type="submit" class="btn-admin-gold" style="padding:12px 20px;">افزودن</button>
+          </form>
         </div>
 
         <div class="admin-table-wrap">
           <table class="admin-table">
             <thead>
               <tr>
-                <th>نام انگلیسی</th>
-                <th>اسلاگ</th>
+                <th>نام دسته‌بندی (English)</th>
                 <th>گروه</th>
                 <th>نشان</th>
                 <th>تعداد ویدیو</th>
@@ -401,7 +545,6 @@ window.SecretAdminVault = {
                   (c) => `
                 <tr>
                   <td style="font-weight:800;color:#fff;direction:ltr;">${c.name}</td>
-                  <td style="direction:ltr;color:#a1a1aa;">/${c.slug}</td>
                   <td>${c.group}</td>
                   <td><span class="cat-pill-badge">${c.badge || '-'}</span></td>
                   <td>${c.count || 0}</td>
@@ -418,24 +561,27 @@ window.SecretAdminVault = {
       `;
     }
 
+    // =========================================================================
+    // TAB 4: PERFORMERS / PORNSTARS MANAGER
+    // =========================================================================
     if (tab === 'performers') {
       return `
-        <div class="admin-stat-card" style="margin-bottom:24px;">
-          <h3 style="margin-bottom:14px;color:#fcd34d;">➕ افزودن بازیگر / مدل جدید</h3>
+        <div class="admin-step-card">
+          <h3 style="margin-bottom:14px;color:#fff;">➕ افزودن بازیگر / مدل جدید</h3>
           <form onsubmit="window.SecretAdminVault.handleCreatePerformer(event)" style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:200px;">
               <label class="admin-label">نام کامل بازیگر (English)</label>
-              <input id="newPerfName" class="admin-input" style="width:100%;direction:ltr;" placeholder="e.g. Aria Valencia" required />
-            </div>
-            <div style="width:180px;">
-              <label class="admin-label">کشور</label>
-              <input id="newPerfCountry" class="admin-input" style="width:100%;direction:ltr;" placeholder="Spain" required />
+              <input id="newPerfName" class="admin-input" style="direction:ltr;" placeholder="e.g. Aria Valencia" required />
             </div>
             <div style="width:160px;">
-              <label class="admin-label">نشان</label>
-              <input id="newPerfBadge" class="admin-input" style="width:100%;direction:ltr;" value="VIP STAR" />
+              <label class="admin-label">کشور</label>
+              <input id="newPerfCountry" class="admin-input" style="direction:ltr;" placeholder="Spain" required />
             </div>
-            <button type="submit" class="btn-admin-gold">ثبت بازیگر</button>
+            <div style="width:150px;">
+              <label class="admin-label">نشان</label>
+              <input id="newPerfBadge" class="admin-input" style="direction:ltr;" value="VIP STAR" />
+            </div>
+            <button type="submit" class="btn-admin-gold" style="padding:12px 20px;">ثبت بازیگر</button>
           </form>
         </div>
 
@@ -447,8 +593,7 @@ window.SecretAdminVault = {
                 <th>نام بازیگر</th>
                 <th>کشور</th>
                 <th>نشان</th>
-                <th>تعداد ویدیو</th>
-                <th>عملیات</th>
+                <th>حذف</th>
               </tr>
             </thead>
             <tbody>
@@ -460,7 +605,6 @@ window.SecretAdminVault = {
                   <td style="font-weight:800;color:#fff;direction:ltr;">${p.name}</td>
                   <td>${p.country}</td>
                   <td><span class="badge-vip">${p.badge}</span></td>
-                  <td>${p.videosCount}</td>
                   <td>
                     <button class="btn-admin-danger" onclick="window.SecretAdminVault.handleDeletePerformer('${p.id}')">حذف</button>
                   </td>
@@ -474,10 +618,13 @@ window.SecretAdminVault = {
       `;
     }
 
+    // =========================================================================
+    // TAB 5: SETTINGS & SERVER TELEMETRY
+    // =========================================================================
     return `
       <div class="admin-form-grid">
-        <div class="admin-stat-card">
-          <h3 style="color:#fcd34d;margin-bottom:14px;">📜 تنظیمات مجوز رسمی کشوری و رمز پنل مخفی</h3>
+        <div class="admin-step-card">
+          <h3 style="color:#fff;margin-bottom:14px;">📜 تنظیمات مجوز رسمی کشوری و رمز پنل</h3>
           <form onsubmit="window.SecretAdminVault.handleUpdateSettings(event)">
             <div class="admin-form-group">
               <label class="admin-label">نام برند سایت</label>
@@ -492,8 +639,8 @@ window.SecretAdminVault = {
               <input id="setLicenseAuth" class="admin-input" value="${settings.licenseAuthority}" />
             </div>
             <div class="admin-form-group">
-              <label class="admin-label">تغییر رمز پنل مخفی</label>
-              <input id="setAdminKey" class="admin-input" style="direction:ltr;" placeholder="در صورت تمایل به تغییر رمز جدید را وارد کنید..." />
+              <label class="admin-label">تغییر رمز پنل مخفی (فعلی: eiman1387)</label>
+              <input id="setAdminKey" class="admin-input" style="direction:ltr;" placeholder="فقط در صورت تمایل به تغییر وارد کنید..." />
             </div>
             <div class="admin-form-group">
               <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
@@ -501,17 +648,16 @@ window.SecretAdminVault = {
                 <span>فعال بودن پنجره تایید سنی +18 در بدو ورود</span>
               </label>
             </div>
-            <button type="submit" class="btn-admin-gold">ذخیره تنظیمات سایت</button>
+            <button type="submit" class="btn-admin-gold" style="width:100%;">ذخیره تنظیمات سایت</button>
           </form>
         </div>
 
-        <div class="admin-stat-card">
+        <div class="admin-step-card">
           <h3 style="color:#34d399;margin-bottom:14px;">🖥️ وضعیت زنده سرور اوبونتو</h3>
-          <div style="font-size:13px;line-height:2;color:#d4d4d8;">
+          <div style="font-size:13px;line-height:2.1;color:#d4d4d8;">
             <div><strong>Hostname:</strong> <code>${stats.server.hostname}</code></div>
             <div><strong>OS Kernel:</strong> <code>${stats.server.platform}</code></div>
             <div><strong>CPU Cores:</strong> ${stats.server.cpus} Cores</div>
-            <div><strong>Load Average:</strong> ${stats.server.loadAvg.join(' / ')}</div>
             <div><strong>Memory Usage:</strong> ${stats.server.memory.usedMb} MB / ${stats.server.memory.totalMb} MB (${stats.server.memory.percent}%)</div>
             <div><strong>Node.js Engine:</strong> ${stats.server.nodeVersion}</div>
             <div><strong>FFmpeg Transcoder:</strong> <span style="color:#fcd34d;">${ffmpeg.version}</span></div>
@@ -521,6 +667,107 @@ window.SecretAdminVault = {
     `;
   },
 
+  // ===========================================================================
+  // INTERACTIVE CATEGORY PICKER HELPERS
+  // ===========================================================================
+  renderSelectedCategoryBadges() {
+    if (!this.selectedCategories.length) {
+      return `<span style="color:#a1a1aa;font-size:12.5px;">هیچ دسته‌بندی انتخاب نشده است — از لیست پایین انتخاب کنید.</span>`;
+    }
+    return this.selectedCategories
+      .map(
+        (cat) => `
+      <span class="selected-cat-badge" onclick="window.SecretAdminVault.toggleCategorySelection('${cat.replace(/'/g, "\\'")}')">
+        <span>✓ ${cat}</span>
+        <span style="opacity:0.8;font-size:11px;">✕</span>
+      </span>
+    `
+      )
+      .join('');
+  },
+
+  renderCategoryChipsList() {
+    const categories = this.dashboardData?.categories || [];
+    const q = (this.categorySearchFilter || '').toLowerCase().trim();
+    const filtered = q
+      ? categories.filter((c) => c.name.toLowerCase().includes(q) || (c.group || '').toLowerCase().includes(q))
+      : categories;
+
+    return filtered
+      .map((c) => {
+        const isSelected = this.selectedCategories.some(
+          (sel) => sel.toLowerCase() === c.name.toLowerCase()
+        );
+        return `
+          <div
+            class="cat-select-chip ${isSelected ? 'selected' : ''}"
+            onclick="window.SecretAdminVault.toggleCategorySelection('${c.name.replace(/'/g, "\\'")}')"
+          >
+            <span>${isSelected ? '✓' : '+'}</span>
+            <span>${c.name}</span>
+          </div>
+        `;
+      })
+      .join('');
+  },
+
+  toggleCategorySelection(catName) {
+    const idx = this.selectedCategories.findIndex(
+      (c) => c.toLowerCase() === catName.toLowerCase()
+    );
+    if (idx === -1) {
+      this.selectedCategories.push(catName);
+    } else {
+      this.selectedCategories.splice(idx, 1);
+    }
+    this.refreshCategoryPickerUI();
+  },
+
+  filterCategoryChips(query) {
+    this.categorySearchFilter = query;
+    const container = document.getElementById('catChipsContainer');
+    if (container) {
+      container.innerHTML = this.renderCategoryChipsList();
+    }
+  },
+
+  refreshCategoryPickerUI() {
+    const bar = document.getElementById('selectedCatsBar');
+    if (bar) bar.innerHTML = this.renderSelectedCategoryBadges();
+    const container = document.getElementById('catChipsContainer');
+    if (container) container.innerHTML = this.renderCategoryChipsList();
+  },
+
+  async quickAddCategoryInline() {
+    const inp = document.getElementById('quickNewCatInput');
+    if (!inp) return;
+    const name = inp.value.trim();
+    if (!name) return;
+
+    const res = await fetch('/api/admin/categories', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Token': this.token
+      },
+      body: JSON.stringify({ name, group: 'Popular', badge: 'NEW' })
+    });
+    const data = await res.json();
+    if (data.success && data.category) {
+      inp.value = '';
+      this.dashboardData.categories.unshift(data.category);
+      if (!this.selectedCategories.includes(data.category.name)) {
+        this.selectedCategories.push(data.category.name);
+      }
+      this.refreshCategoryPickerUI();
+      if (window.VelvetApp) window.VelvetApp.loadInitialData();
+      window.VelvetToast.show(`دسته‌بندی "${data.category.name}" اضافه و انتخاب شد!`, 'success');
+    }
+  },
+
+  // ===========================================================================
+  // FILE UPLOAD & AUTO-DURATION LISTENERS
+  // ===========================================================================
   bindFileUploadListeners() {
     const vidInput = document.getElementById('newVidFileInput');
     if (vidInput) {
@@ -528,11 +775,32 @@ window.SecretAdminVault = {
         const file = e.target.files[0];
         if (!file) return;
         this.uploadedVideoName = file.name;
+        const st = document.getElementById('newVidFileStatus');
+        if (st) st.textContent = '⏳ در حال آماده‌سازی فایل ویدیو...';
+
+        // Auto-detect video duration using temporary object URL
+        try {
+          const tempVideo = document.createElement('video');
+          tempVideo.preload = 'metadata';
+          tempVideo.onloadedmetadata = () => {
+            window.URL.revokeObjectURL(tempVideo.src);
+            const totalSec = Math.round(tempVideo.duration || 0);
+            if (totalSec > 0) {
+              const mins = Math.floor(totalSec / 60);
+              const secs = String(totalSec % 60).padStart(2, '0');
+              const durInp = document.getElementById('newVidDuration');
+              if (durInp) durInp.value = `${mins}:${secs}`;
+            }
+          };
+          tempVideo.src = URL.createObjectURL(file);
+        } catch (_) {}
+
         const reader = new FileReader();
         reader.onload = () => {
           this.uploadedVideoBase64 = reader.result;
-          const st = document.getElementById('newVidFileStatus');
-          if (st) st.textContent = `✅ فایل ویدیو آماده آپلود: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+          if (st) {
+            st.textContent = `✅ ویدیو آماده انتشار: ${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB)`;
+          }
         };
         reader.readAsDataURL(file);
       };
@@ -548,37 +816,44 @@ window.SecretAdminVault = {
         reader.onload = () => {
           this.uploadedThumbBase64 = reader.result;
           const st = document.getElementById('newVidThumbStatus');
-          if (st) st.textContent = `✅ تصویر کاور آماده آپلود: ${file.name}`;
+          if (st) st.textContent = `✅ کاور انتخاب شد: ${file.name}`;
+          const prev = document.getElementById('newVidThumbPreview');
+          if (prev) {
+            prev.src = reader.result;
+            prev.style.display = 'block';
+          }
         };
         reader.readAsDataURL(file);
       };
     }
   },
 
-  async handleCreateVideo(e) {
+  async handleSaveVideo(e) {
     e.preventDefault();
-    const checkedCats = Array.from(document.querySelectorAll('input[name="newVidCatCheck"]:checked')).map(
-      (el) => el.value
-    );
-
     const payload = {
       title: document.getElementById('newVidTitle').value.trim(),
       performer: document.getElementById('newVidPerformer').value.trim(),
+      description: document.getElementById('newVidDesc').value.trim(),
       streamUrl: document.getElementById('newVidStreamUrl').value.trim(),
       quality: document.getElementById('newVidQuality').value,
       duration: document.getElementById('newVidDuration').value.trim(),
-      description: document.getElementById('newVidDesc').value.trim(),
       isVip: document.getElementById('newVidVip').checked,
       isFeatured: document.getElementById('newVidFeatured').checked,
-      categories: checkedCats.length ? checkedCats : ['4K Ultra HD'],
+      categories: this.selectedCategories.length ? this.selectedCategories : ['4K Ultra HD'],
       videoFileData: this.uploadedVideoBase64 || undefined,
       videoFileName: this.uploadedVideoName || undefined,
       thumbnailFileData: this.uploadedThumbBase64 || undefined,
       thumbnailFileName: this.uploadedThumbName || undefined
     };
 
-    const res = await fetch('/api/admin/videos', {
-      method: 'POST',
+    const isEdit = Boolean(this.editingVideoId);
+    const endpoint = isEdit
+      ? `/api/admin/videos/${encodeURIComponent(this.editingVideoId)}`
+      : '/api/admin/videos';
+    const method = isEdit ? 'PUT' : 'POST';
+
+    const res = await fetch(endpoint, {
+      method,
       headers: {
         'Content-Type': 'application/json',
         'X-Admin-Token': this.token
@@ -587,6 +862,7 @@ window.SecretAdminVault = {
     });
     const data = await res.json();
     if (data.success) {
+      this.editingVideoId = null;
       this.uploadedVideoBase64 = '';
       this.uploadedThumbBase64 = '';
       window.VelvetToast.show(data.message, 'success');
@@ -594,7 +870,7 @@ window.SecretAdminVault = {
       if (window.VelvetApp) window.VelvetApp.loadInitialData();
       this.switchTab('manage-videos');
     } else {
-      window.VelvetToast.show(data.message || 'خطا در ثبت ویدیو', 'warning');
+      window.VelvetToast.show(data.message || 'خطا در ذخیره ویدیو', 'warning');
     }
   },
 
@@ -628,7 +904,7 @@ window.SecretAdminVault = {
     });
     const data = await res.json();
     if (data.success) {
-      window.VelvetToast.show(`دسته‌بندی انگلیسی ${payload.name} اضافه شد!`, 'success');
+      window.VelvetToast.show(`دسته‌بندی ${payload.name} اضافه شد!`, 'success');
       await this.loadDashboard();
       if (window.VelvetApp) window.VelvetApp.loadInitialData();
     }

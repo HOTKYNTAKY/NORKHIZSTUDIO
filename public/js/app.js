@@ -360,6 +360,11 @@ window.VelvetApp = {
             <span>⭐ ${v.performer || 'Verified Star'}</span>
           </div>
           <h3 class="video-card-title">${v.title}</h3>
+          ${
+            v.description
+              ? `<p style="font-size:12px;color:#a1a1aa;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${v.description}</p>`
+              : ''
+          }
           <div class="video-card-cats">
             ${cats.map((c) => `<span class="mini-cat-tag">${c}</span>`).join('')}
           </div>

@@ -17,6 +17,9 @@ async function handleApiRoutes(req, res, pathname, queryParams) {
   if (pathname === '/api/system/config' && method === 'GET') {
     return SystemController.getPublicConfig(req, res);
   }
+  if (pathname === '/api/vip/verify' && method === 'POST') {
+    return SystemController.verifyVipCode(req, res);
+  }
 
   // Categories & Performers (English)
   if (pathname === '/api/categories' && method === 'GET') {

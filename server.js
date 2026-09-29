@@ -99,7 +99,7 @@ const server = http.createServer(async (req, res) => {
     const queryParams = parsedUrl.searchParams;
 
     // 1. Stream routes (/api/stream/*)
-    if (handleStreamRoutes(req, res, pathname)) {
+    if (handleStreamRoutes(req, res, pathname, queryParams)) {
       return;
     }
 

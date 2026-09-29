@@ -105,6 +105,9 @@
         <button class="nav-tab vip-tab" data-view="vip" onclick="window.VelvetApp.switchView('vip')">
           👑 VIP Exclusive
         </button>
+        <button id="headerVipStatusBtn" class="nav-tab vip-tab" onclick="window.VipSubscriptionManager.openModal()">
+          💎 اشتراک یک‌ماهه (۲۰۰ هزار تومان)
+        </button>
         <button class="nav-tab" data-view="library" onclick="window.VelvetApp.switchView('library')">
           ❤️ My Library
         </button>
@@ -129,7 +132,7 @@
   </main>
 
   <!-- =====================================================================
-       6. CUSTOM 4K HTML5 VIDEO PLAYER MODAL
+       6. CUSTOM 4K HTML5 & ONLINE EMBED VIDEO PLAYER MODAL
        ===================================================================== -->
   <div id="playerModalBackdrop" class="player-modal-backdrop">
     <div class="player-modal-container">
@@ -144,11 +147,18 @@
         <div class="player-main-col">
           <div class="video-stage-wrapper">
             <video id="html5VideoPlayer" controls playsinline preload="metadata"></video>
+            <iframe
+              id="iframeVideoPlayer"
+              allowfullscreen
+              allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+              referrerpolicy="no-referrer"
+              style="display:none;width:100%;height:100%;border:none;background:#000;"
+            ></iframe>
           </div>
 
           <!-- Custom Pro Controls Bar -->
           <div class="custom-player-toolbar">
-            <div class="player-ctrl-group">
+            <div id="nativeVideoControlsGroup" class="player-ctrl-group">
               <button class="p-ctrl-btn" onclick="window.VideoPlayerModal.skip(-10)">⏪ -10s</button>
               <button class="p-ctrl-btn" onclick="window.VideoPlayerModal.skip(10)">+10s ⏩</button>
               <button class="p-ctrl-btn" onclick="window.VideoPlayerModal.toggleTheater()">🖥️ Theater Mode</button>
@@ -156,13 +166,15 @@
             </div>
 
             <div class="player-ctrl-group">
-              <span style="font-size:11.5px;color:#a1a1aa;">Quality:</span>
-              <button class="p-ctrl-btn qual-btn active" onclick="window.VideoPlayerModal.setQuality('4K 2160p', this)">4K UHD</button>
-              <button class="p-ctrl-btn qual-btn" onclick="window.VideoPlayerModal.setQuality('1080p HD', this)">1080p</button>
-              <button class="p-ctrl-btn qual-btn" onclick="window.VideoPlayerModal.setQuality('720p', this)">720p</button>
+              <button class="p-ctrl-btn" onclick="window.VideoPlayerModal.switchPlayerMode()">
+                🔄 تغییر حالت پخش (پلیر اختصاصی / پلیر آنلاین)
+              </button>
+              <a id="directStreamExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="p-ctrl-btn" style="text-decoration:none;">
+                ↗ باز کردن لینک پخش
+              </a>
             </div>
 
-            <div class="player-ctrl-group">
+            <div id="nativeSpeedControlsGroup" class="player-ctrl-group">
               <span style="font-size:11.5px;color:#a1a1aa;">Speed:</span>
               <button class="p-ctrl-btn speed-btn" onclick="window.VideoPlayerModal.setSpeed(0.75, this)">0.75x</button>
               <button class="p-ctrl-btn speed-btn active" onclick="window.VideoPlayerModal.setSpeed(1, this)">1x</button>
@@ -219,6 +231,13 @@
         </aside>
       </div>
     </div>
+  </div>
+
+  <!-- =====================================================================
+       6.5 VIP 1-MONTH SUBSCRIPTION MODAL (اشتراک یک‌ماهه ۲۰۰ هزار تومان)
+       ===================================================================== -->
+  <div id="vipSubscriptionModalBackdrop" class="admin-vault-backdrop">
+    <div id="vipSubscriptionModalContent"></div>
   </div>
 
   <!-- =====================================================================
@@ -287,6 +306,7 @@
   <div id="toastContainer" class="toast-container"></div>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="/js/age-gate.js"></script>
   <script src="/js/player.js"></script>
   <script src="/js/admin-panel.js"></script>

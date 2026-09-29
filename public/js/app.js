@@ -43,6 +43,9 @@ window.VelvetApp = {
       if (cfgData.success) {
         this.config = cfgData.config;
         this.updateHeaderCompliance();
+        if (window.VipSubscriptionManager) {
+          window.VipSubscriptionManager.updateHeaderBadge();
+        }
       }
       if (catData.success) {
         this.categories = catData.categories || [];
@@ -348,7 +351,11 @@ window.VelvetApp = {
           <img src="${v.thumbnail}" alt="${v.title}" loading="lazy" />
           <div class="thumb-badges-top">
             <span class="badge-quality">${v.quality || '4K UHD'}</span>
-            ${v.isVip ? '<span class="badge-vip">VIP</span>' : ''}
+            ${
+              v.isVip
+                ? '<span class="badge-vip">👑 پرمیوم (VIP)</span>'
+                : '<span style="background:rgba(16,185,129,0.22);border:1px solid #10b981;color:#34d399;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:5px;font-family:var(--font-fa);">رایگان</span>'
+            }
           </div>
           <span class="thumb-duration">${v.duration || '35:00'}</span>
           <div class="thumb-hover-play">

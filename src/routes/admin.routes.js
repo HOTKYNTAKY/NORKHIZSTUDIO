@@ -67,6 +67,17 @@ async function handleAdminRoutes(req, res, pathname) {
     return true;
   }
 
+  if (pathname === '/api/admin/vip-codes' && method === 'POST') {
+    await AdminController.createVipCode(req, res);
+    return true;
+  }
+
+  const vipCodeMatch = pathname.match(/^\/api\/admin\/vip-codes\/([^/]+)$/);
+  if (vipCodeMatch && method === 'DELETE') {
+    await AdminController.deleteVipCode(req, res, decodeURIComponent(vipCodeMatch[1]));
+    return true;
+  }
+
   return false;
 }
 

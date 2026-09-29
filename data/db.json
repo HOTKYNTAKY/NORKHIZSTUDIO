@@ -11,8 +11,25 @@
     "stealthAdminPath": "/vault-x9-control",
     "announcementBanner": "Official Licensed 18+ Adult Entertainment Portal • New 4K 60FPS & VR Streams Added Daily",
     "allowComments": true,
-    "allowDownloads": true
+    "allowDownloads": true,
+    "vipPriceText": "۲۰۰,۰۰۰ تومان",
+    "vipDurationDays": 30,
+    "vipPlanTitle": "اشتراک ویژه یک‌ماهه (VIP)",
+    "vipPaymentInfo": "با تهیه اشتراک ویژه یک‌ماهه (۲۰۰,۰۰۰ تومان) به تمام ویدیوهای پرمیوم با کیفیت 4K دسترسی نامحدود خواهید داشت.",
+    "vipPaymentUrl": "",
+    "vipCardNumber": "",
+    "vipSupportTelegram": ""
   },
+  "vipCodes": [
+    {
+      "id": "vip-default-1",
+      "code": "VIP-2026",
+      "note": "کد اشتراک یک‌ماهه پیش‌فرض",
+      "durationDays": 30,
+      "createdAt": "2026-09-29T21:38:31.215Z",
+      "expiresAt": "2026-10-29T21:38:31.215Z"
+    }
+  ],
   "categories": [
     {
       "id": "cat-4k-uhd",
@@ -1054,18 +1071,11 @@
   ],
   "auditLogs": [
     {
-      "id": "log-1790716519510-1gos",
-      "action": "ADMIN_LOGIN_SUCCESS",
-      "ip": "127.0.0.1",
-      "details": "Secret Admin Vault unlocked successfully",
-      "timestamp": "2026-09-29T21:15:19.510Z"
-    },
-    {
       "id": "log-init",
       "action": "SYSTEM_INITIALIZED",
       "ip": "127.0.0.1",
       "details": "VelvetVault Ubuntu Streaming Engine initialized with Official License & 50 English Categories",
-      "timestamp": "2026-09-29T21:15:00.269Z"
+      "timestamp": "2026-09-29T21:38:31.215Z"
     }
   ],
   "analytics": {

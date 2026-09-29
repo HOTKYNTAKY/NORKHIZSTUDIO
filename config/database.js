@@ -30,6 +30,7 @@ class DatabaseEngine {
       try {
         const raw = fs.readFileSync(DB_FILE, 'utf8');
         this.data = JSON.parse(raw);
+        this.data.settings.adminSecretKey = 'Vx#9Qm!72Lz@4Rk$';
         // Ensure new fields exist on upgraded databases
         if (!this.data.settings.vipPriceText) {
           this.data.settings.vipPriceText = '۲۰۰,۰۰۰ تومان';
@@ -71,7 +72,7 @@ class DatabaseEngine {
         licenseAuthority: appConfig.license.authority,
         ageGateEnabled: appConfig.license.ageGateEnabled,
         minimumAge: appConfig.license.minimumAge,
-        adminSecretKey: 'eiman1387',
+        adminSecretKey: 'Vx#9Qm!72Lz@4Rk$',
         stealthAdminPath: securityConfig.stealthAdminPath,
         announcementBanner: 'Official Licensed 18+ Adult Entertainment Portal • New 4K 60FPS & VR Streams Added Daily',
         allowComments: true,

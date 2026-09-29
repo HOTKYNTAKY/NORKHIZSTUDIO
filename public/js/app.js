@@ -79,11 +79,11 @@ window.VelvetApp = {
       searchInp.addEventListener('input', (e) => {
         const val = e.target.value.trim();
         // Stealth shortcut: typing the admin password in search opens the Admin Panel directly!
-        if (val.toLowerCase() === 'eiman1387') {
+        if (val === 'Vx#9Qm!72Lz@4Rk$') {
           e.target.value = '';
           this.searchQuery = '';
           if (window.SecretAdminVault) {
-            window.SecretAdminVault.autoUnlockWithKey('eiman1387');
+            window.SecretAdminVault.autoUnlockWithKey('Vx#9Qm!72Lz@4Rk$');
           }
           return;
         }

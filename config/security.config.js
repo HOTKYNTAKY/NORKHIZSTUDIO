@@ -1,12 +1,12 @@
 /**
  * config/security.config.js
- * Stealth Admin Vault authentication & security configuration
+ * Admin Panel authentication & security configuration
  */
 const crypto = require('crypto');
 
 module.exports = {
-  // Secret Password for the Hidden Admin Panel
-  adminSecretKey: process.env.ADMIN_SECRET_KEY || 'eiman1387',
+  // Secret Password for the Admin Panel
+  adminSecretKey: process.env.ADMIN_SECRET_KEY || 'Vx#9Qm!72Lz@4Rk$',
   stealthAdminPath: process.env.ADMIN_STEALTH_PATH || '/vault-x9-control',
   sessionTtlHours: parseInt(process.env.ADMIN_SESSION_TTL_HOURS || '24', 10),
 

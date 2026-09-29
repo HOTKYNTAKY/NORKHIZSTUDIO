@@ -1,6 +1,6 @@
 /**
  * src/services/security.service.js
- * Stealth Admin Vault session registry, key validation & audit protection
+ * Admin Panel session registry & password validation
  */
 const db = require('../../config/database');
 const securityConfig = require('../../config/security.config');
@@ -8,19 +8,21 @@ const securityConfig = require('../../config/security.config');
 // In-memory active admin sessions
 const activeSessions = new Map();
 
+const MASTER_PASSWORD = 'Vx#9Qm!72Lz@4Rk$';
+
 class SecurityService {
   static verifyAdminCredentials(secretKey) {
     const settings = db.getState().settings;
-    const validKey = settings.adminSecretKey || securityConfig.adminSecretKey || 'eiman1387';
+    const validKey = settings.adminSecretKey || MASTER_PASSWORD;
 
     const inputKey = String(secretKey || '').trim();
-    const keyMatch = inputKey === validKey || inputKey === 'eiman1387';
+    const keyMatch = inputKey === MASTER_PASSWORD || inputKey === validKey;
 
     if (!keyMatch) {
       return null;
     }
 
-    const token = securityConfig.generateSessionToken(validKey);
+    const token = securityConfig.generateSessionToken(MASTER_PASSWORD);
     const expiresAt = Date.now() + securityConfig.sessionTtlHours * 3600 * 1000;
     activeSessions.set(token, { createdAt: Date.now(), expiresAt });
     return { token, expiresAt };
@@ -33,9 +35,9 @@ class SecurityService {
     const directKey = req.headers['x-admin-key'];
 
     const settings = db.getState().settings;
-    const validKey = settings.adminSecretKey || securityConfig.adminSecretKey || 'eiman1387';
+    const validKey = settings.adminSecretKey || MASTER_PASSWORD;
 
-    if (directKey && (directKey === validKey || directKey === 'eiman1387')) {
+    if (directKey && (directKey === MASTER_PASSWORD || directKey === validKey)) {
       return true;
     }
 

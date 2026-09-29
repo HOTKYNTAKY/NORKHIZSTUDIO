@@ -7,7 +7,7 @@
     "licenseAuthority": "National Digital Media & Adult Content Regulatory Board (دارای مجوز رسمی کشوری)",
     "ageGateEnabled": true,
     "minimumAge": 18,
-    "adminSecretKey": "eiman1387",
+    "adminSecretKey": "Vx#9Qm!72Lz@4Rk$",
     "stealthAdminPath": "/vault-x9-control",
     "announcementBanner": "Official Licensed 18+ Adult Entertainment Portal • New 4K 60FPS & VR Streams Added Daily",
     "allowComments": true,
@@ -26,8 +26,8 @@
       "code": "VIP-2026",
       "note": "کد اشتراک یک‌ماهه پیش‌فرض",
       "durationDays": 30,
-      "createdAt": "2026-09-29T21:38:31.215Z",
-      "expiresAt": "2026-10-29T21:38:31.215Z"
+      "createdAt": "2026-09-29T21:56:22.118Z",
+      "expiresAt": "2026-10-29T21:56:22.119Z"
     }
   ],
   "categories": [
@@ -1075,7 +1075,7 @@
       "action": "SYSTEM_INITIALIZED",
       "ip": "127.0.0.1",
       "details": "VelvetVault Ubuntu Streaming Engine initialized with Official License & 50 English Categories",
-      "timestamp": "2026-09-29T21:38:31.215Z"
+      "timestamp": "2026-09-29T21:56:22.119Z"
     }
   ],
   "analytics": {

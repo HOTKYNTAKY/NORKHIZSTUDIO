@@ -724,7 +724,7 @@ window.SecretAdminVault = {
               <input id="setLicenseAuth" class="admin-input" value="${settings.licenseAuthority}" />
             </div>
             <div class="admin-form-group">
-              <label class="admin-label">تغییر رمز پنل مخفی (فعلی: eiman1387)</label>
+              <label class="admin-label">تغییر رمز پنل مدیریت</label>
               <input id="setAdminKey" class="admin-input" style="direction:ltr;" placeholder="فقط در صورت تمایل به تغییر وارد کنید..." />
             </div>
             <div class="admin-form-group">

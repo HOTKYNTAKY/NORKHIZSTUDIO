@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="rating" content="RTA-5042-1996-1400-1577-RTA" />
   <title>VELVETVAULT — 18+ Adult Streaming Portal</title>
-  <link rel="stylesheet" href="/css/main.css?v=4.0" />
-  <link rel="stylesheet" href="/css/player.css?v=4.0" />
-  <link rel="stylesheet" href="/css/admin.css?v=4.0" />
+  <link rel="stylesheet" href="/css/main.css?v=5.0" />
+  <link rel="stylesheet" href="/css/player.css?v=5.0" />
+  <link rel="stylesheet" href="/css/admin.css?v=5.0" />
 </head>
 <body>
 
@@ -44,14 +44,12 @@
        ===================================================================== -->
   <header class="main-header">
     <div class="header-inner">
-      <!-- Top Row: Brand Name (3x Tap = Secret Admin) + VIP Button -->
+      <!-- Top Row: Brand Name + VIP Button + English Admin Panel Text -->
       <div class="header-top-row">
         <div
           id="brandLogoTrigger"
           class="brand-logo"
-          role="button"
-          tabindex="0"
-          style="touch-action: manipulation; user-select: none; -webkit-user-select: none; cursor: pointer;"
+          onclick="window.VelvetApp.switchView('discover')"
         >
           <div class="brand-emblem">V</div>
           <div class="brand-text-wrap">
@@ -63,9 +61,18 @@
           </div>
         </div>
 
-        <button id="headerVipStatusBtn" class="vip-header-btn" onclick="window.VipSubscriptionManager.openModal()">
-          👑 اشتراک یک‌ماهه (۲۰۰ هزار تومان)
-        </button>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <button id="headerVipStatusBtn" class="vip-header-btn" onclick="window.VipSubscriptionManager.openModal()">
+            👑 اشتراک یک‌ماهه (۲۰۰ هزار تومان)
+          </button>
+          <button
+            type="button"
+            onclick="window.SecretAdminVault.openVault()"
+            style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); color: #e4e4e7; padding: 7px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; font-family: var(--font-en); cursor: pointer; letter-spacing: 0.3px;"
+          >
+            Admin Panel
+          </button>
+        </div>
       </div>
 
       <!-- Search Row -->
@@ -236,46 +243,9 @@
   <div id="toastContainer" class="toast-container"></div>
 
   <!-- Scripts (100% Local — Zero External Blocking CDNs!) -->
-  <script src="/js/age-gate.js?v=4.0"></script>
-  <script src="/js/player.js?v=4.0"></script>
-  <script src="/js/admin-panel.js?v=4.0"></script>
-  <script src="/js/app.js?v=4.0"></script>
-
-  <!-- Inline Fail-Safe 3-Tap Detector on Site Name (Works on Mobile Touch & Desktop Click) -->
-  <script>
-    (function () {
-      var tapCount = 0;
-      var tapTimer = null;
-      var lastTapTime = 0;
-
-      function onBrandTap(e) {
-        var now = Date.now();
-        // Prevent duplicate firing when both touchend and click fire for the same tap
-        if (now - lastTapTime < 60) return;
-        lastTapTime = now;
-
-        tapCount += 1;
-        if (tapTimer) clearTimeout(tapTimer);
-
-        if (tapCount >= 3) {
-          tapCount = 0;
-          if (window.SecretAdminVault && typeof window.SecretAdminVault.openVault === 'function') {
-            window.SecretAdminVault.openVault();
-          }
-          return;
-        }
-
-        tapTimer = setTimeout(function () {
-          tapCount = 0;
-        }, 2500);
-      }
-
-      var el = document.getElementById('brandLogoTrigger');
-      if (el) {
-        el.addEventListener('touchend', onBrandTap, { passive: true });
-        el.addEventListener('click', onBrandTap);
-      }
-    })();
-  </script>
+  <script src="/js/age-gate.js?v=5.0"></script>
+  <script src="/js/player.js?v=5.0"></script>
+  <script src="/js/admin-panel.js?v=5.0"></script>
+  <script src="/js/app.js?v=5.0"></script>
 </body>
 </html>

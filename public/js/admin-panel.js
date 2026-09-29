@@ -19,31 +19,32 @@ window.SecretAdminVault = {
   uploadedThumbName: '',
 
   init() {
-    // 1. 3x Tap on Site Name / Brand Logo to open Secret Admin Panel
-    const brandTrigger =
-      document.getElementById('brandLogoTrigger') || document.getElementById('headerBrandName');
+    const handleTapTrigger = () => {
+      this.brandTapCount += 1;
+      if (this.brandTapTimer) {
+        clearTimeout(this.brandTapTimer);
+      }
+      if (this.brandTapCount >= 3) {
+        this.brandTapCount = 0;
+        this.openVault();
+        return;
+      }
+      this.brandTapTimer = setTimeout(() => {
+        if (this.brandTapCount === 1 && window.VelvetApp) {
+          window.VelvetApp.switchView('discover');
+        }
+        this.brandTapCount = 0;
+      }, 2200);
+    };
+
+    // 1. 3x Tap on Site Name / Brand Logo or Footer Shield to open Secret Admin Panel
+    const brandTrigger = document.getElementById('brandLogoTrigger');
     if (brandTrigger) {
-      brandTrigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.brandTapCount += 1;
-
-        if (this.brandTapTimer) {
-          clearTimeout(this.brandTapTimer);
-        }
-
-        if (this.brandTapCount >= 3) {
-          this.brandTapCount = 0;
-          this.openVault();
-          return;
-        }
-
-        this.brandTapTimer = setTimeout(() => {
-          if (this.brandTapCount === 1 && window.VelvetApp) {
-            window.VelvetApp.switchView('discover');
-          }
-          this.brandTapCount = 0;
-        }, 650);
-      });
+      brandTrigger.onclick = handleTapTrigger;
+    }
+    const footerTrigger = document.getElementById('footerStealthTrigger');
+    if (footerTrigger) {
+      footerTrigger.onclick = handleTapTrigger;
     }
 
     // 2. Keyboard shortcut fallback: Ctrl + Shift + A
@@ -54,12 +55,28 @@ window.SecretAdminVault = {
       }
     });
 
-    // 3. Direct stealth URL fallback (/vault-x9-control)
+    // 3. Direct stealth URL fallback (/vault-x9-control or ?admin=vault)
     const p = window.location.pathname;
     const q = new URLSearchParams(window.location.search);
     if (p.includes('vault') || q.get('admin') === 'vault') {
-      setTimeout(() => this.openVault(), 400);
+      setTimeout(() => this.openVault(), 300);
     }
+  },
+
+  async autoUnlockWithKey(secretKey) {
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ secretKey })
+      });
+      const data = await res.json();
+      if (data.success && data.token) {
+        this.token = data.token;
+        localStorage.setItem('vv_admin_token', data.token);
+      }
+    } catch (_) {}
+    await this.openVault();
   },
 
   async openVault() {

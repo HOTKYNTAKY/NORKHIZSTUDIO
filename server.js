@@ -70,6 +70,7 @@ function serveStaticFile(req, res, filePath) {
   res.writeHead(200, {
     'Content-Type': contentType,
     'Content-Length': stat.size,
+    'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
     'Access-Control-Allow-Origin': '*'
   });
   fs.createReadStream(filePath).pipe(res);

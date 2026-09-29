@@ -226,28 +226,25 @@ chmod 600 "$INSTALL_DIR/.env"
 chmod +x "$INSTALL_DIR"/deploy/scripts/*.sh 2>/dev/null || true
 
 # --- 8. Configure Systemd Service ---
-echo -e "${GREEN}[5/8] Registering Ubuntu systemd service (${APP_NAME}.service)...${NC}"
+NODE_BIN="$(command -v node || echo '/usr/bin/node')"
+echo -e "${GREEN}[5/8] Registering Ubuntu systemd service (${APP_NAME}.service) using ${NODE_BIN}...${NC}"
 cat > "/etc/systemd/system/${APP_NAME}.service" <<EOF
 [Unit]
 Description=VelvetVault Pro — Enterprise Adult VOD Streaming Server
 Documentation=https://github.com/velvetvault/streaming-cms
-After=network.target nginx.service
+After=network.target
 
 [Service]
 Type=simple
 User=root
 WorkingDirectory=${INSTALL_DIR}
 EnvironmentFile=${INSTALL_DIR}/.env
-ExecStart=/usr/bin/node ${INSTALL_DIR}/server.js
+ExecStart=${NODE_BIN} ${INSTALL_DIR}/server.js
 Restart=always
 RestartSec=3
 StandardOutput=append:${LOG_DIR}/access.log
 StandardError=append:${LOG_DIR}/error.log
 LimitNOFILE=65535
-
-# Hardening
-NoNewPrivileges=true
-PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
@@ -261,9 +258,9 @@ systemctl restart "${APP_NAME}.service"
 echo -e "${GREEN}[6/8] Configuring Nginx for 4K MP4/HLS Video Streaming...${NC}"
 cat > "/etc/nginx/sites-available/${APP_NAME}.conf" <<EOF
 server {
-    listen 80;
-    listen [::]:80;
-    server_name ${DOMAIN_NAME};
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
 
     # Allow large 4K video uploads up to 10GB
     client_max_body_size 10G;
@@ -282,9 +279,6 @@ server {
     # Direct High-Speed Serving for Uploaded MP4 & HLS Segments
     location /uploads/ {
         alias ${INSTALL_DIR}/public/uploads/;
-        mp4;
-        mp4_buffer_size 4m;
-        mp4_max_buffer_size 20m;
         expires 30d;
         add_header Cache-Control "public, no-transform";
         add_header Access-Control-Allow-Origin "*";
@@ -307,9 +301,9 @@ server {
 }
 EOF
 
+rm -f /etc/nginx/sites-enabled/*
 ln -sf "/etc/nginx/sites-available/${APP_NAME}.conf" "/etc/nginx/sites-enabled/${APP_NAME}.conf"
-rm -f /etc/nginx/sites-enabled/default
-nginx -t && systemctl reload nginx
+nginx -t && systemctl enable nginx && systemctl restart nginx
 
 # --- 10. Configure UFW Firewall ---
 echo -e "${GREEN}[7/8] Configuring Ubuntu UFW Firewall rules...${NC}"

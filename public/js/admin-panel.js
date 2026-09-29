@@ -372,7 +372,7 @@ window.SecretAdminVault = {
             </div>
 
             <div style="font-size:12px;color:#a1a1aa;margin-bottom:8px;">
-              روی هر دسته‌بندی در لیست زیر بزنید تا انتخاب (`✓`) شود:
+              روی هر دسته‌بندی در لیست زیر بزنید تا انتخاب (✓) شود:
             </div>
             <div id="catChipsContainer" class="cat-chips-container">
               ${this.renderCategoryChipsList()}

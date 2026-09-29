@@ -1,0 +1,19 @@
+[Unit]
+Description=VelvetVault Pro — 18+ Adult Video Streaming CMS & Admin Server
+Documentation=https://example.com/docs
+After=network.target nginx.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/velvetvault
+EnvironmentFile=/var/www/velvetvault/.env
+ExecStart=/usr/bin/node /var/www/velvetvault/server.js
+Restart=always
+RestartSec=3
+StandardOutput=append:/var/log/velvetvault/access.log
+StandardError=append:/var/log/velvetvault/error.log
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

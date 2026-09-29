@@ -1,0 +1,1077 @@
+{
+  "settings": {
+    "siteName": "VELVETVAULT",
+    "siteTagline": "Licensed 18+ Adult Cinema & 4K VOD Network",
+    "licenseActive": true,
+    "licenseNumber": "IR-AVOD-2026-99481-OFFICIAL",
+    "licenseAuthority": "National Digital Media & Adult Content Regulatory Board (دارای مجوز رسمی کشوری)",
+    "ageGateEnabled": true,
+    "minimumAge": 18,
+    "adminSecretKey": "VAULT-ADMIN-2026",
+    "adminMasterPin": "8899",
+    "stealthAdminPath": "/vault-x9-control",
+    "announcementBanner": "Official Licensed 18+ Adult Entertainment Portal • New 4K 60FPS & VR Streams Added Daily",
+    "allowComments": true,
+    "allowDownloads": true
+  },
+  "categories": [
+    {
+      "id": "cat-4k-uhd",
+      "name": "4K Ultra HD",
+      "slug": "4k-ultra-hd",
+      "group": "Production",
+      "badge": "4K",
+      "icon": "sparkles",
+      "featured": true,
+      "count": 428
+    },
+    {
+      "id": "cat-exclusive-vip",
+      "name": "Exclusive VIP",
+      "slug": "exclusive-vip",
+      "group": "Production",
+      "badge": "VIP",
+      "icon": "crown",
+      "featured": true,
+      "count": 312
+    },
+    {
+      "id": "cat-vr-porn",
+      "name": "VR Porn 360°",
+      "slug": "vr-porn-360",
+      "group": "Production",
+      "badge": "VR",
+      "icon": "glasses",
+      "featured": true,
+      "count": 185
+    },
+    {
+      "id": "cat-60fps-hd",
+      "name": "60FPS Full HD",
+      "slug": "60fps-full-hd",
+      "group": "Production",
+      "badge": "60FPS",
+      "icon": "zap",
+      "featured": true,
+      "count": 540
+    },
+    {
+      "id": "cat-verified-amateur",
+      "name": "Amateur",
+      "slug": "amateur",
+      "group": "Popular",
+      "badge": "HOT",
+      "icon": "flame",
+      "featured": true,
+      "count": 890
+    },
+    {
+      "id": "cat-milf",
+      "name": "MILF",
+      "slug": "milf",
+      "group": "Popular",
+      "badge": "TOP",
+      "icon": "heart",
+      "featured": true,
+      "count": 760
+    },
+    {
+      "id": "cat-anal",
+      "name": "Anal",
+      "slug": "anal",
+      "group": "Popular",
+      "badge": "HOT",
+      "icon": "Compass",
+      "featured": true,
+      "count": 615
+    },
+    {
+      "id": "cat-lesbian",
+      "name": "Lesbian",
+      "slug": "lesbian",
+      "group": "Popular",
+      "badge": "HOT",
+      "icon": "users",
+      "featured": true,
+      "count": 530
+    },
+    {
+      "id": "cat-threesome",
+      "name": "Threesome",
+      "slug": "threesome",
+      "group": "Popular",
+      "badge": "TRENDING",
+      "icon": "users",
+      "featured": true,
+      "count": 445
+    },
+    {
+      "id": "cat-hardcore",
+      "name": "Hardcore",
+      "slug": "hardcore",
+      "group": "Popular",
+      "badge": "HOT",
+      "icon": "flame",
+      "featured": true,
+      "count": 810
+    },
+    {
+      "id": "cat-pov",
+      "name": "POV",
+      "slug": "pov",
+      "group": "Popular",
+      "badge": "POV",
+      "icon": "video",
+      "featured": true,
+      "count": 670
+    },
+    {
+      "id": "cat-big-ass",
+      "name": "Big Ass",
+      "slug": "big-ass",
+      "group": "Appearance",
+      "badge": "HOT",
+      "icon": "star",
+      "featured": true,
+      "count": 720
+    },
+    {
+      "id": "cat-big-tits",
+      "name": "Big Tits",
+      "slug": "big-tits",
+      "group": "Appearance",
+      "badge": "HOT",
+      "icon": "star",
+      "featured": true,
+      "count": 795
+    },
+    {
+      "id": "cat-blowjob",
+      "name": "Blowjob",
+      "slug": "blowjob",
+      "group": "Popular",
+      "badge": "",
+      "icon": "play",
+      "featured": true,
+      "count": 640
+    },
+    {
+      "id": "cat-creampie",
+      "name": "Creampie",
+      "slug": "creampie",
+      "group": "Popular",
+      "badge": "HOT",
+      "icon": "droplet",
+      "featured": true,
+      "count": 510
+    },
+    {
+      "id": "cat-squirt",
+      "name": "Squirt",
+      "slug": "squirt",
+      "group": "Popular",
+      "badge": "",
+      "icon": "droplet",
+      "featured": false,
+      "count": 380
+    },
+    {
+      "id": "cat-asian",
+      "name": "Asian",
+      "slug": "asian",
+      "group": "International",
+      "badge": "HOT",
+      "icon": "globe",
+      "featured": true,
+      "count": 490
+    },
+    {
+      "id": "cat-japanese",
+      "name": "Japanese (JAV)",
+      "slug": "japanese-jav",
+      "group": "International",
+      "badge": "JAV",
+      "icon": "globe",
+      "featured": true,
+      "count": 620
+    },
+    {
+      "id": "cat-latina",
+      "name": "Latina",
+      "slug": "latina",
+      "group": "International",
+      "badge": "HOT",
+      "icon": "globe",
+      "featured": true,
+      "count": 580
+    },
+    {
+      "id": "cat-ebony",
+      "name": "Ebony",
+      "slug": "ebony",
+      "group": "International",
+      "badge": "",
+      "icon": "globe",
+      "featured": true,
+      "count": 410
+    },
+    {
+      "id": "cat-european",
+      "name": "European",
+      "slug": "european",
+      "group": "International",
+      "badge": "EU",
+      "icon": "globe",
+      "featured": true,
+      "count": 535
+    },
+    {
+      "id": "cat-russian",
+      "name": "Russian",
+      "slug": "russian",
+      "group": "International",
+      "badge": "HOT",
+      "icon": "globe",
+      "featured": true,
+      "count": 465
+    },
+    {
+      "id": "cat-french",
+      "name": "French",
+      "slug": "french",
+      "group": "International",
+      "badge": "",
+      "icon": "globe",
+      "featured": false,
+      "count": 230
+    },
+    {
+      "id": "cat-indian",
+      "name": "Indian",
+      "slug": "indian",
+      "group": "International",
+      "badge": "",
+      "icon": "globe",
+      "featured": false,
+      "count": 315
+    },
+    {
+      "id": "cat-arab-persian",
+      "name": "Middle Eastern",
+      "slug": "middle-eastern",
+      "group": "International",
+      "badge": "TRENDING",
+      "icon": "globe",
+      "featured": true,
+      "count": 290
+    },
+    {
+      "id": "cat-interracial",
+      "name": "Interracial",
+      "slug": "interracial",
+      "group": "International",
+      "badge": "HOT",
+      "icon": "users",
+      "featured": true,
+      "count": 475
+    },
+    {
+      "id": "cat-blonde",
+      "name": "Blonde",
+      "slug": "blonde",
+      "group": "Appearance",
+      "badge": "",
+      "icon": "sun",
+      "featured": true,
+      "count": 610
+    },
+    {
+      "id": "cat-brunette",
+      "name": "Brunette",
+      "slug": "brunette",
+      "group": "Appearance",
+      "badge": "",
+      "icon": "moon",
+      "featured": true,
+      "count": 650
+    },
+    {
+      "id": "cat-redhead",
+      "name": "Redhead",
+      "slug": "redhead",
+      "group": "Appearance",
+      "badge": "RARE",
+      "icon": "flame",
+      "featured": false,
+      "count": 275
+    },
+    {
+      "id": "cat-babe",
+      "name": "Babe (18+)",
+      "slug": "babe-18-plus",
+      "group": "Appearance",
+      "badge": "18+",
+      "icon": "sparkles",
+      "featured": true,
+      "count": 590
+    },
+    {
+      "id": "cat-college",
+      "name": "College (18+)",
+      "slug": "college-18-plus",
+      "group": "Appearance",
+      "badge": "18+",
+      "icon": "book",
+      "featured": true,
+      "count": 430
+    },
+    {
+      "id": "cat-mature",
+      "name": "Mature",
+      "slug": "mature",
+      "group": "Appearance",
+      "badge": "",
+      "icon": "award",
+      "featured": false,
+      "count": 390
+    },
+    {
+      "id": "cat-bbw",
+      "name": "BBW / Curvy",
+      "slug": "bbw-curvy",
+      "group": "Appearance",
+      "badge": "",
+      "icon": "heart",
+      "featured": false,
+      "count": 340
+    },
+    {
+      "id": "cat-petite",
+      "name": "Petite (18+)",
+      "slug": "petite-18-plus",
+      "group": "Appearance",
+      "badge": "",
+      "icon": "feather",
+      "featured": false,
+      "count": 455
+    },
+    {
+      "id": "cat-lingerie",
+      "name": "Lingerie & Stockings",
+      "slug": "lingerie-stockings",
+      "group": "Appearance",
+      "badge": "GLAM",
+      "icon": "star",
+      "featured": true,
+      "count": 370
+    },
+    {
+      "id": "cat-tattooed",
+      "name": "Tattoo & Alt Girls",
+      "slug": "tattoo-alt-girls",
+      "group": "Appearance",
+      "badge": "",
+      "icon": "zap",
+      "featured": false,
+      "count": 260
+    },
+    {
+      "id": "cat-massage",
+      "name": "Massage & Oil",
+      "slug": "massage-oil",
+      "group": "Fantasy",
+      "badge": "HOT",
+      "icon": "droplet",
+      "featured": true,
+      "count": 520
+    },
+    {
+      "id": "cat-casting",
+      "name": "Casting Couch",
+      "slug": "casting-couch",
+      "group": "Fantasy",
+      "badge": "",
+      "icon": "camera",
+      "featured": true,
+      "count": 345
+    },
+    {
+      "id": "cat-roleplay",
+      "name": "Roleplay & Fantasy",
+      "slug": "roleplay-fantasy",
+      "group": "Fantasy",
+      "badge": "",
+      "icon": "film",
+      "featured": true,
+      "count": 480
+    },
+    {
+      "id": "cat-cosplay",
+      "name": "Cosplay",
+      "slug": "cosplay",
+      "group": "Fantasy",
+      "badge": "NEW",
+      "icon": "sparkles",
+      "featured": true,
+      "count": 295
+    },
+    {
+      "id": "cat-bdsm",
+      "name": "BDSM & Bondage",
+      "slug": "bdsm-bondage",
+      "group": "Fantasy",
+      "badge": "",
+      "icon": "lock",
+      "featured": true,
+      "count": 330
+    },
+    {
+      "id": "cat-fetish",
+      "name": "Fetish & Foot",
+      "slug": "fetish-foot",
+      "group": "Fantasy",
+      "badge": "",
+      "icon": "eye",
+      "featured": false,
+      "count": 415
+    },
+    {
+      "id": "cat-public",
+      "name": "Public & Outdoor",
+      "slug": "public-outdoor",
+      "group": "Fantasy",
+      "badge": "HOT",
+      "icon": "map-pin",
+      "featured": true,
+      "count": 365
+    },
+    {
+      "id": "cat-couples",
+      "name": "Romantic Couples",
+      "slug": "romantic-couples",
+      "group": "Fantasy",
+      "badge": "LOVE",
+      "icon": "heart",
+      "featured": true,
+      "count": 410
+    },
+    {
+      "id": "cat-gangbang",
+      "name": "Orgy & Gangbang",
+      "slug": "orgy-gangbang",
+      "group": "Fantasy",
+      "badge": "",
+      "icon": "users",
+      "featured": false,
+      "count": 240
+    },
+    {
+      "id": "cat-cuckold",
+      "name": "Cuckold / Hotwife",
+      "slug": "cuckold-hotwife",
+      "group": "Fantasy",
+      "badge": "",
+      "icon": "eye",
+      "featured": false,
+      "count": 285
+    },
+    {
+      "id": "cat-solo-female",
+      "name": "Solo Female & Toys",
+      "slug": "solo-female-toys",
+      "group": "Fantasy",
+      "badge": "",
+      "icon": "user",
+      "featured": true,
+      "count": 495
+    },
+    {
+      "id": "cat-hentai",
+      "name": "Hentai & 3D Uncensored",
+      "slug": "hentai-3d",
+      "group": "Fantasy",
+      "badge": "ANIME",
+      "icon": "tv",
+      "featured": true,
+      "count": 560
+    },
+    {
+      "id": "cat-trans",
+      "name": "Transsexual (TS)",
+      "slug": "transsexual",
+      "group": "Fantasy",
+      "badge": "",
+      "icon": "sparkles",
+      "featured": false,
+      "count": 310
+    },
+    {
+      "id": "cat-compilation",
+      "name": "Cumshot & Compilation",
+      "slug": "compilation",
+      "group": "Production",
+      "badge": "MIX",
+      "icon": "layers",
+      "featured": false,
+      "count": 385
+    }
+  ],
+  "performers": [
+    {
+      "id": "perf-1",
+      "name": "Eva Laurent",
+      "country": "France",
+      "rank": 1,
+      "videosCount": 84,
+      "views": "14.8M",
+      "rating": 99,
+      "verified": true,
+      "badge": "TOP #1 STAR",
+      "palette": [
+        "#e11d48",
+        "#7f1d1d"
+      ]
+    },
+    {
+      "id": "perf-2",
+      "name": "Lana Vesper",
+      "country": "Russia",
+      "rank": 2,
+      "videosCount": 112,
+      "views": "12.4M",
+      "rating": 98,
+      "verified": true,
+      "badge": "4K EXCLUSIVE",
+      "palette": [
+        "#9333ea",
+        "#3b0764"
+      ]
+    },
+    {
+      "id": "perf-3",
+      "name": "Valentina Cruz",
+      "country": "Colombia",
+      "rank": 3,
+      "videosCount": 67,
+      "views": "10.9M",
+      "rating": 97,
+      "verified": true,
+      "badge": "HOT LATINA",
+      "palette": [
+        "#f59e0b",
+        "#78350f"
+      ]
+    },
+    {
+      "id": "perf-4",
+      "name": "Yua Takahashi",
+      "country": "Japan",
+      "rank": 4,
+      "videosCount": 95,
+      "views": "9.6M",
+      "rating": 98,
+      "verified": true,
+      "badge": "JAV QUEEN",
+      "palette": [
+        "#ec4899",
+        "#831843"
+      ]
+    },
+    {
+      "id": "perf-5",
+      "name": "Scarlett Vance",
+      "country": "USA",
+      "rank": 5,
+      "videosCount": 78,
+      "views": "8.7M",
+      "rating": 96,
+      "verified": true,
+      "badge": "VIP MODEL",
+      "palette": [
+        "#06b6d4",
+        "#164e63"
+      ]
+    },
+    {
+      "id": "perf-6",
+      "name": "Elena Romanova",
+      "country": "Czechia",
+      "rank": 6,
+      "videosCount": 53,
+      "views": "7.2M",
+      "rating": 95,
+      "verified": true,
+      "badge": "EU STAR",
+      "palette": [
+        "#ef4444",
+        "#450a0a"
+      ]
+    },
+    {
+      "id": "perf-7",
+      "name": "Naomi Noir",
+      "country": "Brazil",
+      "rank": 7,
+      "videosCount": 49,
+      "views": "6.8M",
+      "rating": 96,
+      "verified": true,
+      "badge": "TRENDING",
+      "palette": [
+        "#10b981",
+        "#064e3b"
+      ]
+    },
+    {
+      "id": "perf-8",
+      "name": "Chloe Monroe",
+      "country": "UK",
+      "rank": 8,
+      "videosCount": 61,
+      "views": "6.1M",
+      "rating": 94,
+      "verified": true,
+      "badge": "VERIFIED",
+      "palette": [
+        "#6366f1",
+        "#1e1b4b"
+      ]
+    }
+  ],
+  "videos": [
+    {
+      "id": "vid-1001",
+      "title": "Midnight Velvet Suite — Exclusive Penthouse Session",
+      "slug": "midnight-velvet-suite-exclusive-penthouse-session",
+      "description": "Shot in native 4K 60FPS Dolby Vision at the Paris Penthouse Studio. Featuring Eva Laurent in an exclusive uncut VIP production.",
+      "duration": "38:45",
+      "quality": "4K UHD",
+      "fps": "60FPS",
+      "views": 482900,
+      "likes": 42150,
+      "rating": 99,
+      "isVip": true,
+      "isFeatured": true,
+      "performer": "Eva Laurent",
+      "categories": [
+        "4K Ultra HD",
+        "Exclusive VIP",
+        "European",
+        "French",
+        "Lingerie & Stockings",
+        "Hardcore",
+        "Romantic Couples"
+      ],
+      "tags": [
+        "4K",
+        "Uncut",
+        "Penthouse",
+        "Paris",
+        "Lingerie",
+        "Exclusive"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%233b0764%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%234c0519%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e11d48%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e11d48%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%23e11d48%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%23e11d48%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%23e11d48%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%23e11d48%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3E4K%20VIP%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3EMIDNIGHT%20VELVET%20SUITE%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3EEVA%20LAURENT%20%E2%80%A2%204K%2060FPS%20EXCLUSIVE%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%23e11d48%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-28T18:30:00Z"
+    },
+    {
+      "id": "vid-1002",
+      "title": "Neon Oil & Luxury Spa — Sensual Deep Massage Uncensored",
+      "slug": "neon-oil-luxury-spa-sensual-deep-massage",
+      "description": "High-gloss oil massage session featuring Lana Vesper & Scarlett Vance in a private luxury spa suite.",
+      "duration": "44:12",
+      "quality": "4K UHD",
+      "fps": "60FPS",
+      "views": 619400,
+      "likes": 58900,
+      "rating": 98,
+      "isVip": true,
+      "isFeatured": true,
+      "performer": "Lana Vesper",
+      "categories": [
+        "Massage & Oil",
+        "4K Ultra HD",
+        "Russian",
+        "Blonde",
+        "Lesbian",
+        "Big Tits"
+      ],
+      "tags": [
+        "Massage",
+        "Oil",
+        "Spa",
+        "Blonde",
+        "Russian",
+        "4K"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231e1b4b%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23500724%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ec4899%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ec4899%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%23ec4899%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%23ec4899%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%23ec4899%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%23ec4899%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3E4K%2060FPS%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3ENEON%20OIL%20%26%20LUXURY%20SPA%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3ELANA%20VESPER%20%E2%80%A2%20SENSUAL%20MASSAGE%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%23ec4899%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-27T21:15:00Z"
+    },
+    {
+      "id": "vid-1003",
+      "title": "Bogota Heatwave — Latina Poolside POV Fantasy",
+      "slug": "bogota-heatwave-latina-poolside-pov-fantasy",
+      "description": "Valentina Cruz brings intense tropical energy in this immersive first-person POV poolside encounter.",
+      "duration": "29:18",
+      "quality": "1080p HD",
+      "fps": "60FPS",
+      "views": 354100,
+      "likes": 31200,
+      "rating": 97,
+      "isVip": false,
+      "isFeatured": true,
+      "performer": "Valentina Cruz",
+      "categories": [
+        "Latina",
+        "POV",
+        "Big Ass",
+        "Brunette",
+        "Public & Outdoor",
+        "Hardcore",
+        "Creampie"
+      ],
+      "tags": [
+        "Latina",
+        "POV",
+        "Poolside",
+        "Outdoor",
+        "Big Ass"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23451a03%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%233b0764%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f59e0b%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f59e0b%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%23f59e0b%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%23f59e0b%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%23f59e0b%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%23f59e0b%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3EPOV%20HD%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3EBOGOTA%20HEATWAVE%20POV%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3EVALENTINA%20CRUZ%20%E2%80%A2%20LATINA%20EXCLUSIVE%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%23f59e0b%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-26T15:00:00Z"
+    },
+    {
+      "id": "vid-1004",
+      "title": "Tokyo After Hours — Uncensored JAV Hotel Suite",
+      "slug": "tokyo-after-hours-uncensored-jav-hotel-suite",
+      "description": "Authentic Tokyo Shibuya luxury suite production starring Yua Takahashi in an uncut cosplayer & lingerie fantasy.",
+      "duration": "52:10",
+      "quality": "4K UHD",
+      "fps": "60FPS",
+      "views": 529000,
+      "likes": 49800,
+      "rating": 99,
+      "isVip": true,
+      "isFeatured": false,
+      "performer": "Yua Takahashi",
+      "categories": [
+        "Japanese (JAV)",
+        "Asian",
+        "Cosplay",
+        "4K Ultra HD",
+        "Roleplay & Fantasy",
+        "Petite (18+)"
+      ],
+      "tags": [
+        "JAV",
+        "Tokyo",
+        "Uncensored",
+        "Asian",
+        "Cosplay"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%234a044e%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230f172a%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23d946ef%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23d946ef%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%23d946ef%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%23d946ef%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%23d946ef%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%23d946ef%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3EJAV%204K%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3ETOKYO%20AFTER%20HOURS%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3EYUA%20TAKAHASHI%20%E2%80%A2%20UNCENSORED%20JAV%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%23d946ef%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-25T20:00:00Z"
+    },
+    {
+      "id": "vid-1005",
+      "title": "Prague Casting Audition — Backstage Amateur First Time",
+      "slug": "prague-casting-audition-backstage-amateur",
+      "description": "Backstage European casting session in Prague featuring Elena Romanova in her highest-rated studio audition.",
+      "duration": "34:05",
+      "quality": "1080p HD",
+      "fps": "60FPS",
+      "views": 412800,
+      "likes": 36500,
+      "rating": 96,
+      "isVip": false,
+      "isFeatured": false,
+      "performer": "Elena Romanova",
+      "categories": [
+        "Casting Couch",
+        "Amateur",
+        "European",
+        "Babe (18+)",
+        "Blowjob",
+        "POV"
+      ],
+      "tags": [
+        "Casting",
+        "Prague",
+        "Amateur",
+        "Audition",
+        "European"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23450a0a%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23111827%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ef4444%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ef4444%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%23ef4444%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%23ef4444%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%23ef4444%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%23ef4444%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3ECASTING%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3EPRAGUE%20CASTING%20COUCH%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3EELENA%20ROMANOVA%20%E2%80%A2%20BACKSTAGE%20HD%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%23ef4444%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-24T12:40:00Z"
+    },
+    {
+      "id": "vid-1006",
+      "title": "Beverly Hills Trophy MILF — Private Villa Encounter",
+      "slug": "beverly-hills-trophy-milf-private-villa",
+      "description": "Scarlett Vance stars as a glamorous Beverly Hills host in this cinema-grade 4K production.",
+      "duration": "41:50",
+      "quality": "4K UHD",
+      "fps": "60FPS",
+      "views": 745200,
+      "likes": 68400,
+      "rating": 98,
+      "isVip": true,
+      "isFeatured": true,
+      "performer": "Scarlett Vance",
+      "categories": [
+        "MILF",
+        "Big Tits",
+        "Blonde",
+        "4K Ultra HD",
+        "Hardcore",
+        "Anal",
+        "Lingerie & Stockings"
+      ],
+      "tags": [
+        "MILF",
+        "Beverly Hills",
+        "Blonde",
+        "Luxury",
+        "4K"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23083344%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%233b0764%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2306b6d4%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2306b6d4%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%2306b6d4%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%2306b6d4%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%2306b6d4%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%2306b6d4%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3ETOP%20MILF%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3EBEVERLY%20HILLS%20MILF%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3ESCARLETT%20VANCE%20%E2%80%A2%20PRIVATE%20VILLA%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%2306b6d4%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-23T19:10:00Z"
+    },
+    {
+      "id": "vid-1007",
+      "title": "Crimson Dungeon — Luxury BDSM & Shibari Artistry",
+      "slug": "crimson-dungeon-luxury-bdsm-shibari-artistry",
+      "description": "High-fashion BDSM and velvet restraint session with Naomi Noir in a custom-lit underground studio.",
+      "duration": "36:22",
+      "quality": "4K UHD",
+      "fps": "60FPS",
+      "views": 289400,
+      "likes": 25100,
+      "rating": 95,
+      "isVip": true,
+      "isFeatured": false,
+      "performer": "Naomi Noir",
+      "categories": [
+        "BDSM & Bondage",
+        "Fetish & Foot",
+        "Ebony",
+        "Exclusive VIP",
+        "Roleplay & Fantasy"
+      ],
+      "tags": [
+        "BDSM",
+        "Bondage",
+        "Fetish",
+        "Domination",
+        "VIP"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%234c0519%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2309090b%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f43f5e%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f43f5e%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%23f43f5e%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%23f43f5e%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%23f43f5e%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%23f43f5e%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3EVIP%20BDSM%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3ECRIMSON%20VELVET%20BDSM%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3ENAOMI%20NOIR%20%E2%80%A2%20FETISH%20EXCLUSIVE%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%23f43f5e%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-22T22:00:00Z"
+    },
+    {
+      "id": "vid-1008",
+      "title": "VIP Yacht Threesome — Mediterranean Sunset Party",
+      "slug": "vip-yacht-threesome-mediterranean-sunset",
+      "description": "Eva Laurent and Chloe Monroe aboard a private superyacht off Monaco in 60FPS Full HD.",
+      "duration": "47:30",
+      "quality": "4K UHD",
+      "fps": "60FPS",
+      "views": 598000,
+      "likes": 54200,
+      "rating": 99,
+      "isVip": true,
+      "isFeatured": false,
+      "performer": "Chloe Monroe",
+      "categories": [
+        "Threesome",
+        "Lesbian",
+        "European",
+        "Public & Outdoor",
+        "60FPS Full HD",
+        "Big Ass"
+      ],
+      "tags": [
+        "Threesome",
+        "Yacht",
+        "Monaco",
+        "Outdoor",
+        "60FPS"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231e1b4b%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%234c0519%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%238b5cf6%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%238b5cf6%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%238b5cf6%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%238b5cf6%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%238b5cf6%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%238b5cf6%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3ETHREESOME%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3EMONACO%20YACHT%20THREESOME%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3ECHLOE%20MONROE%20%26%20EVA%20%E2%80%A2%2060FPS%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%238b5cf6%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-21T17:45:00Z"
+    },
+    {
+      "id": "vid-1009",
+      "title": "VR 360° Cyber Bedroom — Interactive Close-Up Experience",
+      "slug": "vr-360-cyber-bedroom-interactive-experience",
+      "description": "Binocular 8K/4K VR 180/360 stereoscopic stream designed for Meta Quest, Apple Vision & desktop POV.",
+      "duration": "31:15",
+      "quality": "4K UHD",
+      "fps": "60FPS",
+      "views": 318700,
+      "likes": 29400,
+      "rating": 97,
+      "isVip": true,
+      "isFeatured": false,
+      "performer": "Lana Vesper",
+      "categories": [
+        "VR Porn 360°",
+        "POV",
+        "Solo Female & Toys",
+        "Cosplay",
+        "4K Ultra HD"
+      ],
+      "tags": [
+        "VR",
+        "360",
+        "POV",
+        "Interactive",
+        "Cosplay"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23042f2e%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2331102f%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2314b8a6%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2314b8a6%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%2314b8a6%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%2314b8a6%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%2314b8a6%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%2314b8a6%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3EVR%20360%C2%B0%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3EVR%20360%C2%B0%20CYBER%20SUITE%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3EIMMERSIVE%20BINAURAL%20POV%20EXPERIENCE%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%2314b8a6%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-20T14:20:00Z"
+    },
+    {
+      "id": "vid-1010",
+      "title": "Campus Dorm After Party — Verified 18+ College Special",
+      "slug": "campus-dorm-after-party-verified-18-college",
+      "description": "High-energy dorm room party episode featuring verified 18+ performers in 1080p 60FPS.",
+      "duration": "27:40",
+      "quality": "1080p HD",
+      "fps": "60FPS",
+      "views": 467500,
+      "likes": 41300,
+      "rating": 96,
+      "isVip": false,
+      "isFeatured": false,
+      "performer": "Chloe Monroe",
+      "categories": [
+        "College (18+)",
+        "Babe (18+)",
+        "Amateur",
+        "Threesome",
+        "Oral",
+        "Blowjob"
+      ],
+      "tags": [
+        "College",
+        "18+",
+        "Dorm",
+        "Amateur",
+        "Party"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%233b0764%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23172554%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23a855f7%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23a855f7%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%23a855f7%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%23a855f7%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%23a855f7%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%23a855f7%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3E18%2B%20HD%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3ECAMPUS%20AFTER%20PARTY%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3ECHLOE%20MONROE%20%E2%80%A2%20VERIFIED%2018%2B%20HD%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%23a855f7%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-19T16:00:00Z"
+    },
+    {
+      "id": "vid-1011",
+      "title": "Arabian Nights Velvet Lounge — Exotic Bellydance & Glamour",
+      "slug": "arabian-nights-velvet-lounge-exotic-glamour",
+      "description": "Exotic luxury lounge performance with sensual choreography and uncut private suite finale.",
+      "duration": "39:08",
+      "quality": "4K UHD",
+      "fps": "60FPS",
+      "views": 538900,
+      "likes": 49100,
+      "rating": 98,
+      "isVip": true,
+      "isFeatured": false,
+      "performer": "Valentina Cruz",
+      "categories": [
+        "Middle Eastern",
+        "Lingerie & Stockings",
+        "Big Ass",
+        "Brunette",
+        "Exclusive VIP",
+        "Romantic Couples"
+      ],
+      "tags": [
+        "Exotic",
+        "Middle Eastern",
+        "Glamour",
+        "VIP",
+        "4K"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23451a03%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%234c0519%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fbbf24%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fbbf24%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%23fbbf24%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%23fbbf24%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%23fbbf24%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%23fbbf24%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3ETRENDING%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3EVELVET%20MIRAGE%20LOUNGE%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3EEXOTIC%20GLAMOUR%20%E2%80%A2%20UNCUT%204K%20VIP%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%23fbbf24%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-18T21:00:00Z"
+    },
+    {
+      "id": "vid-1012",
+      "title": "Cyberpunk 3D Uncensored — Neon Succubus Episode IV",
+      "slug": "cyberpunk-3d-uncensored-neon-succubus-ep4",
+      "description": "60FPS ray-traced 3D anime / hentai fantasy rendered in ultra-crisp 4K with full English voiceover.",
+      "duration": "22:55",
+      "quality": "4K UHD",
+      "fps": "60FPS",
+      "views": 389200,
+      "likes": 37800,
+      "rating": 98,
+      "isVip": false,
+      "isFeatured": false,
+      "performer": "Yua Takahashi",
+      "categories": [
+        "Hentai & 3D Uncensored",
+        "Cosplay",
+        "Roleplay & Fantasy",
+        "60FPS Full HD"
+      ],
+      "tags": [
+        "Hentai",
+        "3D",
+        "Uncensored",
+        "60FPS",
+        "Anime"
+      ],
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+      "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20450%22%20width%3D%22800%22%20height%3D%22450%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2331102f%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%2309090d%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23090d16%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2275%25%22%20cy%3D%2230%25%22%20r%3D%2255%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ec4899%22%20stop-opacity%3D%220.48%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22sil%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ec4899%22%20stop-opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%20stop-opacity%3D%220.9%22%2F%3E%0A%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22url(%23glow)%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22145%22%20fill%3D%22none%22%20stroke%3D%22%23ec4899%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22610%22%20cy%3D%22195%22%20r%3D%22105%22%20fill%3D%22none%22%20stroke%3D%22%23ec4899%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%3C!--%20Artistic%20studio%20silhouette%20%26%20neon%20lighting%20bars%20--%3E%0A%20%20%20%20%3Cpath%20d%3D%22M540%20450%20C545%20340%2C%20565%20290%2C%20585%20250%20C565%20220%2C%20570%20165%2C%20610%20155%20C650%20165%2C%20655%20220%2C%20635%20250%20C655%20290%2C%20675%20340%2C%20680%20450%20Z%22%20fill%3D%22url(%23sil)%22%20stroke%3D%22%23ec4899%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%2236%22%20width%3D%22110%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22%23ec4899%22%2F%3E%0A%20%20%20%20%3Ctext%20x%3D%2295%22%20y%3D%2256%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3E3D%20ANIME%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22340%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20letter-spacing%3D%221%22%3ECYBERPUNK%203D%20FANTASY%3C%2Ftext%3E%0A%20%20%20%20%3Ctext%20x%3D%2240%22%20y%3D%22375%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23d4d4d8%22%20letter-spacing%3D%222%22%3ERAY-TRACED%2060FPS%20UNCENSORED%3C%2Ftext%3E%0A%20%20%20%20%3Crect%20x%3D%2240%22%20y%3D%22395%22%20width%3D%22180%22%20height%3D%223%22%20fill%3D%22%23ec4899%22%20rx%3D%221.5%22%2F%3E%0A%20%20%3C%2Fsvg%3E",
+      "createdAt": "2026-09-17T19:30:00Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": "cmt-1",
+      "videoId": "vid-1001",
+      "user": "VIP_Member_99",
+      "text": "Incredible 4K 60FPS bitrate and lighting. Best studio quality on the platform!",
+      "createdAt": "2026-09-29T10:15:00Z"
+    },
+    {
+      "id": "cmt-2",
+      "videoId": "vid-1001",
+      "user": "CinemaLover_X",
+      "text": "Eva Laurent never disappoints. Smooth streaming with zero buffering.",
+      "createdAt": "2026-09-29T12:40:00Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "log-1790712051249-98dz",
+      "action": "ADMIN_LOGIN_SUCCESS",
+      "ip": "127.0.0.1",
+      "details": "Secret Admin Vault unlocked successfully",
+      "timestamp": "2026-09-29T20:00:51.249Z"
+    },
+    {
+      "id": "log-init",
+      "action": "SYSTEM_INITIALIZED",
+      "ip": "127.0.0.1",
+      "details": "VelvetVault Ubuntu Streaming Engine initialized with Official License & 50 English Categories",
+      "timestamp": "2026-09-29T20:00:41.785Z"
+    }
+  ],
+  "analytics": {
+    "totalViews": 5745100,
+    "activeStreams": 142,
+    "bandwidthUsedGb": 1840.5
+  }
+}

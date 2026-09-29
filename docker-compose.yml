@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  velvetvault-app:
+    build: .
+    container_name: velvetvault_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.example
+    volumes:
+      - ./data:/app/data
+      - ./public/uploads:/app/public/uploads
+      - ./logs:/app/logs
+    networks:
+      - velvet_net
+
+  velvetvault-nginx:
+    image: nginx:stable-alpine
+    container_name: velvetvault_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./deploy/nginx/streamvault.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./public/uploads:/var/www/velvetvault/public/uploads:ro
+    depends_on:
+      - velvetvault-app
+    networks:
+      - velvet_net
+
+networks:
+  velvet_net:
+    driver: bridge

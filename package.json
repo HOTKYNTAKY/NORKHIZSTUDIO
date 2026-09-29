@@ -1,0 +1,29 @@
+{
+  "name": "velvetvault-adult-vod-platform",
+  "version": "3.4.0",
+  "description": "Enterprise 18+ Adult Video Streaming CMS, HLS VOD Server & Stealth Admin Vault for Ubuntu Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node src/utils/seed-runner.js",
+    "backup": "bash deploy/scripts/backup.sh",
+    "health": "bash deploy/scripts/healthcheck.sh",
+    "transcode": "bash deploy/scripts/transcode-hls.sh"
+  },
+  "keywords": [
+    "vod",
+    "streaming",
+    "adult-cms",
+    "tube-script",
+    "hls",
+    "ubuntu-server",
+    "video-platform",
+    "18plus"
+  ],
+  "author": "VelvetVault Studio Pro",
+  "license": "PROPRIETARY-LICENSED",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

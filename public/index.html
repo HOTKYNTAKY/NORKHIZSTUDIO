@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="rating" content="RTA-5042-1996-1400-1577-RTA" />
+  <title>VELVETVAULT PRO — Licensed 18+ Adult 4K VOD & Streaming Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/player.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+
+  <!-- =====================================================================
+       1. 18+ AGE VERIFICATION & OFFICIAL NATIONAL LICENSE GATE MODAL
+       ===================================================================== -->
+  <div id="ageGateBackdrop" class="age-gate-backdrop" style="display: none;">
+    <div class="age-gate-card">
+      <div class="age-gate-18-circle">18+</div>
+      <h1 style="font-size: 25px; font-weight: 900; color: #fff; margin-bottom: 8px;">
+        ADULT CONTENT WARNING • تایید سنی +18
+      </h1>
+      <p style="color: #a1a1aa; font-size: 13.5px; margin-bottom: 14px;">
+        This website contains age-restricted adult entertainment material (18+ VOD & Pornography).
+        By entering, you affirm that you are at least 18 years of age or the age of majority in your jurisdiction.
+      </p>
+
+      <div class="age-gate-license-box">
+        <div>🛡️ <strong>دارای مجوز رسمی کشوری و ثبت فعالیت رسانه‌ای بزرگسالان (+18)</strong></div>
+        <div style="margin-top: 4px; font-size: 12px; color: #6ee7b7;">
+          شماره ثبت مجوز: <code id="ageGateLicenseNum">IR-AVOD-2026-99481-OFFICIAL</code> | RTA & 2257 Verified
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: center; margin-top: 24px; flex-wrap: wrap;">
+        <button id="btnAgeEnter" class="btn-primary-play" style="font-family: var(--font-fa); font-size: 14.5px;">
+          ✅ بالای ۱۸ سال هستم — ورود به سایت (I am 18+ Enter)
+        </button>
+        <button id="btnAgeExit" class="btn-secondary-glass" style="font-family: var(--font-fa);">
+          خروج (Exit)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       2. TOP COMPLIANCE, LICENSE & STEALTH UTILITIES BAR
+       ===================================================================== -->
+  <div class="compliance-topbar">
+    <div class="compliance-left">
+      <span class="rta-pill">18+ ADULT VOD</span>
+      <span id="topLicenseNumber" class="license-pill">
+        ✅ دارای مجوز رسمی کشوری: IR-AVOD-2026-99481-OFFICIAL
+      </span>
+      <span style="color: #a1a1aa; font-size: 11.5px;">
+        • 4K 60FPS Dolby Stream • Ubuntu HLS Engine
+      </span>
+    </div>
+
+    <div class="compliance-right">
+      <button class="top-util-btn" onclick="window.VelvetApp.switchView('ubuntu')">
+        🐧 راهنمای نصب Ubuntu Server
+      </button>
+      <button class="top-util-btn stealth-btn" onclick="window.SecretAdminVault.openVault()" title="Shortcut: Ctrl + Shift + A">
+        🔐 پنل مخفی ادمین (Ctrl+Shift+A)
+      </button>
+      <button id="btnPanicExit" class="top-util-btn panic-btn" title="Double press ESC">
+        ⚡ خروج اضطراری (ESC×2)
+      </button>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       3. MAIN LUXURY HEADER & PRIMARY NAVIGATION
+       ===================================================================== -->
+  <header class="main-header">
+    <div class="header-inner">
+      <div class="brand-logo" onclick="window.VelvetApp.switchView('discover')">
+        <div class="brand-emblem">V</div>
+        <div class="brand-text-wrap">
+          <div id="headerBrandName" class="brand-title">
+            VELVETVAULT <span class="badge-18">18+ PRO</span>
+          </div>
+          <span class="brand-sub">LICENSED ADULT CINEMA & 4K PORN NETWORK</span>
+        </div>
+      </div>
+
+      <div class="search-container">
+        <input
+          id="globalSearchInput"
+          type="text"
+          class="search-input"
+          placeholder="Search English categories, titles, pornstars (e.g. MILF, 4K, Latina, POV, Eva)..."
+        />
+        <button class="search-btn" aria-label="Search">🔍</button>
+      </div>
+
+      <nav class="nav-tabs">
+        <button class="nav-tab active" data-view="discover" onclick="window.VelvetApp.switchView('discover')">
+          🔥 Home
+        </button>
+        <button class="nav-tab" data-view="categories" onclick="window.VelvetApp.switchView('categories')">
+          📂 All Categories (EN)
+        </button>
+        <button class="nav-tab" data-view="performers" onclick="window.VelvetApp.switchView('performers')">
+          ⭐ Pornstars
+        </button>
+        <button class="nav-tab" data-view="4k" onclick="window.VelvetApp.switchView('4k')">
+          💎 4K UHD
+        </button>
+        <button class="nav-tab" data-view="vr" onclick="window.VelvetApp.switchView('vr')">
+          🥽 VR 360°
+        </button>
+        <button class="nav-tab vip-tab" data-view="vip" onclick="window.VelvetApp.switchView('vip')">
+          👑 VIP Exclusive
+        </button>
+        <button class="nav-tab" data-view="library" onclick="window.VelvetApp.switchView('library')">
+          ❤️ My Library
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       4. HORIZONTAL ENGLISH CATEGORIES RIBBON
+       ===================================================================== -->
+  <div class="categories-ribbon-wrapper">
+    <div id="englishCategoriesRibbon" class="categories-ribbon">
+      <!-- Populated dynamically with all 50+ English categories -->
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       5. MAIN DYNAMIC VIEW CONTAINER
+       ===================================================================== -->
+  <main id="mainViewContainer" class="main-container">
+    <!-- Hero Spotlight + Video Grid / Categories Grid / Performers Grid -->
+  </main>
+
+  <!-- =====================================================================
+       6. CUSTOM 4K HTML5 VIDEO PLAYER MODAL
+       ===================================================================== -->
+  <div id="playerModalBackdrop" class="player-modal-backdrop">
+    <div class="player-modal-container">
+      <div class="player-top-bar">
+        <div id="playerTopTitle" class="player-top-title">Playing Stream</div>
+        <button class="player-close-btn" onclick="window.VideoPlayerModal.close()">
+          بستن پلیر (Close ✕)
+        </button>
+      </div>
+
+      <div id="playerLayoutGrid" class="player-layout">
+        <div class="player-main-col">
+          <div class="video-stage-wrapper">
+            <video id="html5VideoPlayer" controls playsinline preload="metadata"></video>
+          </div>
+
+          <!-- Custom Pro Controls Bar -->
+          <div class="custom-player-toolbar">
+            <div class="player-ctrl-group">
+              <button class="p-ctrl-btn" onclick="window.VideoPlayerModal.skip(-10)">⏪ -10s</button>
+              <button class="p-ctrl-btn" onclick="window.VideoPlayerModal.skip(10)">+10s ⏩</button>
+              <button class="p-ctrl-btn" onclick="window.VideoPlayerModal.toggleTheater()">🖥️ Theater Mode</button>
+              <button class="p-ctrl-btn" onclick="window.VideoPlayerModal.togglePiP()">🖼️ PiP</button>
+            </div>
+
+            <div class="player-ctrl-group">
+              <span style="font-size:11.5px;color:#a1a1aa;">Quality:</span>
+              <button class="p-ctrl-btn qual-btn active" onclick="window.VideoPlayerModal.setQuality('4K 2160p', this)">4K UHD</button>
+              <button class="p-ctrl-btn qual-btn" onclick="window.VideoPlayerModal.setQuality('1080p HD', this)">1080p</button>
+              <button class="p-ctrl-btn qual-btn" onclick="window.VideoPlayerModal.setQuality('720p', this)">720p</button>
+            </div>
+
+            <div class="player-ctrl-group">
+              <span style="font-size:11.5px;color:#a1a1aa;">Speed:</span>
+              <button class="p-ctrl-btn speed-btn" onclick="window.VideoPlayerModal.setSpeed(0.75, this)">0.75x</button>
+              <button class="p-ctrl-btn speed-btn active" onclick="window.VideoPlayerModal.setSpeed(1, this)">1x</button>
+              <button class="p-ctrl-btn speed-btn" onclick="window.VideoPlayerModal.setSpeed(1.5, this)">1.5x</button>
+              <button class="p-ctrl-btn speed-btn" onclick="window.VideoPlayerModal.setSpeed(2, this)">2x</button>
+            </div>
+          </div>
+
+          <!-- Video Metadata & Actions -->
+          <div class="video-details-panel">
+            <div class="video-details-header">
+              <div>
+                <h2 id="playerVideoTitle" style="font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;"></h2>
+                <div id="playerVideoMeta" style="display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:#a1a1aa;"></div>
+              </div>
+
+              <div class="video-action-buttons">
+                <button id="btnPlayerLike" class="action-pill-btn" onclick="window.VideoPlayerModal.likeCurrentVideo()">
+                  <span>🔥 Like</span>
+                  <span id="playerLikeCount">0</span>
+                </button>
+                <button id="btnPlayerFav" class="action-pill-btn" onclick="window.VideoPlayerModal.toggleFavoriteCurrent()" style="font-family:var(--font-fa);">
+                  🤍 افزودن به علاقه‌مندی
+                </button>
+              </div>
+            </div>
+
+            <p id="playerVideoDesc" style="margin-top:14px;color:#d4d4d8;font-size:14px;"></p>
+
+            <div style="margin-top:14px;">
+              <div style="font-size:12px;color:#a1a1aa;margin-bottom:6px;">English Categories:</div>
+              <div id="playerVideoCategories" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+            </div>
+          </div>
+
+          <!-- Comments Box -->
+          <div class="comments-box">
+            <h3 style="font-size:16px;margin-bottom:12px;color:#fff;">💬 نظرات کاربران (Viewer Comments)</h3>
+            <form class="comment-form" onsubmit="window.VideoPlayerModal.submitComment(event)">
+              <input id="commentUserInput" class="comment-input" style="max-width:180px;" placeholder="نام مستعار (Optional)" />
+              <input id="commentTextInput" class="comment-input" placeholder="نظر خود را درباره این ویدیو بنویسید..." required />
+              <button type="submit" class="btn-primary-play" style="padding:10px 20px;font-size:13.5px;">ارسال نظر</button>
+            </form>
+            <div id="playerCommentsList"></div>
+          </div>
+        </div>
+
+        <!-- Related Videos Sidebar -->
+        <aside class="player-sidebar-col">
+          <h3 style="font-size:15px;font-weight:800;margin-bottom:14px;color:#fda4af;">
+            🔥 ویدیوهای پیشنهادی (Related 4K Streams)
+          </h3>
+          <div id="playerRelatedList"></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       7. SECRET ADMIN VAULT MODAL (پنل مخفی ادمین)
+       ===================================================================== -->
+  <div id="adminVaultBackdrop" class="admin-vault-backdrop">
+    <div id="adminVaultContent"></div>
+  </div>
+
+  <!-- =====================================================================
+       8. FOOTER WITH LICENSE INFO & 5x CLICK STEALTH TRIGGER
+       ===================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="brand-title" style="margin-bottom:10px;">
+          VELVETVAULT <span class="badge-18">18+</span>
+        </div>
+        <p style="color:#a1a1aa;font-size:13px;line-height:1.7;font-family:var(--font-fa);">
+          پلتفرم حرفه‌ای استریم ویدیو بزرگسالان با پشتیبانی از کیفیت 4K 60FPS، دسته‌بندی‌های کامل بین‌المللی (English Categories)، پنل مخفی مدیریت و اسکریپت نصب خودکار روی سرور اوبونتو.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Top English Categories</h4>
+        <ul class="footer-links">
+          <li><button onclick="window.VelvetApp.selectCategory('4K Ultra HD')">4K Ultra HD</button></li>
+          <li><button onclick="window.VelvetApp.selectCategory('MILF')">MILF</button></li>
+          <li><button onclick="window.VelvetApp.selectCategory('Amateur')">Amateur</button></li>
+          <li><button onclick="window.VelvetApp.selectCategory('Latina')">Latina</button></li>
+          <li><button onclick="window.VelvetApp.selectCategory('Japanese (JAV)')">Japanese (JAV)</button></li>
+          <li><button onclick="window.VelvetApp.selectCategory('VR Porn 360°')">VR Porn 360°</button></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Navigation</h4>
+        <ul class="footer-links">
+          <li><button onclick="window.VelvetApp.switchView('categories')">All 50+ English Categories</button></li>
+          <li><button onclick="window.VelvetApp.switchView('performers')">Verified Pornstars</button></li>
+          <li><button onclick="window.VelvetApp.switchView('vip')">VIP Exclusive 4K</button></li>
+          <li><button onclick="window.VelvetApp.switchView('ubuntu')">Ubuntu Server Installer (install.sh)</button></li>
+          <li><button onclick="window.SecretAdminVault.openVault()">Stealth Admin Vault (Ctrl+Shift+A)</button></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Official License & Compliance</h4>
+        <p style="color:#a1a1aa;font-size:12.5px;line-height:1.7;">
+          18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement.<br/>
+          All models و بازیگران appearing on this portal were 18 years of age or older at the time of production.<br/>
+          <strong style="color:#34d399;">Official License ID: IR-AVOD-2026-99481-OFFICIAL</strong>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 VELVETVAULT PRO — Enterprise Adult Streaming CMS for Ubuntu Server. All Rights Reserved.</div>
+      <div id="footerStealthTrigger" class="stealth-shield-trigger" title="5x Click to open Secret Admin Panel">
+        🛡️ Official Licensed 18+ Portal • RTA Certified
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="/js/age-gate.js"></script>
+  <script src="/js/player.js"></script>
+  <script src="/js/admin-panel.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

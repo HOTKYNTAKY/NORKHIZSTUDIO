@@ -47,7 +47,7 @@
   </div>
 
   <!-- =====================================================================
-       2. TOP COMPLIANCE, LICENSE & STEALTH UTILITIES BAR
+       2. TOP COMPLIANCE & LICENSE BAR
        ===================================================================== -->
   <div class="compliance-topbar">
     <div class="compliance-left">
@@ -56,20 +56,8 @@
         ✅ دارای مجوز رسمی کشوری: IR-AVOD-2026-99481-OFFICIAL
       </span>
       <span style="color: #a1a1aa; font-size: 11.5px;">
-        • 4K 60FPS Dolby Stream • Ubuntu HLS Engine
+        • 4K 60FPS Dolby Stream
       </span>
-    </div>
-
-    <div class="compliance-right">
-      <button class="top-util-btn" onclick="window.VelvetApp.switchView('ubuntu')">
-        🐧 راهنمای نصب Ubuntu Server
-      </button>
-      <button class="top-util-btn stealth-btn" onclick="window.SecretAdminVault.openVault()" title="Shortcut: Ctrl + Shift + A">
-        🔐 پنل مخفی ادمین (Ctrl+Shift+A)
-      </button>
-      <button id="btnPanicExit" class="top-util-btn panic-btn" title="Double press ESC">
-        ⚡ خروج اضطراری (ESC×2)
-      </button>
     </div>
   </div>
 
@@ -78,7 +66,7 @@
        ===================================================================== -->
   <header class="main-header">
     <div class="header-inner">
-      <div class="brand-logo" onclick="window.VelvetApp.switchView('discover')">
+      <div id="brandLogoTrigger" class="brand-logo" style="user-select: none; -webkit-user-select: none;">
         <div class="brand-emblem">V</div>
         <div class="brand-text-wrap">
           <div id="headerBrandName" class="brand-title">
@@ -272,8 +260,8 @@
           <li><button onclick="window.VelvetApp.switchView('categories')">All 50+ English Categories</button></li>
           <li><button onclick="window.VelvetApp.switchView('performers')">Verified Pornstars</button></li>
           <li><button onclick="window.VelvetApp.switchView('vip')">VIP Exclusive 4K</button></li>
-          <li><button onclick="window.VelvetApp.switchView('ubuntu')">Ubuntu Server Installer (install.sh)</button></li>
-          <li><button onclick="window.SecretAdminVault.openVault()">Stealth Admin Vault (Ctrl+Shift+A)</button></li>
+          <li><button onclick="window.VelvetApp.switchView('4k')">4K UHD Streams</button></li>
+          <li><button onclick="window.VelvetApp.switchView('vr')">VR 360° Experience</button></li>
         </ul>
       </div>
 

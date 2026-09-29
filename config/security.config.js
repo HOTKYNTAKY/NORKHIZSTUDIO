@@ -5,9 +5,8 @@
 const crypto = require('crypto');
 
 module.exports = {
-  // Default Secret Key for the Hidden Admin Panel (can be changed from Admin Panel or .env)
-  adminSecretKey: process.env.ADMIN_SECRET_KEY || 'VAULT-ADMIN-2026',
-  adminMasterPin: process.env.ADMIN_MASTER_PIN || '8899',
+  // Secret Password for the Hidden Admin Panel
+  adminSecretKey: process.env.ADMIN_SECRET_KEY || 'eiman1387',
   stealthAdminPath: process.env.ADMIN_STEALTH_PATH || '/vault-x9-control',
   sessionTtlHours: parseInt(process.env.ADMIN_SESSION_TTL_HOURS || '24', 10),
 

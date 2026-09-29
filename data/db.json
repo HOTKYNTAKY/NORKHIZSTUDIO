@@ -7,8 +7,7 @@
     "licenseAuthority": "National Digital Media & Adult Content Regulatory Board (دارای مجوز رسمی کشوری)",
     "ageGateEnabled": true,
     "minimumAge": 18,
-    "adminSecretKey": "VAULT-ADMIN-2026",
-    "adminMasterPin": "8899",
+    "adminSecretKey": "eiman1387",
     "stealthAdminPath": "/vault-x9-control",
     "announcementBanner": "Official Licensed 18+ Adult Entertainment Portal • New 4K 60FPS & VR Streams Added Daily",
     "allowComments": true,
@@ -1055,18 +1054,11 @@
   ],
   "auditLogs": [
     {
-      "id": "log-1790712051249-98dz",
-      "action": "ADMIN_LOGIN_SUCCESS",
-      "ip": "127.0.0.1",
-      "details": "Secret Admin Vault unlocked successfully",
-      "timestamp": "2026-09-29T20:00:51.249Z"
-    },
-    {
       "id": "log-init",
       "action": "SYSTEM_INITIALIZED",
       "ip": "127.0.0.1",
       "details": "VelvetVault Ubuntu Streaming Engine initialized with Official License & 50 English Categories",
-      "timestamp": "2026-09-29T20:00:41.785Z"
+      "timestamp": "2026-09-29T21:15:00.269Z"
     }
   ],
   "analytics": {

@@ -3,13 +3,53 @@
 آزمون ۳۰ سؤالی شخصیت (چندگزینه‌ای) بر پایه‌ی مدل پنج‌عاملی (Big Five).
 پنج بُعد: گشودگی به تجربه، وظیفه‌شناسی، برون‌گرایی، توافق‌پذیری و ثبات هیجانی.
 
-## اجرا
-فایل‌های این پوشه static هستند و نیاز به build یا نصب پکیج ندارند:
+## نصب روی سرور لینوکسی
+
+روی سرور (Ubuntu / Debian / CentOS / Rocky و مشابه) این دستورات را اجرا کن:
+
+    git clone --branch arena/f8d79da6-norkhizstudio --single-branch https://github.com/HOTKYNTAKY/NORKHIZSTUDIO.git
+    cd NORKHIZSTUDIO/personality
+    sudo bash install.sh
+
+در پایان نصب، آدرس دقیق باز کردن سایت در ترمینال چاپ می‌شود (روی سرور، شبکه‌ی داخلی و IP عمومی) و در `/etc/kavosh-shakhsiat/address.txt` ذخیره می‌شود.
+
+### تنظیمات دلخواه (متغیر محیطی)
+
+| متغیر | پیش‌فرض | توضیح |
+|---|---|---|
+| `PORT` | `8080` | پورت وب‌سایت |
+| `MODE` | `python` | `python`: سرویس systemd با python3 (بدون پکیج اضافه) — `nginx`: وب‌سرور nginx |
+| `DOMAIN` | خالی | نام دامنه (برای نمایش آدرس و تنظیم nginx) |
+| `INSTALL_DIR` | `/opt/kavosh-shakhsiat` | مسیر فایل‌های سایت |
+| `DRY_RUN` | `0` | `1` یعنی فقط مراحل را نشان بده، چیزی نصب نکن |
+
+مثال‌ها:
+
+    sudo PORT=80 MODE=nginx DOMAIN=kavosh.example.com bash install.sh
+    sudo PORT=8081 bash install.sh
+
+### مدیریت بعد از نصب
+
+    sudo systemctl status kavosh-shakhsiat      # وضعیت
+    sudo systemctl restart kavosh-shakhsiat     # ری‌استارت
+    sudo journalctl -u kavosh-shakhsiat -n 100  # لاگ
+
+برای به‌روزرسانی: کد را `git pull` کن و دوباره `sudo bash install.sh` را اجرا کن (نصب تکراری امن است).
+
+### حذف کامل
+
+    sudo bash uninstall.sh
+
+### نکات مهم
+- اگر سرور ابری است (AWS، Hetzner، ArvanCloud و...)، پورت را در **Security Group / فایروال پنل** هم باز کن؛ فایروال داخل سرور کافی نیست.
+- حالت `python` برای استفاده‌ی شخصی یا ترافیک کم مناسب است. برای ترافیک بالا یا HTTPS، از `MODE=nginx` به‌همراه یک دامنه و گواهی (مثلاً با certbot) استفاده کن.
+- پاسخ‌های کاربران فقط در مرورگر آن‌ها ذخیره می‌شود؛ سرور چیزی از آزمون نگه نمی‌دارد.
+
+## اجرای محلی (بدون نصب)
+فایل‌های این پوشه static هستند:
 
     cd personality
     python3 -m http.server 8080
-
-سپس `http://localhost:8080` را باز کن (یا مستقیم `index.html` را در مرورگر باز کن).
 
 ## ساختار
 - `index.html` — صفحه‌ی اصلی (معرفی، آزمون، نتیجه)
@@ -17,11 +57,10 @@
 - `js/content.js` — ۳۰ سؤال، متن ابعاد، و نوع‌های شخصیتی
 - `js/engine.js` — محاسبه‌ی امتیاز، سطح‌بندی و تطبیق نوع شخصیتی (بدون DOM، قابل تست)
 - `js/app.js` — رابط کاربری و ذخیره‌ی پیشرفت در `localStorage`
+- `install.sh` / `uninstall.sh` — نصب و حذف روی سرور لینوکسی
 
 ## نکات
 - پاسخ‌ها فقط در مرورگر کاربر ذخیره می‌شوند و به سرور ارسال نمی‌شوند.
 - برای تغییر سؤال‌ها یا متن‌ها فقط `js/content.js` را ویرایش کن.
 - این ابزار خودشناسی است و جایگزین ارزیابی تخصصی روان‌شناس نیست.
 
-## تست‌های سریع موتور امتیازدهی
-    node -e "const E=require('./js/engine.js');console.log(E.buildReport({}).complete)"

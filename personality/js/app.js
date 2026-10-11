@@ -173,16 +173,35 @@
     show('result');
   }
 
-  function confirmIfProgress(message) {
-    if (answeredCount() === 0) return true;
-    return window.confirm(message);
+  // تأیید درون‌صفحه‌ای (بدون window.confirm، چون بعضی مرورگرها/پیش‌نمایش‌ها آن را مسدود می‌کنند):
+  // کلیک اول دکمه را «تأیید» می‌کند و کلیک دوم عملیات را انجام می‌دهد؛ اگر تأیید نشود، بعد از ۵ ثانیه برمی‌گردد.
+  function confirmClick(button, needsConfirm, armedLabel, action) {
+    var idle = '';
+    var armed = false;
+    var timer = null;
+    function disarm() {
+      clearTimeout(timer);
+      armed = false;
+      button.classList.remove('is-armed');
+      if (idle) button.textContent = idle;
+    }
+    button.addEventListener('click', function () {
+      if (!needsConfirm()) { disarm(); action(); return; }
+      if (armed) { disarm(); action(); return; }
+      idle = button.textContent;
+      armed = true;
+      button.classList.add('is-armed');
+      button.textContent = armedLabel;
+      timer = setTimeout(disarm, 5000);
+    });
   }
 
-  el.btnStart.addEventListener('click', function () {
-    if (!confirmIfProgress('پاسخ‌های قبلی‌ات پاک می‌شوند. ادامه می‌دهی؟')) return;
-    resetState('quiz');
-    startQuiz(0);
-  });
+  confirmClick(
+    el.btnStart,
+    function () { return answeredCount() > 0; },
+    'مطمئنی؟ دوباره بزن تا پاسخ‌های قبلی پاک شوند',
+    function () { resetState('quiz'); startQuiz(0); }
+  );
 
   el.btnResume.addEventListener('click', function () {
     startQuiz(state.index);
@@ -329,11 +348,12 @@
       '<p class="disclaimer">این نتیجه برای خودشناسی و الهام‌گیری است و جایگزین ارزیابی تخصصی روان‌شناس یا روان‌پزشک نیست.</p>';
 
     document.getElementById('btnPrint').addEventListener('click', function () { window.print(); });
-    document.getElementById('btnRetake').addEventListener('click', function () {
-      if (!window.confirm('پاسخ‌های فعلی پاک می‌شوند و آزمون از اول شروع می‌شود. ادامه می‌دهی؟')) return;
-      resetState('quiz');
-      startQuiz(0);
-    });
+    confirmClick(
+      document.getElementById('btnRetake'),
+      function () { return true; },
+      'مطمئنی؟ دوباره بزن تا آزمون از اول شروع شود',
+      function () { resetState('quiz'); startQuiz(0); }
+    );
     document.getElementById('btnBackIntro').addEventListener('click', function () { showIntro(); });
 
     // انیمیشن نوارها بعد از رندر

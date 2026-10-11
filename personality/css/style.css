@@ -110,6 +110,7 @@ button:disabled { cursor: not-allowed; opacity: 0.45; }
 .btn-ghost { color: var(--ink-soft); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
 .btn-ghost:not(:disabled):hover { color: var(--brand); border-color: rgba(79, 70, 229, 0.3); }
 .btn-lg { padding: 15px 32px; font-size: 17px; }
+.btn.is-armed { color: #fff; background: #b45309; box-shadow: 0 10px 24px -10px rgba(180, 83, 9, 0.8); }
 
 /* ============ صفحه معرفی ============ */
 .hero { padding: clamp(28px, 5vw, 56px); text-align: center; }

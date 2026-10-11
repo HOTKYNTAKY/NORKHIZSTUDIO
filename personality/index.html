@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کاوش شخصیت — آزمون ۳۰ سؤالی شناخت خود</title>
+    <meta name="description" content="آزمون ۳۰ سؤالی شخصیت بر پایه‌ی مدل پنج‌عاملی؛ نقاط قوت، نقاط رشد و تحلیل نوع شخصیتی تو.">
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="bg-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <header class="topbar">
+        <a class="brand" href="#" data-action="home" aria-label="صفحه اصلی">
+            <span class="brand-mark" aria-hidden="true">✦</span>
+            <span>
+                <strong>کاوش شخصیت</strong>
+                <small>شناخت خود، گام به گام</small>
+            </span>
+        </a>
+        <div class="topbar-right">
+            <span class="progress-chip" id="progressChip" hidden></span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- ============ صفحه معرفی ============ -->
+        <section id="view-intro" class="view" aria-labelledby="introTitle">
+            <div class="hero card">
+                <p class="eyebrow">آزمون شخصیت · ۳۰ سؤال · ۵ دقیقه</p>
+                <h1 id="introTitle">خودت را واقعی‌تر ببین</h1>
+                <p class="lead">
+                    این آزمون با الهام از <strong>مدل پنج‌عاملی شخصیت (Big Five)</strong> که یکی از معتبرترین چارچوب‌های
+                    روان‌شناسی است، نشان می‌دهد تو در پنج بُعد اصلی شخصیت کجا ایستاده‌ای؛ نقاط قوتت چیست، کجا ممکن
+                    است به مشکل بخوری و نوع شخصیتی تو چه ویژگی‌هایی دارد.
+                </p>
+
+                <ul class="feature-grid">
+                    <li><span class="fi">◎</span><div><strong>۳۰ موقعیت واقعی</strong><small>هر سؤال چند گزینه‌ی واقع‌گرایانه دارد؛ جواب درست یا غلط ندارد.</small></div></li>
+                    <li><span class="fi">◈</span><div><strong>۵ بُعد شخصیتی</strong><small>گشودگی، وظیفه‌شناسی، برون‌گرایی، همدلی و ثبات هیجانی.</small></div></li>
+                    <li><span class="fi">❖</span><div><strong>تحلیل نهایی</strong><small>نمودار، نقاط قوت، نقاط رشد و یک تحلیل شخصی‌سازی‌شده.</small></div></li>
+                    <li><span class="fi">⌂</span><div><strong>کاملاً خصوصی</strong><small>پاسخ‌ها فقط در مرورگر خودت ذخیره می‌شوند و به هیچ سروری ارسال نمی‌شوند.</small></div></li>
+                </ul>
+
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-lg" id="btnStart" type="button">شروع آزمون</button>
+                    <button class="btn btn-ghost" id="btnResume" type="button" hidden>ادامه‌ی آزمون قبلی</button>
+                </div>
+                <p class="fineprint">راهنما: پاسخ را بر اساس رفتار واقعی و معمول خودت انتخاب کن، نه آن چیزی که دوست داری باشی.</p>
+            </div>
+        </section>
+
+        <!-- ============ صفحه آزمون ============ -->
+        <section id="view-quiz" class="view" hidden aria-live="polite">
+            <div class="quiz-wrap">
+                <div class="progress" role="progressbar" aria-label="پیشرفت آزمون" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="progress-meta">
+                    <span id="qCounter">سؤال ۱ از ۳۰</span>
+                    <span id="qPercent">۰٪</span>
+                </div>
+
+                <article class="card question-card" id="questionCard">
+                    <h2 class="question-text" id="questionText"></h2>
+                    <div class="options" id="options" role="radiogroup" aria-labelledby="questionText"></div>
+                    <p class="kbd-hint">می‌توانی با کلیدهای ۱ تا ۴ گزینه را انتخاب کنی و با Enter ادامه بدهی.</p>
+                </article>
+
+                <div class="quiz-nav">
+                    <button class="btn btn-ghost" id="btnPrev" type="button">سؤال قبلی</button>
+                    <button class="btn btn-primary" id="btnNext" type="button" disabled>سؤال بعدی</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ صفحه نتیجه ============ -->
+        <section id="view-result" class="view" hidden aria-labelledby="resultTitle">
+            <div id="resultRoot"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>این آزمون ابزار خودشناسی است و جایگزین تشخیص یا مشاوره‌ی روان‌شناختی حرفه‌ای نیست.</p>
+    </footer>
+
+    <script src="js/content.js"></script>
+    <script src="js/engine.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

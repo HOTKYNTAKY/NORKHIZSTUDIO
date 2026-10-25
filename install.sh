@@ -81,22 +81,16 @@ PHP_INI_DIR="/etc/php/${PHP_VER}/fpm"
 log "[4/12] Setting timezone to Asia/Tehran..."
 timedatectl set-timezone Asia/Tehran 2>/dev/null || true
 
-# ---- 6. Download project from Google Drive ----
-log "[5/12] Downloading project from Google Drive..."
-GDRIVE_FILE_ID="1dhrMEkLehppXN_4VDy5tcLyjwxXFFpeM"
-DOWNLOAD_URL="https://drive.google.com/uc?id=${GDRIVE_FILE_ID}&export=download"
+# ---- 6. Download project from GitHub ----
+log "[5/12] Downloading project from GitHub..."
+GITHUB_ZIP="https://github.com/HOTKYNTAKY/NORKHIZSTUDIO/archive/refs/heads/arena/091a7e27-norkhizstudio.zip"
 
 mkdir -p /tmp/norkhiz_dl
-curl -sL --retry 3 --connect-timeout 30 -o /tmp/norkhiz_dl/project.zip "$DOWNLOAD_URL" || err "Failed to download project."
+curl -sL --retry 3 --connect-timeout 30 -o /tmp/norkhiz_dl/project.zip "$GITHUB_ZIP" || err "Failed to download project from GitHub."
 
-# Handle Google Drive virus scan confirm page
-if grep -qi "confirm=" /tmp/norkhiz_dl/project.zip 2>/dev/null; then
-    TOKEN=$(grep -o 'confirm=[a-zA-Z0-9_-]*' /tmp/norkhiz_dl/project.zip | head -1 | cut -d'=' -f2)
-    curl -sL --retry 3 --connect-timeout 30 -o /tmp/norkhiz_dl/project.zip "${DOWNLOAD_URL}&confirm=${TOKEN}" || true
-fi
-
+# Validate it's a real zip
 if ! file /tmp/norkhiz_dl/project.zip | grep -qi zip; then
-    err "Downloaded file is not a valid ZIP. Check Google Drive link."
+    err "Downloaded file is not a valid ZIP. GitHub link may have changed."
 fi
 
 # ---- 7. Extract project ----
@@ -104,8 +98,10 @@ log "[6/12] Extracting project to $WEBROOT..."
 rm -rf "$WEBROOT"
 mkdir -p "$WEBROOT"
 unzip -o -q /tmp/norkhiz_dl/project.zip -d /tmp/norkhiz_dl/extracted
-PROJECT_DIR=$(find /tmp/norkhiz_dl/extracted -maxdepth 2 -type d -name "NORKHIZSTUDIO" | head -1)
+# GitHub zip extracts to a folder like NORKHIZSTUDIO-arena/091a7e27-norkhizstudio
+PROJECT_DIR=$(find /tmp/norkhiz_dl/extracted -maxdepth 1 -type d -name "NORKHIZSTUDIO*" | head -1)
 if [ -z "$PROJECT_DIR" ]; then
+    # fallback: use extracted root
     PROJECT_DIR="/tmp/norkhiz_dl/extracted"
 fi
 cp -r "$PROJECT_DIR"/* "$WEBROOT"/

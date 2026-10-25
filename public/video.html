@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جزئیات فیلم | نورخیز استودیو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-tokens.css">
+<link rel="stylesheet" href="css/glassmorphism.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+<style>
+  /* HLS player controls skin */
+  #videoPlayer::-webkit-media-controls-panel { background: #0a0a0f; }
+  .quality-select { width: 100%; height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.03); color: var(--text); font-size: 0.85rem; }
+  .captions-select { width: 100%; height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.03); color: var(--text); font-size: 0.85rem; }
+  .emoji-panel {
+    position: absolute; bottom: 110px; left: 0; right: 0; display: none;
+    justify-content: center; gap: 10px; padding: 12px;
+    background: var(--surface); border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg); box-shadow: var(--shadow-soft);
+    z-index: 60;
+  }
+  .emoji-item { width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.03); cursor: pointer; display:grid;place-items:center; transition: var(--transition-fast); }
+  .emoji-item:hover { border-color: var(--neon-pink-soft); transform: translateY(-3px); }
+  .emoji-item svg { width: 22px; height: 22px; fill: var(--text-muted); }
+  .emoji-item.active svg { fill: var(--gold-soft); }
+</style>
+</head>
+<body>
+
+<header class="header glass-nav">
+  <div class="container header-inner flex items-center justify-between">
+    <a href="index.html" class="brand flex items-center gap-12">
+      <div class="brand-logo">NS</div>
+      <div class="brand-name">نورخیز استودیو</div>
+    </a>
+    <div class="header-actions flex items-center gap-12">
+      <a href="search.html" class="icon-btn" aria-label="جستجو">&#x1F50D;</a>
+      <button class="icon-btn" aria-label="ورود">&#x1F512;</button>
+      <img src="assets/avatar-default.svg" class="user-avatar" alt="کاربر">
+    </div>
+  </div>
+</header>
+
+<main class="container" style="padding-top: 24px;">
+  <div class="section-head">
+    <a href="index.html" class="view-all" style="color:var(--text-muted);">&#x276E؛ برگشت به صفحه اصلی</a>
+  </div>
+
+  <div class="video-shell">
+    <!-- Player column -->
+    <div class="video-player-wrap">
+      <div class="video-player" id="videoPlayer">
+        <video id="mainVideo" playsinline preload="metadata" poster="assets/video-poster.jpg"></video>
+      </div>
+
+      <div class="video-actions flex gap-12">
+        <button class="btn btn-ghost flex items-center justify-center gap-8" style="flex:1;">
+          <span style="font-size:1.3rem;">&#x2B06;</span> <span>دانلود</span>
+        </button>
+        <button class="btn btn-ghost flex items-center justify-center gap-8" style="flex:1;" id="favBtn">
+          <span style="font-size:1.3rem;">&#x2665;</span> <span>علاقه‌مندی</span>
+        </button>
+        <button class="btn btn-primary flex items-center justify-center gap-8" style="flex:1;">
+          <span style="font-size:1.3rem;">&#x270F;</span> <span>افزودن به پخشbill</span>
+        </button>
+      </div>
+
+      <div class="video-meta">
+        <div class="video-title">شب طلایی — Visconti و Lila</div>
+        <div class="video-info-row">
+          <span>۳۱ dəqiq</span>
+          <span class="dot">•</span>
+          <span>۴K UHD</span>
+          <span class="dot">•</span>
+          <span>۵۰۴،۱۲۳ نمایش</span>
+          <span class="dot">•</span>
+          <span>پرس&#178;่น시ская년도</span>
+        </div>
+        <div class="video-tags">
+          <a href="#">آماتور</a>
+          <a href="#">لسبیان</a>
+          <a href="#">HD</a>
+          <a href="#">VIP</a>
+          <a href="#">ایرانی / پارسی</a>
+        </div>
+        <div class="video-desc">فیلمی با کیفیت ۴ک و تصاویر شیشه‌ای لوکس، شامل دوپره زن و مرد با آهنگ صدا دایمبلأAtmos.дз역 장면 calidad. لطفاً برای تماس با پشتیبانی از بخش تماس با ما استفاده کنید.</div>
+      </div>
+
+      <!-- Quality / captions controls -->
+      <div class="glass" style="border-radius:var(--border-radius);padding:14px 18px;margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+        <div class="sr-text" style="margin-right:8px;">کیفیت پخش:</div>
+        <select class="quality-select">
+          <option>تللقائي (Auto)</option>
+          <option>2160p — 4K</option>
+          <option>1080p — Full HD</option>
+          <option>720p — HD</option>
+          <option>480p — SD</option>
+        </select>
+        <div class="sr-text" style="margin-right:8px;">زیرنویس:</div>
+        <select class="captions-select">
+          <option>بدون زیرنویس</option>
+          <option>فارسی</option>
+          <option>انگلیسی</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Sidebar: info + related + comments -->
+    <aside class="video-sidebar">
+      <div class="info-card glass">
+        <h4>درباره فیلم</h4>
+        <div class="plan-row">
+          <div><div class="plan-name">تاریخ آپلود</div><div class="plan-desc">۱۴۰۴/۰۷/۲۵ — تهران</div></div>
+          <div style="text-align:left;"><div class="plan-name">۹.۸ / ۱۰</div><div class="plan-desc">رتبه کاربران</div></div>
+        </div>
+        <div class="plan-row">
+          <div><div class="plan-name">بازیگران</div><div class="plan-desc"> Visconti · Lila · M. Arya</div></div>
+          <div style="text-align:left;"><div class="plan-name">çonsrc</div><div class="plan-desc">لیست شده</div></div>
+        </div>
+      </div>
+
+      <div class="info-card membership-card">
+        <h4>اشتراک VIP</h4>
+        <div class="plan-row">
+          <div><div class="plan-name">رایگان</div><div class="plan-desc">۷۲۰p ، تبلیغات محدود</div></div>
+          <div style="text-align:left;"><span class="badge free">رایگان</span></div>
+        </div>
+        <div class="plan-row">
+          <div><div class="plan-name">VIP ماهانه</div><div class="plan-desc">۴K ، بدون تبلیغ ، دانلود</div></div>
+          <div style="text-align:left;"><span class="badge gold-badge" style="background:rgba(212,175,55,0.15);border-color:rgba(212,175,55,0.45);color:var(--gold-soft);">۴۹,۰۰۰ تومان</span></div>
+        </div>
+        <button class="btn btn-gold btn-sm" style="width:100%;margin-top:12px;"> ارتقاء به VIP </button>
+      </div>
+
+      <h4 class="related-title">پیشنهادهای مرتبط</h4>
+      <div class="video-grid" style="grid-template-columns: 1fr 1fr; gap: 14px;" id="relatedGrid">
+        <!-- injected by JS -->
+      </div>
+
+      <div class="comments-wrap">
+        <h3>نظرات <span class="badge" style="font-size:0.7rem;margin-left:6px;">۰۴۲</span></h3>
+        <div class="comment-form glass">
+          <textarea class="comment-textarea" placeholder="نظر خود را بنویسید…"></textarea>
+          <div class="comment-tools flex items-center justify-between">
+            <div class="flex items-center gap-10" id="emojiRow">
+              <!-- custom emoji stickers injected here -->
+            </div>
+            <button class="comment-submit" id="sendComment">ارسال</button>
+          </div>
+        </div>
+        <div class="comment-list" id="commentList">
+          <!-- comments injected by JS -->
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <div>© ۱۴۰۴ نورخیز استودیو</div>
+      <div>برای بزرگسالان ۱۸+</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/player.js"></script>
+<script src="js/emoji-picker.js"></script>
+<script src="js/comments.js"></script>
+</body>
+</html>

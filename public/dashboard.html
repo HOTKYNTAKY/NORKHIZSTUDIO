@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+title>پنل کاربری | نورخیز استودیو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-tokens.css">
+<link rel="stylesheet" href="css/glassmorphism.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<header class="header glass-nav">
+  <div class="container header-inner flex items-center justify-between">
+    <a href="index.html" class="brand flex items-center gap-12">
+      <div class="brand-logo">NS</div>
+      <div class="brand-name">نورخیز استودیو</div>
+    </a>
+    <div class="header-search flex items-center">
+      <input type="text" placeholder="جستجو…" autocomplete="off">
+      <button>&#x1F50D;</button>
+    </div>
+    <div class="header-actions flex items-center gap-12">
+      <button class="icon-btn" aria-label="تنظیمات">&#x2699;</button>
+      <img src="assets/avatar-default.svg" class="user-avatar" alt="کاربر">
+    </div>
+  </div>
+</header>
+
+<div class="dashboard-shell">
+  <!-- Sidebar -->
+  <nav class="dashboard-nav glass glass-panel">
+    <div class="nav-group">
+      <div class="nav-group-title">دashboard</div>
+      <a href="dashboard.html" class="nav-item active flex items-center gap-12">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        صفحه اصلی
+      </a>
+      <a href="#" class="nav-item flex items-center gap-12">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        علاقه‌مندی‌ها
+        <span class="badge ml-auto" style="background:var(--neon-pink);color:#fff;">۱۲</span>
+      </a>
+      <a href="#" class="nav-item flex items-center gap-12">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        تاریخچه تماشا
+        <span class="badge ml-auto">۲۴</span>
+      </a>
+      <a href="#" class="nav-item flex items-center gap-12">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        دانلودها
+        <span class="badge ml-auto">۶</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">حساب</div>
+      <a href="#" class="nav-item flex items-center gap-12">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="18" y1="8" x2="23" y2="4"/></svg>
+        پروفایل و تنظیمات
+      </a>
+      <a href="#" class="nav-item flex items-center gap-12">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+        اشتراک و صورت‌حساب
+      </a>
+      <a href="#" class="nav-item flex items-center gap-12" style="color:var(--neon-pink-soft);border-color:rgba(255,0,85,0.25);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="14.53" y1="14.53" x2="17.47" y2="17.47"/><line x1="9.17" y1="9.17" x2="12.83" y2="12.83"/></svg>
+        خروج از حساب
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main style="padding-left:24px;">
+    <div class="section-head flex items-center justify-between">
+      <h2>پنل کاربری</h2>
+      <span class="badge vip">عضویت فعال: VIP — تا ۱۴۰۴/۱۲/۲۹</span>
+    </div>
+
+    <!-- Stats cards -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:30px;">
+      <div class="glass glass-panel" style="padding:22px;">
+        <div class="sr-text">تماس‌های امروز</div>
+        <div class="title-lg" style="color:var(--neon-pink-soft);">۱۲۴</div>
+      </div>
+      <div class="glass glass-panel" style="padding:22px;">
+        <div class="sr-text">ساعت تماشای mahsol</div>
+        <div class="title-lg" style="color:var(--gold-soft);">۲۸.۴ ساعت</div>
+      </div>
+      <div class="glass glass-panel" style="padding:22px;">
+        <div class="sr-text">علاقه‌مندی‌ها</div>
+        <div class="title-lg" style="color:#fff;">۱۲ مورد</div>
+      </div>
+      <div class="glass glass-panel" style="padding:22px;">
+        <div class="sr-text">دانلود در انتظار</div>
+        <div class="title-lg" style="color:var(--text-muted);">۳ مورد</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div style="display:flex;gap:8px;margin-bottom:22px;border-bottom:1px solid var(--glass-border);padding-bottom:14px;overflow-x:auto;">
+      <button class="btn btn-ghost btn-sm">همه محتوای تماشا شده</button>
+      <button class="btn btn-ghost btn-sm active" style="border-color:var(--neon-pink-soft);color:var(--neon-pink);">علاقه‌مندی‌ها</button>
+      <button class="btn btn-ghost btn-sm">تاریخچه تماشا</button>
+      <button class="btn btn-ghost btn-sm">دانلودها</button>
+    </div>
+
+    <div class="video-grid" id="dashboardGrid">
+      <!-- injected by JS -->
+    </div>
+
+    <div style="height:80px;"></div>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <div>© ۱۴۰۴ نورخیز استودیو — پنل کاربری</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

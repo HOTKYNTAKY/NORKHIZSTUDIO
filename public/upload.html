@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+title>آپلود ویدیو | نورخیز استودیو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-tokens.css">
+<link rel="stylesheet" href="css/glassmorphism.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<header class="header glass-nav">
+  <div class="container header-inner flex items-center justify-between">
+    <a href="index.html" class="brand flex items-center gap-12">
+      <div class="brand-logo">NS</div>
+      <div class="brand-name">نورخیز استودیو</div>
+    </a>
+    <div class="header-actions flex items-center gap-12">
+      <a href="dashboard.html" class="icon-btn" aria-label="بازگشت به پنل">&#x276E;</a>
+    </div>
+  </div>
+</header>
+
+<div class="upload-wrap">
+  <div class="upload-card glass glass-panel">
+    <div class="upload-icon">&#x2B07;</div>
+    <h2>آپلود فیلم جدید</h2>
+    <p>فایل‌های ویدیویی خود را بارگذاری کنید. فرصت‌هاupported: MP4، MKV، MOV (حداکثر ۲ گیگابایت)</p>
+
+    <div class="drop-zone" id="dropZone">
+      <p style="color:var(--text-muted);margin-bottom:12px;">فایل‌ها را اینجا بکشید و رها کنید یا کلیک کنید</p>
+      <input type="file" id="fileInput" accept="video/*" multiple class="hidden">
+      <button class="btn btn-primary btn-sm" id="browseBtn">انتخاب فایل</button>
+    </div>
+
+    <div class="file-list" id="fileList"></div>
+
+    <div style="margin-top:26px; text-align:left;">
+      <h3 style="font-size:1rem;margin-bottom:12px;">جزئیات محتوا</h3>
+      <div class="form-group">
+        <label>عنوان فیلم</label>
+        <input type="text" placeholder="عنوان جذاب و explaining…">
+      </div>
+      <div class="form-group" style="margin-top:14px;">
+        <label>دسته‌بندی</label>
+        <select style="width:100%;height:48px;padding:0 16px;border-radius:12px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.03);color:var(--text);">
+          <option>آماتور</option><option>لسبیان</option><option>موتور / آナル</option><option>میلف (MILF)</option><option>آسیایی</option><option>ایرانی / پارسی</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-top:14px;">
+        <label>تگ‌ها (با کاما جدا کنید)</label>
+        <input type="text" placeholder="HD، ۴K، پارسی، تازه">
+      </div>
+      <div class="form-group" style="margin-top:14px;">
+        <label class="flex items-center justify-between gap-6">
+          <span>محتوای پریمیوم (فقط VIP)</span>
+          <span class="switch-pill flex items-center gap-10"><input type="checkbox"><span class="switch"></span></span>
+        </label>
+      </div>
+      <button class="btn btn-gold btn-lg" style="width:100%;margin-top:26px;">بارگذاری و انتشار</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <div>© ۱۴۰۴ نورخیز استودیو — آپلود کاربران</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

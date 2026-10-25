@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نورخیز استودیو — پلتفرم پریمیوم تماشای فیلم</title>
+<meta name="description" content="بیشتر از یک سایت — تجربه پریمیوم تماشای فیلم با طراحی لوکس، شیشه‌ای و سه‌بعدی.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-tokens.css">
+<link rel="stylesheet" href="css/glassmorphism.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="icon" href="assets/favicon.svg">
+</head>
+<body>
+
+<!-- Header -->
+<header class="header glass-nav">
+  <div class="container header-inner flex items-center justify-between">
+    <a href="index.html" class="brand flex items-center gap-12">
+      <div class="brand-logo">NS</div>
+      <div>
+        <div class="brand-name">نورخیز استودیو</div>
+        <small>پلتفرم پریمیوم ویدیو</small>
+      </div>
+    </a>
+
+    <div class="header-search flex items-center">
+      <input type="text" placeholder="جستجوی فیلم، بازیگر، دسته‌بندی…" autocomplete="off">
+      <button aria-label="جستجو">&#x1F50D;</button>
+    </div>
+
+    <nav class="nav-menu flex items-center gap-6 hidden-md">
+      <a href="index.html" class="active">صفحه اصلی</a>
+      <a href="categories.html">دسته‌بندی‌ها</a>
+      <a href="search.html">جستجوی پیشرفته</a>
+      <a href="#">تازه‌ها</a>
+      <a href="#">ترند</a>
+      <div class="mega-menu">
+        <a href="#">دسته‌بندی‌ها &#x25BC;</a>
+        <div class="mega-panel glass">
+          <div class="mega-grid">
+            <div class="mega-col">
+              <h4>پربیننده‌ها</h4>
+              <a>آماتور <img src="assets/placeholder.svg" class="thumb" alt=""></a>
+              <a>لסبیان <img src="assets/placeholder.svg" class="thumb" alt=""></a>
+              <a>موتور / آナル <img src="assets/placeholder.svg" class="thumb" alt=""></a>
+            </div>
+            <div class="mega-col">
+              <h4>ژانرها</h4>
+              <a>میلف (MILF) <img src="assets/placeholder.svg" class="thumb" alt=""></a>
+              <a>آسیایی <img src="assets/placeholder.svg" class="thumb" alt=""></a>
+              <a>ایرانی / پارسی <img src="assets/placeholder.svg" class="thumb" alt=""></a>
+            </div>
+            <div class="mega-col">
+              <h4>قالب‌ها</h4>
+              <a>پریمیوم / VIP <img src="assets/placeholder.svg" class="thumb" alt=""></a>
+              <a>جدید آپلودی <img src="assets/placeholder.svg" class="thumb" alt=""></a>
+              <a>HD و 4K <img src="assets/placeholder.svg" class="thumb" alt=""></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="header-actions flex items-center gap-12">
+      <button class="icon-btn" aria-label="ورود">&#x1F512;</button>
+      <button class="icon-btn" aria-label="ثبت‌نام">&#x2795;</button>
+      <img src="assets/avatar-default.svg" class="user-avatar" alt="کاربر" aria-label="پنل کاربری">
+    </div>
+  </div>
+</header>
+
+<!-- Hero Slider -->
+<section class="hero glass-panel">
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide active">
+      <div class="hero-bg" style="background:linear-gradient(135deg,#1a0a2e 0%,#030305 60%,#ff0055 100%)"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-kicker">جدیدترین آپلودها</div>
+        <h1 class="hero-title">شب‌های طلایی</h1>
+        <p class="hero-desc">تجربه‌ای نامنظیر برای تماشگران پریمیوم. کیفیت ۴K، صدای envoloped و播放送 امن.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg">تماشای این فیلم</button>
+          <button class="btn btn-ghost btn-lg">بیشتر ببینید</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-bg" style="background:linear-gradient(135deg,#0d061a 0%,#2a004d 55%,#8a1cff 100%)"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-kicker">ترند هفته</div>
+        <h1 class="hero-title">حسی فراتر از رویاها</h1>
+        <p class="hero-desc">طراحی لوکس و شیشه‌ای برای تماشگران حرفه‌ای. فقط برای اعضای ثبت‌نامی.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg">تماشاین</button>
+          <button class="btn btn-ghost btn-lg">بیشتر ببینید</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-bg" style="background:linear-gradient(135deg,#2e001a 0%,#5a0a1e 55%,#d4af37 100%)"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-kicker">ویژه VIP</div>
+        <h1 class="hero-title">تجربه نامحدود VIP</h1>
+        <p class="hero-desc">دسترسی نامحدود به کتابخانه پریمیوم و Pro. عضویت شما.</p>
+        <div class="hero-actions">
+          <button class="btn btn-gold btn-lg">عضویت VIP</button>
+          <button class="btn btn-ghost btn-lg">بیشتر ببینید</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-dot-list" id="heroDots"></div>
+  <button class="icon-btn" style="position:absolute;top:50%;right:24px;transform:translatey(-50%);z-index:8;width:52px;height:52px;font-size:1.4rem;">&#x276E;</button>
+  <button class="icon-btn" style="position:absolute;top:50%;left:24px;transform:translatey(-50%);z-index:8;width:52px;height:52px;font-size:1.4rem;">&#x276C;</button>
+</section>
+
+<section class="container">
+  <!-- Categories -->
+  <div class="section-head">
+    <h2>دسته‌بندی‌های پربیننده</h2>
+    <a href="categories.html" class="view-all">مشاهده همه &#x276F;</a>
+  </div>
+  <div class="cat-grid">
+    <article class="cat-card glass">
+      <div class="cat-thumb"><img src="assets/cat-amateur.jpg" alt="آماتور" loading="lazy"></div>
+      <div class="cat-overlay">
+        <div>
+          <div class="cat-title">آماتور</div>
+          <div class="cat-count">۱۴۲ فیلم</div>
+        </div>
+      </div>
+      <div class="cat-body"><div class="cat-desc">فیلم‌های Natural و بی‌ساخت با کیفیت HD.</div></div>
+    </article>
+    <article class="cat-card glass">
+      <div class="cat-thumb"><img src="assets/cat-lesbian.jpg" alt="لسبیان" loading="lazy"></div>
+      <div class="cat-overlay">
+        <div>
+          <div class="cat-title">لسبیان</div>
+          <div class="cat-count">۹۸ فیلم</div>
+        </div>
+      </div>
+      <div class="cat-body"><div class="cat-desc">حس و حرکتی پرانرژی و لوکس.</div></div>
+    </article>
+    <article class="cat-card glass">
+      <div class="cat-thumb"><img src="assets/cat-anal.jpg" alt="موتور" loading="lazy"></div>
+      <div class="cat-overlay">
+        <div>
+          <div class="cat-title">موتور / آナル</div>
+          <div class="cat-count">۸۷ فیلم</div>
+        </div>
+      </div>
+      <div class="cat-body"><div class="cat-desc">برای تماشبران حرفه‌ای و anticipating.</div></div>
+    </article>
+    <article class="cat-card glass">
+      <div class="cat-thumb"><img src="assets/cat-milf.jpg" alt="میلف" loading="lazy"></div>
+      <div class="cat-overlay">
+        <div>
+          <div class="cat-title">میلف (MILF)</div>
+          <div class="cat-count">۶۴ فیلم</div>
+        </div>
+      </div>
+      <div class="cat-body"><div class="cat-desc">تجربه و جذابیت بزرگسالان.</div></div>
+    </article>
+    <article class="cat-card glass">
+      <div class="cat-thumb"><img src="assets/cat-asian.jpg" alt="آسیایی" loading="lazy"></div>
+      <div class="cat-overlay">
+        <div>
+          <div class="cat-title">آسیایی</div>
+          <div class="cat-count">۱۱۲ فیلم</div>
+        </div>
+      </div>
+      <div class="cat-body"><div class="cat-desc">quetبهزیتی و زیبایی شرق‌اسیایی.</div></div>
+    </article>
+    <article class="cat-card glass">
+      <div class="cat-thumb"><img src="assets/cat-iranian.jpg" alt="ایرانی / پارسی" loading="lazy"></div>
+      <div class="cat-overlay">
+        <div>
+          <div class="cat-title">ایرانی / پارسی</div>
+          <div class="cat-count">۵۶ فیلم</div>
+        </div>
+      </div>
+      <div class="cat-body"><div class="cat-desc">محتوای پارسی-native با پشتیبانی کامل فارسی.</div></div>
+    </article>
+  </div>
+
+  <!-- Trending / New videos -->
+  <div class="section-head">
+    <h2>جدیدترین آپلودها</h2>
+    <a href="#" class="view-all">همه فیلم‌ها &#x276F;</a>
+  </div>
+  <div class="video-grid" id="videoGrid">
+    <!-- injected by JS -->
+  </div>
+  <div class="pagination" id="pagination">
+    <a href="#" class="active">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">&#x276F;</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand flex items-center gap-12">
+          <div class="brand-logo">NS</div>
+          <div class="brand-name">نورخیز استودیو</div>
+        </div>
+        <p>تجربه پریمیوم تماشای ویدیو با طراحی شیشه‌ای، پشتیبانی فارسی و کیفیت ۴K. فقط برای بزرگسالان ۱۸+. انصراف مسئولیت محتوای کاربران.</p>
+      </div>
+      <div class="footer-col">
+        <h5>سریع</h5>
+        <ul>
+          <li><a href="#">صفحه اصلی</a></li>
+          <li><a href="#">دسته‌بندی‌ها</a></li>
+          <li><a href="#">جستجو</a></li>
+          <li><a href="#">تماس با ما</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>حساب کاربری</h5>
+        <ul>
+          <li><a href="#">ورود / ثبت‌نام</a></li>
+          <li><a href="#">پنل کاربری</a></li>
+          <li><a href="#">علاقه‌مندی‌ها</a></li>
+          <li><a href="#">اشتراک VIP</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>حقوقی</h5>
+        <ul>
+          <li><a href="#">قوانین و شرایط</a></li>
+          <li><a href="#">حریم خصوصی</a></li>
+          <li><a href="#"> procédure از 뿐yer</a></li>
+          <li><a href="#">کلیه حقوق محفوظ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© ۱۴۰۴ نورخیز استودیو — proceeding by <span class="gradient-text">NORKHIZ</span></div>
+      <div>'âge verification: 18+</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>

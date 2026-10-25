@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ورود به حساب | نورخیز استودیو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-tokens.css">
+<link rel="stylesheet" href="css/glassmorphism.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<header class="header glass-nav">
+  <div class="container header-inner flex items-center justify-between">
+    <a href="index.html" class="brand flex items-center gap-12">
+      <div class="brand-logo">NS</div>
+      <div class="brand-name">نورخیز استودیو</div>
+    </a>
+    <div class="header-actions flex items-center gap-12">
+      <a href="index.html" class="icon-btn" aria-label="بازگشت">&#x276E;</a>
+    </div>
+  </div>
+</header>
+
+<div class="auth-shell">
+  <div class="auth-card glass glass-panel">
+    <h2>ورود به حساب</h2>
+    <p class="sub">به پلتفرم پریمیوم نورخیز خوش آمدید. برای ادامه وارد شوید.</p>
+    <form id="loginForm" novalidate>
+      <div class="form-group">
+        <label>شماره موبایل یا ایمیل</label>
+        <input type="text" placeholder="۰۹۱۲۳۴۵۶۷۸۹ یا email@example.com" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label>رمز عبور</label>
+        <input type="password" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <div class="switch-pill flex items-center justify-between">
+        <label class="flex items-center gap-6" style="cursor:pointer;">
+          <input type="checkbox"> به خاطر بسپار من
+        </label>
+        <a href="#" style="color:var(--neon-pink-soft);font-weight:800;font-size:0.85rem;">فراموشی رمز عبور؟</a>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg" style="width:100%;margin-top:22px;">ورود</button>
+    </form>
+    <div class="form-footer">
+      هنوز حساب ندارید؟ <a href="register.html">ثبت‌نام رایگان</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="justify-content:center;gap:20px;">
+      <div>© ۱۴۰۴ نورخیز استودیو</div>
+      <div>برای بزرگسالان ۱۸+</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/auth.js"></script>
+</body>
+</html>

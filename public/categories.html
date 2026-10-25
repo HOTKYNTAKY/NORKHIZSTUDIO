@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دسته‌بندی‌ها | نورخیز استودیو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-tokens.css">
+<link rel="stylesheet" href="css/glassmorphism.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<header class="header glass-nav">
+  <div class="container header-inner flex items-center justify-between">
+    <a href="index.html" class="brand flex items-center gap-12">
+      <div class="brand-logo">NS</div>
+      <div>
+        <div class="brand-name">نورخیز استودیو</div>
+        <small>پلتفرم پریمیوم ویدیو</small>
+      </div>
+    </a>
+    <div class="header-search flex items-center">
+      <input type="text" placeholder="جستجو در دسته‌بندی‌ها…" autocomplete="off">
+      <button>&#x1F50D;</button>
+    </div>
+    <nav class="nav-menu flex items-center gap-6 hidden-md">
+      <a href="index.html">صفحه اصلی</a>
+      <a href="categories.html" class="active">دسته‌بندی‌ها</a>
+      <a href="search.html">جستجوی پیشرفته</a>
+    </nav>
+    <div class="header-actions flex items-center gap-12">
+      <button class="icon-btn" aria-label="ورود">&#x1F512;</button>
+      <button class="icon-btn" aria-label="ثبت‌نام">&#x2795;</button>
+      <img src="assets/avatar-default.svg" class="user-avatar" alt="کاربر">
+    </div>
+  </div>
+</header>
+
+<main class="container" style="padding-top: 40px;">
+  <div class="section-head">
+    <h2>همه دسته‌بندی‌ها</h2>
+    <a href="#" class="view-all">sort by popularity</a>
+  </div>
+
+  <!-- Filters glass bar -->
+  <div class="glass" style="border-radius:var(--border-radius); padding:16px; margin-bottom:26px;">
+    <div class="flex gap-12" style="flex-wrap:wrap; align-items:center;">
+      <div class="flex items-center gap-8">
+        <strong class="sr-text">فیلتر:</strong>
+        <button class="badge" style="background:rgba(255,0,85,0.15);border-color:rgba(255,0,85,0.45);color:var(--neon-pink-soft);">جدیدترین</a>
+        <button class="badge">پربیننده‌ها</button>
+        <button class="badge">رایگان</button>
+        <button class="badge vip">فقط VIP</button>
+      </div>
+      <div style="flex:1; max-width:320px;">
+        <input type="text" placeholder="جستجوی سریع دسته‌بندی…" style="width:100%;height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.03);color:var(--text);">
+      </div>
+    </div>
+  </div>
+
+  <div class="cat-grid" id="catGrid">
+    <!-- populated by JS -->
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <div>© ۱۴۰۴ نورخیز استودیو</div>
+      <div>برای بزرگسالان ۱۸+</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

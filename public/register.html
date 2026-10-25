@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ثبت‌نام رایگان | نورخیز استودیو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-tokens.css">
+<link rel="stylesheet" href="css/glassmorphism.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<header class="header glass-nav">
+  <div class="container header-inner flex items-center justify-between">
+    <a href="index.html" class="brand flex items-center gap-12">
+      <div class="brand-logo">NS</div>
+      <div class="brand-name">نورخیز استودیو</div>
+    </a>
+    <div class="header-actions flex items-center gap-12">
+      <a href="index.html" class="icon-btn" aria-label="بازگشت">&#x276E;</a>
+    </div>
+  </div>
+</header>
+
+<div class="auth-shell">
+  <div class="auth-card glass glass-panel">
+    <h2>ثبت‌نام رایگان</h2>
+    <p class="sub">حساب رایگان ایجاد کنید و به کتابخانه‌ی perustه دسترسی پیدا کنید.</p>
+    <form id="registerForm" novalidate>
+      <div class="form-group">
+        <label>نام و نام خانوادگی</label>
+        <input type="text" placeholder="نورقیز کیانی" required autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label>شماره موبایل</label>
+        <input type="tel" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required autocomplete="tel">
+      </div>
+      <div class="form-group">
+        <label>ایمیل (اختیاری)</label>
+        <input type="email" placeholder="email@example.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label>رمز عبور</label>
+        <input type="password" placeholder="••••••••" required autocomplete="new-password">
+      </div>
+      <div class="form-group">
+        <label class="flex items-center justify-between gap-6">
+          <span>نوع عضویت</span>
+          <span class="badge vip" style="cursor:default;">VIP</span>
+        </label>
+        <label class="switch-pill flex items-center gap-10">
+          <input type="checkbox" id="vipSwitch">
+          <span class="switch" id="vipSwitchUI"></span>
+        </label>
+      </div>
+      <p style="font-size:0.8rem;color:var(--text-dim);margin-top:8px;">عضویت VIP دسترسی نامحدود به فیلم‌های ۴K و محتوای exclusive را فعال می‌کند.</p>
+      <button type="submit" class="btn btn-primary btn-lg" style="width:100%;margin-top:22px;">ثبت‌نام و ورود</button>
+    </form>
+    <div class="form-footer">
+      قبلاً ثبت‌نام کرده‌اید؟ <a href="login.html">ورود به حساب</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="justify-content:center;gap:20px;">
+      <div>© ۱۴۰۴ نورخیز استودیو</div>
+      <div>برای بزرگسالان ۱۸+</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/auth.js"></script>
+</body>
+</html>

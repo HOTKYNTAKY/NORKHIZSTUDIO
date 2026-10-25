@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+جستجوی پیشرفته | نورخیز استودیو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-tokens.css">
+<link rel="stylesheet" href="css/glassmorphism.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<header class="header glass-nav">
+  <div class="container header-inner flex items-center justify-between">
+    <a href="index.html" class="brand flex items-center gap-12">
+      <div class="brand-logo">NS</div>
+      <div>
+        <div class="brand-name">نورخیز استودیو</div>
+        <small>پلتفرم پریمیوم ویدیو</small>
+      </div>
+    </a>
+    <div class="header-search flex items-center">
+      <input type="text" placeholder="جستجوی فیلم، بازیگر، دسته‌بندی…" value="" id="searchInput">
+      <button>&#x1F50D;</button>
+    </div>
+    <nav class="nav-menu flex items-center gap-6 hidden-md">
+      <a href="index.html">صفحه اصلی</a>
+      <a href="categories.html">دسته‌بندی‌ها</a>
+      <a href="search.html" class="active">جستجوی پیشرفته</a>
+    </nav>
+    <div class="header-actions flex items-center gap-12">
+      <button class="icon-btn" aria-label="ورود">&#x1F512;</button>
+      <button class="icon-btn" aria-label="ثبت‌نام">&#x2795;</button>
+      <img src="assets/avatar-default.svg" class="user-avatar" alt="کاربر">
+    </div>
+  </div>
+</header>
+
+<main class="container" style="padding-top: 40px;">
+  <div class="section-head">
+    <h2>نتایج جستجو</h2>
+    <a href="categories.html" class="view-all">بازگشت به دسته‌بندی‌ها &#x276E;</a>
+  </div>
+
+  <!-- Advanced filters glass panel -->
+  <div class="glass glass-panel" style="padding:24px; margin-bottom:26px;">
+    <div class="flex gap-16" style="flex-wrap:wrap;">
+      <div style="min-width:220px;">
+        <label class="sr-text" style="display:block;margin-bottom:8px;">دسته‌بندی</label>
+        <select style="width:100%;height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.03);color:var(--text);">
+          <option>همه دسته‌بندی‌ها</option>
+          <option>آماتور</option><option>لسبیان</option><option>موتور / آナル</option>
+          <option>میلف (MILF)</option><option>آسیایی</option><option>ایرانی / پارسی</option>
+        </select>
+      </div>
+      <div style="min-width:220px;">
+        <label class="sr-text" style="display:block;margin-bottom:8px;">کیفیت</label>
+        <select style="width:100%;height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.03);color:var(--text);">
+          <option>همه کیفیت‌ها</option><option>4K UHD</option><option>1080p Full HD</option><option>720p HD</option>
+        </select>
+      </div>
+      <div style="min-width:220px;">
+        <label class="sr-text" style="display:block;margin-bottom:8px;">مدت زمان</label>
+        <select style="width:100%;height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.03);color:var(--text);">
+          <option>همه</option><option>کمتر از ۱۰ دقیقه</option><option>۱۰–۳۰ دقیقه</option><option>بیشتر از ۳۰ دقیقه</option>
+        </select>
+      </div>
+      <div style="min-width:220px;">
+        <label class="sr-text" style="display:block;margin-bottom:8px;">رتبه‌بندی</label>
+        <select style="width:100%;height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.03);color:var(--text);">
+          <option>پربیننده‌ترین</option><option>جدیدترین</option><option>بالاترین رتبه</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:16px; display:flex; gap:12px;">
+      <button class="btn btn-primary" style="height:44px;">اعمال فیلترها</button>
+      <button class="btn btn-ghost" style="height:44px;">بازنشانی</button>
+    </div>
+  </div>
+
+  <div class="video-grid" id="searchResults">
+    <!-- populated by JS -->
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <div>© ۱۴۰۴ نورخیز استودیو</div>
+      <div>جستجوی امن و حریم‌پذیر</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>

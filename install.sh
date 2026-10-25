@@ -32,8 +32,15 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
 apt-get upgrade -y
 
-# ---- 2. Install dependencies ----
-echo "[2/10] Installing dependencies (nginx, php8.2, mysql, ffmpeg, composer, certbot)..."
+# ---- 2. Add PHP repository (needed for php8.2 packages) ----
+echo "[2/10] Adding PHP repository..."
+apt-get update -y
+apt-get install -y software-properties-common
+add-apt-repository ppa:ondrej/php -y || true
+apt-get update -y
+
+# ---- 3. Install dependencies ----
+echo "[3/10] Installing dependencies (nginx, php8.2, mysql, ffmpeg, composer, certbot)..."
 apt-get install -y \
     nginx \
     php8.2-fpm \

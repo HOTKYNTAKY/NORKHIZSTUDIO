@@ -1,16 +1,20 @@
 #!/bin/bash
 # =============================================================================
-# NORKHIZ STUDIO — Automated Installer for Ubuntu/Debian (2GB RAM optimized)
-# Target domain: https://iran.vortexnett.shop
-# One-liner: curl -sL <raw-github-url> | bash
+# NORKHIZ STUDIO — Fully Automated Installer (Ubuntu/Debian)
+# Optimized for 2GB RAM servers | Target: https://iran.vortexnett.shop
+# One-liner: curl -sL <URL> | sudo bash
 # =============================================================================
-set -e
+set -euo pipefail
 
 DOMAIN="iran.vortexnett.shop"
 WEBROOT="/var/www/norkhiz"
 DB_NAME="norkhiz"
 DB_USER="norkhiz"
 DB_PASS=$(openssl rand -base64 16 | tr -dc 'a-zA-Z0-9' | head -c 20)
+
+log()  { echo -e "\033[1;32m[+]\033[0m $*"; }
+warn() { echo -e "\033[1;33m[!]\033[0m $*"; }
+err()  { echo -e "\033[1;31m[x]\033[0m $*"; exit 1; }
 
 echo "=============================================="
 echo "  NORKHIZ STUDIO — Automated Installer"
@@ -20,100 +24,86 @@ echo "=============================================="
 # ---- 1. Detect OS ----
 if [ -f /etc/os-release ]; then
     . /etc/os-release
-    OS=$ID
-    VERSION_CODENAME=${VERSION_CODENAME:-}
+    OS_ID="$ID"
+    OS_VER="$VERSION_CODENAME"
 else
-    echo "Cannot detect OS. Exiting."
-    exit 1
+    err "Cannot detect OS."
 fi
 
-echo "Detected OS: $OS $VERSION_CODENAME"
-
+log "Detected OS: $OS_ID $OS_VER"
 export DEBIAN_FRONTEND=noninteractive
 
 # ---- 2. Update system ----
-echo "[1/10] Updating system..."
+log "[1/12] Updating system packages..."
 apt-get update -y
 apt-get upgrade -y
 
-# ---- 3. Install dependencies ----
-echo "[2/10] Installing base dependencies..."
+# ---- 3. Install base tools ----
+log "[2/12] Installing base tools..."
 apt-get install -y \
-    nginx \
-    mysql-server \
-    ffmpeg \
-    composer \
-    git \
-    unzip \
-    curl \
-    certbot \
-    python3-certbot-nginx \
-    openssl \
-    software-properties-common
+    curl wget gnupg ca-certificates lsb-release \
+    nginx mysql-server ffmpeg composer git unzip zip \
+    certbot python3-certbot-nginx openssl software-properties-common
 
-# ---- 3b. Install PHP (detect available version) ----
-echo "[2b/10] Detecting and installing PHP..."
-PHP_INSTALLED=""
+# ---- 4. Install PHP (robust version detection) ----
+log "[3/12] Installing PHP..."
 
-# Try ondrej PPA first (for newer PHP versions)
-add-apt-repository ppa:ondrej/php -y 2>/dev/null || true
+# Try ondrej PPA first
+if ! add-apt-repository ppa:ondrej/php -y 2>/dev/null; then
+    warn "ondrej PPA not available, using system PHP..."
+fi
 apt-get update -y 2>/dev/null || true
 
-# Try php8.2, then php8.1, php8.3, then generic php
-for ver in 8.2 8.1 8.3; do
-    if apt-cache policy "php${ver}-fpm" 2>/dev/null | grep -q "Installed: (none)\|Candidate:"; then
-        if apt-get install -y "php${ver}-fpm" "php${ver}-mysql" "php${ver}-xml" "php${ver}-mbstring" "php${ver}-curl" "php${ver}-zip" "php${ver}-gd" "php${ver}-intl" "php${ver}-bcmath" 2>/dev/null; then
-            PHP_INSTALLED=$ver
+PHP_VER=""
+for ver in 8.2 8.1 8.3 8.0; do
+    if apt-cache policy "php${ver}-fpm" 2>/dev/null | grep -q "Candidate:"; then
+        if apt-get install -y "php${ver}-fpm" "php${ver}-mysql" "php${ver}-xml" "php${ver}-mbstring" \
+                             "php${ver}-curl" "php${ver}-zip" "php${ver}-gd" "php${ver}-intl" "php${ver}-bcmath" 2>/dev/null; then
+            PHP_VER="$ver"
             break
         fi
     fi
 done
 
-# Fallback: generic php
-if [ -z "$PHP_INSTALLED" ]; then
-    echo "No versioned PHP found, trying generic php..."
+# Fallback to generic php
+if [ -z "$PHP_VER" ]; then
+    warn "No versioned PHP found, installing generic php..."
     apt-get install -y php-fpm php-mysql php-xml php-mbstring php-curl php-zip php-gd php-intl php-bcmath
-    PHP_INSTALLED=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;" 2>/dev/null || echo "8.1")
+    PHP_VER=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;" 2>/dev/null || echo "8.1")
 fi
 
-if [ -z "$PHP_INSTALLED" ]; then
-    echo "ERROR: Could not install PHP."
-    exit 1
-fi
+log "PHP version: $PHP_VER"
+PHP_FPM_SERVICE="php${PHP_VER}-fpm"
+PHP_FPM_SOCKET="/run/php/php${PHP_VER}-fpm.sock"
+PHP_INI_DIR="/etc/php/${PHP_VER}/fpm"
 
-echo "PHP version detected/installed: $PHP_INSTALLED"
+# ---- 5. Timezone Tehran ----
+log "[4/12] Setting timezone to Asia/Tehran..."
+timedatectl set-timezone Asia/Tehran 2>/dev/null || true
 
-PHP_FPM_SOCKET="/run/php/php${PHP_INSTALLED}-fpm.sock"
-PHP_INI_DIR="/etc/php/${PHP_INSTALLED}/fpm"
-
-# ---- 3c. Timezone Tehran ----
-echo "[3c/10] Setting timezone to Asia/Tehran..."
-timedatectl set-timezone Asia/Tehran || true
-
-# ---- 4. Download project from Google Drive ----
-echo "[4/10] Downloading project from Google Drive..."
+# ---- 6. Download project from Google Drive ----
+log "[5/12] Downloading project from Google Drive..."
 GDRIVE_FILE_ID="1dhrMEkLehppXN_4VDy5tcLyjwxXFFpeM"
 DOWNLOAD_URL="https://drive.google.com/uc?id=${GDRIVE_FILE_ID}&export=download"
 
 mkdir -p /tmp/norkhiz_dl
-curl -sL -o /tmp/norkhiz_dl/project.zip "$DOWNLOAD_URL"
+curl -sL --retry 3 --connect-timeout 30 -o /tmp/norkhiz_dl/project.zip "$DOWNLOAD_URL" || err "Failed to download project."
 
-# Handle Google Drive virus scan warning (confirm token)
-if grep -q "confirm=" /tmp/norkhiz_dl/project.zip 2>/dev/null; then
-    CONFIRM_TOKEN=$(grep -o 'confirm=[a-zA-Z0-9_-]*' /tmp/norkhiz_dl/project.zip | head -1 | cut -d'=' -f2)
-    curl -sL -o /tmp/norkhiz_dl/project.zip "${DOWNLOAD_URL}&confirm=${CONFIRM_TOKEN}"
+# Handle Google Drive virus scan confirm page
+if grep -qi "confirm=" /tmp/norkhiz_dl/project.zip 2>/dev/null; then
+    TOKEN=$(grep -o 'confirm=[a-zA-Z0-9_-]*' /tmp/norkhiz_dl/project.zip | head -1 | cut -d'=' -f2)
+    curl -sL --retry 3 --connect-timeout 30 -o /tmp/norkhiz_dl/project.zip "${DOWNLOAD_URL}&confirm=${TOKEN}" || true
 fi
 
 if ! file /tmp/norkhiz_dl/project.zip | grep -qi zip; then
-    echo "ERROR: Downloaded file is not a valid ZIP. Check Google Drive link."
-    exit 1
+    err "Downloaded file is not a valid ZIP. Check Google Drive link."
 fi
 
-# ---- 5. Extract to webroot ----
-echo "[5/10] Extracting project to $WEBROOT..."
+# ---- 7. Extract project ----
+log "[6/12] Extracting project to $WEBROOT..."
 rm -rf "$WEBROOT"
 mkdir -p "$WEBROOT"
-unzip -o /tmp/norkhiz_dl/project.zip -d /tmp/norkhiz_dl/extracted
+unzip -o -q /tmp/norkhiz_dl/project.zip -d /tmp/norkhiz_dl/extracted
 PROJECT_DIR=$(find /tmp/norkhiz_dl/extracted -maxdepth 2 -type d -name "NORKHIZSTUDIO" | head -1)
 if [ -z "$PROJECT_DIR" ]; then
     PROJECT_DIR="/tmp/norkhiz_dl/extracted"
@@ -121,9 +111,9 @@ fi
 cp -r "$PROJECT_DIR"/* "$WEBROOT"/
 rm -rf "$WEBROOT/server/node_modules"
 
-# ---- 6. MySQL setup ----
-echo "[6/10] Configuring MySQL..."
-cat > /etc/mysql/mysql.conf.d/mysqld.cnf <<MYSQLCNF
+# ---- 8. MySQL setup ----
+log "[7/12] Configuring MySQL..."
+cat > /etc/mysql/mysql.conf.d/norkhiz.cnf <<MYSQLCNF
 [mysqld]
 character-set-server = utf8mb4
 collation-server = utf8mb4_unicode_ci
@@ -142,52 +132,38 @@ max_heap_table_size = 64M
 performance_schema = OFF
 MYSQLCNF
 
-service mysql restart || systemctl restart mysql
+service mysql restart 2>/dev/null || systemctl restart mysql 2>/dev/null || true
 
-for i in {1..30}; do
+for i in $(seq 1 30); do
     if mysqladmin ping -u root 2>/dev/null | grep -q "alive"; then break; fi
     sleep 1
 done
 
 mysql -u root <<SQL
-CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS \`$DB_NAME\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE USER IF NOT EXISTS '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
-GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost';
+GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO '$DB_USER'@'localhost';
 FLUSH PRIVILEGES;
 SQL
 
 if [ -f "$WEBROOT/api/database/schema.sql" ]; then
-    mysql -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" < "$WEBROOT/api/database/schema.sql"
+    mysql -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" < "$WEBROOT/api/database/schema.sql" || warn "Schema import had warnings."
 fi
 
-# ---- 7. PHP-FPM optimization for 2GB ----
-echo "[7/10] Optimizing PHP-FPM ($PHP_INSTALLED) for 2GB RAM..."
-
+# ---- 9. PHP-FPM optimization for 2GB RAM ----
+log "[8/12] Optimizing PHP-FPM for 2GB RAM..."
 cat > "$PHP_INI_DIR/php.ini" <<'PHPI'
 engine = On
 short_open_tag = Off
-precision = 14
-output_buffering = 4096
-zlib.output_compression = Off
-implicit_flush = Off
 expose_php = Off
 max_input_time = 120
-variables_order = "GPCS"
-request_order = "GP"
 post_max_size = 512M
-default_mimetype = "text/html"
-default_charset = "UTF-8"
-enable_dl = Off
-file_uploads = On
 upload_max_filesize = 512M
 max_file_uploads = 20
-allow_url_fopen = On
-default_socket_timeout = 60
+default_charset = "UTF-8"
 date.timezone = Asia/Tehran
-mbstring.language = neutral
 mbstring.internal_encoding = UTF-8
 mbstring.http_output = UTF-8
-mbstring.encoding_translation = Off
 [Zend Opcache]
 opcache.enable=1
 opcache.enable_cli=1
@@ -195,7 +171,6 @@ opcache.memory_consumption=128
 opcache.interned_strings_buffer=32
 opcache.max_accelerated_files=4000
 opcache.revalidate_freq=60
-opcache.fast_shutdown=1
 opcache.validate_timestamps=1
 PHPI
 
@@ -214,10 +189,10 @@ pm.max_spare_servers = 6
 pm.max_requests = 500
 PHPFPM
 
-systemctl restart "php${PHP_INSTALLED}-fpm"
+systemctl restart "$PHP_FPM_SERVICE" 2>/dev/null || service "$PHP_FPM_SERVICE" restart 2>/dev/null || true
 
-# ---- 8. Nginx config ----
-echo "[8/10] Configuring Nginx for $DOMAIN..."
+# ---- 10. Nginx config ----
+log "[9/12] Configuring Nginx for $DOMAIN..."
 cat > /etc/nginx/sites-available/norkhiz <<NGINX
 server {
     listen 80;
@@ -249,7 +224,6 @@ server {
     location ~* \.(css|js|svg|jpg|jpeg|png|ico|woff2?)$ {
         expires 30d;
         add_header Cache-Control "public, immutable";
-        add_header Vary Accept-Encoding;
     }
 
     gzip on;
@@ -260,10 +234,10 @@ NGINX
 ln -sf /etc/nginx/sites-available/norkhiz /etc/nginx/sites-enabled/
 rm -f /etc/nginx/sites-enabled/default
 nginx -t
-systemctl restart nginx
+systemctl restart nginx 2>/dev/null || service nginx restart 2>/dev/null || true
 
-# ---- 9. .env file ----
-echo "[9/10] Creating environment file..."
+# ---- 11. .env file ----
+log "[10/12] Creating environment file..."
 APP_KEY=$(openssl rand -hex 16)
 cat > "$WEBROOT/api/.env" <<ENV
 APP_ENV=production
@@ -284,39 +258,38 @@ MAX_UPLOAD_MB=512
 STORAGE_PATH=$WEBROOT/storage
 ENV
 
-# ---- 10. Storage permissions ----
-echo "[10/10] Setting permissions..."
+# ---- 12. Storage permissions ----
+log "[11/12] Setting permissions..."
 mkdir -p "$WEBROOT/storage/uploads" "$WEBROOT/storage/hls" "$WEBROOT/storage/videos"
 chown -R www-data:www-data "$WEBROOT"
 chmod -R 755 "$WEBROOT"
 chmod -R 777 "$WEBROOT/storage/uploads" "$WEBROOT/storage/hls" "$WEBROOT/storage/videos"
 
-# ---- SSL with Certbot ----
-echo ""
-echo "=============================================="
-echo "  Requesting SSL certificate via Certbot..."
-echo "=============================================="
-certbot --nginx -d "$DOMAIN" -d "www.$DOMAIN" --non-interactive --agree-tos -m "admin@$DOMAIN" || {
-    echo "WARNING: Certbot failed. Site will run on HTTP only for now."
-}
+# ---- 13. SSL via Certbot ----
+log "[12/12] Requesting SSL certificate..."
+certbot --nginx -d "$DOMAIN" -d "www.$DOMAIN" --non-interactive --agree-tos -m "admin@$DOMAIN" \
+    || warn "Certbot failed — site will run on HTTP only."
 
-systemctl restart nginx "php${PHP_INSTALLED}-fpm" mysql
+systemctl restart nginx 2>/dev/null || service nginx restart 2>/dev/null || true
+systemctl restart "$PHP_FPM_SERVICE" 2>/dev/null || service "$PHP_FPM_SERVICE" restart 2>/dev/null || true
+systemctl restart mysql 2>/dev/null || service mysql restart 2>/dev/null || true
 
+# ---- DONE ----
 echo ""
 echo "=============================================="
 echo "  INSTALLATION COMPLETE!"
 echo "=============================================="
 echo "  Site URL:      https://$DOMAIN"
-echo "  PHP version:   $PHP_INSTALLED"
+echo "  PHP version:   $PHP_VER"
 echo "  PHP-FPM socket: $PHP_FPM_SOCKET"
 echo "  DB Name:       $DB_NAME"
 echo "  DB User:       $DB_USER"
-echo "  DB Password:   $DB_PASS   (save this!)"
+echo "  DB Password:   $DB_PASS   <-- SAVE THIS"
 echo "  Webroot:       $WEBROOT"
 echo "  Env file:      $WEBROOT/api/.env"
 echo "=============================================="
 echo ""
 echo "  Next steps:"
 echo "  1. Open https://$DOMAIN in your browser"
-echo "  2. For backend API, point your app to https://$DOMAIN/api"
+echo "  2. Backend API: https://$DOMAIN/api"
 echo "=============================================="

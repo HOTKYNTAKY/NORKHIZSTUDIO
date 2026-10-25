@@ -2,7 +2,7 @@
 # =============================================================================
 # NORKHIZ STUDIO — Automated Installer for Ubuntu/Debian (2GB RAM optimized)
 # Target domain: https://iran.vortexnett.shop
-# One-liner: curl -sL <GOOGLE_DRIVE_URL> | bash
+# One-liner: curl -sL <raw-github-url> | bash
 # =============================================================================
 set -e
 
@@ -10,7 +10,6 @@ DOMAIN="iran.vortexnett.shop"
 WEBROOT="/var/www/norkhiz"
 DB_NAME="norkhiz"
 DB_USER="norkhiz"
-# Random secure DB password
 DB_PASS=$(openssl rand -base64 16 | tr -dc 'a-zA-Z0-9' | head -c 20)
 
 echo "=============================================="
@@ -22,36 +21,25 @@ echo "=============================================="
 if [ -f /etc/os-release ]; then
     . /etc/os-release
     OS=$ID
+    VERSION_CODENAME=${VERSION_CODENAME:-}
 else
     echo "Cannot detect OS. Exiting."
     exit 1
 fi
 
-echo "[1/10] Updating system..."
+echo "Detected OS: $OS $VERSION_CODENAME"
+
 export DEBIAN_FRONTEND=noninteractive
+
+# ---- 2. Update system ----
+echo "[1/10] Updating system..."
 apt-get update -y
 apt-get upgrade -y
 
-# ---- 2. Add PHP repository (needed for php8.2 packages) ----
-echo "[2/10] Adding PHP repository..."
-apt-get update -y
-apt-get install -y software-properties-common
-add-apt-repository ppa:ondrej/php -y || true
-apt-get update -y
-
 # ---- 3. Install dependencies ----
-echo "[3/10] Installing dependencies (nginx, php8.2, mysql, ffmpeg, composer, certbot)..."
+echo "[2/10] Installing base dependencies..."
 apt-get install -y \
     nginx \
-    php8.2-fpm \
-    php8.2-mysql \
-    php8.2-xml \
-    php8.2-mbstring \
-    php8.2-curl \
-    php8.2-zip \
-    php8.2-gd \
-    php8.2-intl \
-    php8.2-bcmath \
     mysql-server \
     ffmpeg \
     composer \
@@ -60,10 +48,46 @@ apt-get install -y \
     curl \
     certbot \
     python3-certbot-nginx \
-    openssl
+    openssl \
+    software-properties-common
 
-# ---- 3. Timezone Tehran ----
-echo "[3/10] Setting timezone to Asia/Tehran..."
+# ---- 3b. Install PHP (detect available version) ----
+echo "[2b/10] Detecting and installing PHP..."
+PHP_INSTALLED=""
+
+# Try ondrej PPA first (for newer PHP versions)
+add-apt-repository ppa:ondrej/php -y 2>/dev/null || true
+apt-get update -y 2>/dev/null || true
+
+# Try php8.2, then php8.1, php8.3, then generic php
+for ver in 8.2 8.1 8.3; do
+    if apt-cache policy "php${ver}-fpm" 2>/dev/null | grep -q "Installed: (none)\|Candidate:"; then
+        if apt-get install -y "php${ver}-fpm" "php${ver}-mysql" "php${ver}-xml" "php${ver}-mbstring" "php${ver}-curl" "php${ver}-zip" "php${ver}-gd" "php${ver}-intl" "php${ver}-bcmath" 2>/dev/null; then
+            PHP_INSTALLED=$ver
+            break
+        fi
+    fi
+done
+
+# Fallback: generic php
+if [ -z "$PHP_INSTALLED" ]; then
+    echo "No versioned PHP found, trying generic php..."
+    apt-get install -y php-fpm php-mysql php-xml php-mbstring php-curl php-zip php-gd php-intl php-bcmath
+    PHP_INSTALLED=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;" 2>/dev/null || echo "8.1")
+fi
+
+if [ -z "$PHP_INSTALLED" ]; then
+    echo "ERROR: Could not install PHP."
+    exit 1
+fi
+
+echo "PHP version detected/installed: $PHP_INSTALLED"
+
+PHP_FPM_SOCKET="/run/php/php${PHP_INSTALLED}-fpm.sock"
+PHP_INI_DIR="/etc/php/${PHP_INSTALLED}/fpm"
+
+# ---- 3c. Timezone Tehran ----
+echo "[3c/10] Setting timezone to Asia/Tehran..."
 timedatectl set-timezone Asia/Tehran || true
 
 # ---- 4. Download project from Google Drive ----
@@ -90,18 +114,15 @@ echo "[5/10] Extracting project to $WEBROOT..."
 rm -rf "$WEBROOT"
 mkdir -p "$WEBROOT"
 unzip -o /tmp/norkhiz_dl/project.zip -d /tmp/norkhiz_dl/extracted
-# Find the actual project folder inside zip
 PROJECT_DIR=$(find /tmp/norkhiz_dl/extracted -maxdepth 2 -type d -name "NORKHIZSTUDIO" | head -1)
 if [ -z "$PROJECT_DIR" ]; then
-    # fallback: use extracted root
     PROJECT_DIR="/tmp/norkhiz_dl/extracted"
 fi
 cp -r "$PROJECT_DIR"/* "$WEBROOT"/
-rm -rf "$WEBROOT/server/node_modules"  # not needed on server
+rm -rf "$WEBROOT/server/node_modules"
 
 # ---- 6. MySQL setup ----
-echo "[6/10] Configuring MySQL 8..."
-# Optimize my.cnf for 2GB RAM
+echo "[6/10] Configuring MySQL..."
 cat > /etc/mysql/mysql.conf.d/mysqld.cnf <<MYSQLCNF
 [mysqld]
 character-set-server = utf8mb4
@@ -123,7 +144,6 @@ MYSQLCNF
 
 service mysql restart || systemctl restart mysql
 
-# Wait for mysql
 for i in {1..30}; do
     if mysqladmin ping -u root 2>/dev/null | grep -q "alive"; then break; fi
     sleep 1
@@ -136,89 +156,38 @@ GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost';
 FLUSH PRIVILEGES;
 SQL
 
-# Import schema
 if [ -f "$WEBROOT/api/database/schema.sql" ]; then
     mysql -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" < "$WEBROOT/api/database/schema.sql"
 fi
 
 # ---- 7. PHP-FPM optimization for 2GB ----
-echo "[7/10] Optimizing PHP-FPM for 2GB RAM..."
-cat > /etc/php/8.2/fpm/php.ini <<'PHPI'
+echo "[7/10] Optimizing PHP-FPM ($PHP_INSTALLED) for 2GB RAM..."
+
+cat > "$PHP_INI_DIR/php.ini" <<'PHPI'
 engine = On
 short_open_tag = Off
 precision = 14
 output_buffering = 4096
 zlib.output_compression = Off
 implicit_flush = Off
-unserialize_callback_func =
-serialize_precision = 17
-disable_functions =
-disable_classes =
-zend.enable_gc = On
 expose_php = Off
 max_input_time = 120
 variables_order = "GPCS"
 request_order = "GP"
-register_argc_argv = Off
-auto_globals_jit = On
 post_max_size = 512M
-auto_prepend_file =
-auto_append_file =
 default_mimetype = "text/html"
 default_charset = "UTF-8"
-doc_root =
-user_dir =
 enable_dl = Off
 file_uploads = On
 upload_max_filesize = 512M
 max_file_uploads = 20
 allow_url_fopen = On
-allow_url_include = Off
 default_socket_timeout = 60
 date.timezone = Asia/Tehran
-[CLI Server]
-cli_server.color = On
-[Date]
-filter.default = unsafe_raw
-[mbstring]
 mbstring.language = neutral
 mbstring.internal_encoding = UTF-8
 mbstring.http_output = UTF-8
 mbstring.encoding_translation = Off
-mbstring.detect_order = auto
-mbstring.substitute_character = none
-[gd]
-[exif]
-[Tidy]
-[soap]
-[sysvshm]
-[sysvsem]
-[bcmath]
-bcmath.scale = 0
-[Session]
-session.save_handler = files
-session.use_strict_mode = 0
-session.use_cookies = 1
-session.use_only_cookies = 1
-session.name = PHPSESSID
-session.auto_start = 0
-session.cookie_lifetime = 0
-session.cookie_path = /
-session.cookie_domain =
-session.cookie_httponly = 1
-session.serialize_handler = php
-session.gc_probability = 0
-session.gc_divisor = 1000
-session.gc_maxlifetime = 1440
-session.referer_check =
-session.cache_limiter = nocache
-session.cache_expire = 180
-session.use_trans_sid = 0
-session.sid_length = 32
-session.trans_sid_tags = "a=href,area=href,frame=src,form="
-session.sid_bits_per_character = 4
-[Assertion]
-zend.assertions = -1
 [Zend Opcache]
 opcache.enable=1
 opcache.enable_cli=1
@@ -230,11 +199,11 @@ opcache.fast_shutdown=1
 opcache.validate_timestamps=1
 PHPI
 
-cat > /etc/php/8.2/fpm/pool.d/www.conf <<'PHPFPM'
+cat > "$PHP_INI_DIR/pool.d/www.conf" <<PHPFPM
 [www]
 user = www-data
 group = www-data
-listen = /run/php/php8.2-fpm.sock
+listen = $PHP_FPM_SOCKET
 listen.owner = www-data
 listen.group = www-data
 pm = dynamic
@@ -245,7 +214,7 @@ pm.max_spare_servers = 6
 pm.max_requests = 500
 PHPFPM
 
-systemctl restart php8.2-fpm
+systemctl restart "php${PHP_INSTALLED}-fpm"
 
 # ---- 8. Nginx config ----
 echo "[8/10] Configuring Nginx for $DOMAIN..."
@@ -265,7 +234,7 @@ server {
 
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+        fastcgi_pass unix:$PHP_FPM_SOCKET;
         fastcgi_buffering on;
         fastcgi_buffer_size 8k;
         fastcgi_buffers 4 8k;
@@ -331,13 +300,15 @@ certbot --nginx -d "$DOMAIN" -d "www.$DOMAIN" --non-interactive --agree-tos -m "
     echo "WARNING: Certbot failed. Site will run on HTTP only for now."
 }
 
-systemctl restart nginx php8.2-fpm mysql
+systemctl restart nginx "php${PHP_INSTALLED}-fpm" mysql
 
 echo ""
 echo "=============================================="
 echo "  INSTALLATION COMPLETE!"
 echo "=============================================="
 echo "  Site URL:      https://$DOMAIN"
+echo "  PHP version:   $PHP_INSTALLED"
+echo "  PHP-FPM socket: $PHP_FPM_SOCKET"
 echo "  DB Name:       $DB_NAME"
 echo "  DB User:       $DB_USER"
 echo "  DB Password:   $DB_PASS   (save this!)"

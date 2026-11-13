@@ -128,9 +128,42 @@ $('#movie-grid').addEventListener('click', event => {
 });
 $('#player-dialog').addEventListener('click', event => { if (event.target === $('#player-dialog')) closePlayer(); });
 $$('[data-close="player"]').forEach(button => button.addEventListener('click', closePlayer));
-$('#mobile-menu').addEventListener('click', () => document.querySelector('.nav-links').classList.toggle('mobile-open'));
-$$('.nav-links a').forEach(link => link.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('mobile-open')));
+const navLinks = $('.nav-links');
+const menuButton = $('#mobile-menu');
+function closeMobileMenu() { navLinks.classList.remove('mobile-open'); menuButton.setAttribute('aria-expanded', 'false'); }
+menuButton.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('mobile-open');
+  menuButton.setAttribute('aria-expanded', String(open));
+});
+$$('.nav-links a').forEach(link => link.addEventListener('click', closeMobileMenu));
 document.addEventListener('keydown', event => {
   if (event.key === '/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) { event.preventDefault(); $('#search').focus(); }
   if (event.key === 'Escape' && $('#player-dialog').open) closePlayer();
+  if (event.key === 'Escape') closeMobileMenu();
 });
+
+if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); }
+  }), { threshold: 0.12 });
+  $$('.reveal').forEach(element => revealObserver.observe(element));
+} else {
+  $$('.reveal').forEach(element => element.classList.add('is-visible'));
+}
+
+const hero = $('.adult-hero');
+if (hero && window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  let frame = 0;
+  hero.addEventListener('pointermove', event => {
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      const box = hero.getBoundingClientRect();
+      const dx = (event.clientX - box.left) / box.width - .5;
+      const dy = (event.clientY - box.top) / box.height - .5;
+      hero.style.setProperty('--px', `${(dx * 8).toFixed(1)}px`);
+      hero.style.setProperty('--py', `${(dy * 8).toFixed(1)}px`);
+      frame = 0;
+    });
+  });
+  hero.addEventListener('pointerleave', () => { hero.style.setProperty('--px', '0px'); hero.style.setProperty('--py', '0px'); });
+}

@@ -1,0 +1,21 @@
+{
+  "name": "iran-negar-newsroom",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Persian editorial newsroom with a secure, self-hosted publishing panel.",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "NODE_ENV=development node --watch src/server.js",
+    "hash-password": "node scripts/hash-password.mjs",
+    "backup": "node scripts/backup.mjs"
+  },
+  "engines": { "node": ">=22" },
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.4",
+    "helmet": "^8.3.0",
+    "sql.js": "^1.13.0"
+  }
+}

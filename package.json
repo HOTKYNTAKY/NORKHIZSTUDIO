@@ -1,9 +1,9 @@
 {
-  "name": "vortexnet-shop",
+  "name": "frame-film-showcase",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "VORTEXNET Persian VPN subscription storefront and self-hosted shop API.",
+  "description": "Persian RTL film and series catalog for GitHub Pages.",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
@@ -12,12 +12,7 @@
     "start": "vite preview --host 0.0.0.0 --port ${PORT:-8080} --strictPort"
   },
   "dependencies": {
-    "@fontsource/space-grotesk": "^5.3.0",
-    "@fontsource/vazirmatn": "^5.3.0",
-    "gsap": "^3.12.5",
-    "lenis": "^1.1.18",
-    "qrcode-generator": "^1.4.4",
-    "three": "^0.170.0"
+    "@fontsource/vazirmatn": "^5.3.0"
   },
   "devDependencies": {
     "vite": "^6.4.6"

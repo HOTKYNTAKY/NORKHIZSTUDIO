@@ -27,13 +27,5 @@ export default defineConfig({
     cssCodeSplit: false,
     sourcemap: false,
     chunkSizeWarningLimit: 900,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          three: ['three'],
-          motion: ['gsap', 'lenis'],
-        },
-      },
-    },
   },
 });

@@ -3,41 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#08090d" />
-  <meta name="description" content="فریم؛ ویترین فیلم و سریال برای انتخاب بعدی شما. داستان‌های تازه را کشف کنید." />
-  <meta property="og:title" content="فریم | سینما، همین‌جا" />
-  <meta property="og:description" content="یک قاب تازه برای قصه‌هایی که دوست داریم." />
-  <title>فریم | سینما، همین‌جا</title>
+  <meta name="theme-color" content="#10090d" />
+  <meta name="description" content="فریم ۱۸+؛ فهرست فیلم‌های بزرگسالان برای کاربران بالای ۱۸ سال. فقط آثار دارای مجوز، رضایت و حضور بزرگسالان." />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta property="og:title" content="فریم ۱۸+ | سینمای بزرگسالان" />
+  <meta property="og:description" content="فهرست فیلم بزرگسالان، فقط برای افراد بالای ۱۸ سال." />
+  <title>فریم ۱۸+ | سینمای بزرگسالان</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#home" aria-label="فریم، صفحه اصلی"><span class="brand-mark">ف</span><span>فریم<span class="brand-dot">.</span></span></a>
-    <nav class="nav-links" aria-label="ناوبری"><a href="#home" class="active">خانه</a><a href="#catalog">فیلم‌ها</a><a href="#catalog" data-genre-link="series">سریال‌ها</a><a href="#about">درباره فریم</a></nav>
-    <div class="top-actions"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="جست‌وجوی فیلم و سریال" aria-label="جست‌وجو" /><kbd>/</kbd></label><button class="admin-open" id="admin-open"><span aria-hidden="true">＋</span> مدیریت محتوا</button><button class="mobile-menu" id="mobile-menu" aria-label="باز کردن منو">☰</button></div>
-  </header>
-  <main id="home">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-art" aria-hidden="true"><div class="hero-orb"></div><div class="hero-silhouette"></div><div class="hero-grain"></div><div class="hero-vignette"></div></div>
-      <div class="hero-copy"><div class="eyebrow"><i></i> قصه‌ی این هفته <span>انتخاب تحریریه</span></div><h1 id="hero-title">هر قاب،<br /><em>یک جهان تازه.</em></h1><p>برای چند ساعت از روزمرگی فاصله بگیر. قصه‌ای را پیدا کن که تا مدت‌ها با تو می‌ماند.</p><div class="hero-meta"><span>درام · ماجراجویی</span><b>۲۰۲۵</b><b>۱۰۸ دقیقه</b><span class="rating">★ ۸٫۷</span></div><div class="hero-buttons"><button class="button button-primary" id="hero-play"><span>▶</span> تماشای معرفی</button><a href="#catalog" class="button button-ghost">دیدن همه <span>←</span></a></div></div>
-      <div class="hero-side"><span class="vertical-label">داستان‌ها برای همه‌ی حال‌ها</span><div class="hero-count"><span>۰۱</span><i></i><span>۰۴</span></div></div>
-      <div class="hero-bottom"><span>پیشنهاد ویژه‌ی فریم</span><span class="scroll-note">برای کشف بیشتر پایین برو <b>↓</b></span></div>
-    </section>
-    <section class="catalog section-wrap" id="catalog">
-      <div class="section-heading"><div><div class="eyebrow muted"><i></i> کتابخانه‌ی فریم</div><h2>چی تماشا کنیم؟</h2><p>از میان قصه‌های منتخب، حال‌وهوای امشبت را پیدا کن.</p></div><a href="#catalog" class="text-link" id="clear-filters">پاک‌کردن فیلترها <span>↗</span></a></div>
-      <div class="filter-row" id="filters" role="group" aria-label="فیلتر ژانر"><button class="filter-chip selected" data-filter="all">همه <span id="count-all">۰</span></button><button class="filter-chip" data-filter="فیلم">فیلم</button><button class="filter-chip" data-filter="سریال">سریال</button><span class="filter-divider"></span><button class="filter-chip genre-chip" data-filter="درام">درام</button><button class="filter-chip genre-chip" data-filter="معمایی">معمایی</button><button class="filter-chip genre-chip" data-filter="ماجراجویی">ماجراجویی</button><button class="filter-chip genre-chip" data-filter="کمدی">کمدی</button><button class="filter-chip genre-chip" data-filter="علمی‌تخیلی">علمی‌تخیلی</button></div>
-      <div class="results-line"><span id="results-label">منتخب‌های تماشایی</span><span class="live-indicator"><i></i> تازه‌های فریم</span></div>
-      <div class="movie-grid" id="movie-grid" aria-live="polite"></div>
-      <div class="empty-state" id="empty-state" hidden><span>⌕</span><h3>چیزی پیدا نشد</h3><p>واژه یا فیلتر دیگری را امتحان کن.</p></div>
-    </section>
-    <section class="editor-note section-wrap" id="about"><div class="note-mark">«</div><div><div class="eyebrow muted">درباره‌ی فریم</div><h2>ما به قصه‌ها جا می‌دهیم.</h2><p>فریم یک ویترین مستقل برای معرفی فیلم و سریال است؛ برای پیدا کردن اثری تازه و رفتن به منبع رسمی تماشا. محتوای این صفحه نمونه است و حقوق آثار متعلق به صاحبان آن‌هاست.</p></div><a href="#catalog" class="round-arrow" aria-label="رفتن به فیلم‌ها">↙</a></section>
-  </main>
-  <footer class="footer"><a class="brand" href="#home"><span class="brand-mark">ف</span><span>فریم<span class="brand-dot">.</span></span></a><span>سینما، همین‌جا. <span class="footer-copy">© <b id="year"></b> فریم</span></span><a href="#home">بازگشت به بالا ↑</a></footer>
+  <div class="age-gate" id="age-gate" role="dialog" aria-modal="true" aria-labelledby="age-title">
+    <div class="age-card"><a class="brand age-brand" href="#" aria-label="فریم"><span class="brand-mark">ف</span><span>فریم<span class="brand-dot">.</span></span></a><div class="age-stamp">۱۸<span>+</span></div><div class="eyebrow"><i></i> محتوای محدود به بزرگسالان</div><h1 id="age-title">ورود فقط برای<br /><em>افراد بالای ۱۸ سال</em></h1><p>این وب‌سایت فقط برای بزرگسالان است. با ادامه تأیید می‌کنی که ۱۸ سال یا بیشتر داری و اجازه‌ی مشاهده‌ی محتوای بزرگسالان را در محل اقامتت داری.</p><div class="age-actions"><button class="button button-primary" id="age-accept">۱۸ سال یا بیشتر دارم — ورود</button><button class="button button-ghost" id="age-leave">زیر ۱۸ سال هستم — خروج</button></div><small>این پرسش خوداظهاری است و به‌تنهایی سامانه‌ی احراز سن یا تأیید قانونی سن محسوب نمی‌شود. پیش از انتشار عمومی، الزامات قانونی محل فعالیت را بررسی کن.</small></div>
+  </div>
+  <div class="site-shell" id="site-shell" inert>
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="فریم، صفحه اصلی"><span class="brand-mark">ف</span><span>فریم<span class="brand-dot">.</span></span><span class="brand-rating">۱۸+</span></a>
+      <nav class="nav-links" aria-label="ناوبری"><a href="#home" class="active">خانه</a><a href="#catalog">کتابخانه</a><a href="#safety">قوانین محتوا</a></nav>
+      <div class="top-actions"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="جست‌وجو در کتابخانه" aria-label="جست‌وجو" /><kbd>/</kbd></label><button class="exit-button" id="exit-site">خروج امن <span>↗</span></button><button class="mobile-menu" id="mobile-menu" aria-label="باز کردن منو">☰</button></div>
+    </header>
+    <main id="home">
+      <section class="hero adult-hero" aria-labelledby="hero-title">
+        <div class="hero-art" aria-hidden="true"><div class="hero-orb"></div><div class="hero-silhouette"></div><div class="hero-grain"></div><div class="hero-vignette"></div></div>
+        <div class="hero-copy"><div class="eyebrow"><i></i> کتابخانه‌ی خصوصیِ بزرگسالان <span>۱۸+</span></div><h1 id="hero-title">سینما،<br /><em>بعد از ساعت.</em></h1><p>فهرستی گزیده از فیلم‌های بزرگسالان؛ با تأکید بر محتوای مجاز، رضایت آگاهانه و احترام به حریم خصوصی.</p><div class="hero-meta"><span>فقط ۱۸+</span><b>محتوای دارای مجوز</b><b>حریم خصوصی</b></div><div class="hero-buttons"><a href="#catalog" class="button button-primary"><span>↓</span> ورود به کتابخانه</a><a href="#safety" class="button button-ghost">استانداردهای ایمنی <span>←</span></a></div></div>
+        <div class="hero-side"><span class="vertical-label">مخصوص بزرگسالان</span><div class="hero-count"><span>۱۸</span><i></i><span>+</span></div></div>
+        <div class="hero-bottom"><span>هر عنوان باید مجاز، توافقی و مربوط به بزرگسالان باشد.</span><span class="scroll-note">محتوا را مسئولانه ببین <b>↓</b></span></div>
+      </section>
+      <section class="catalog section-wrap" id="catalog">
+        <div class="section-heading"><div><div class="eyebrow muted"><i></i> آرشیو فریم</div><h2>کتابخانه‌ی فیلم</h2><p>برای پخش، به صفحه‌ی منبع ویدئو یا میزبان مجاز منتقل می‌شوی.</p></div><span class="catalog-badge">فقط ۱۸+</span></div>
+        <div class="filter-row" id="filters" role="group" aria-label="فیلتر کتابخانه"><button class="filter-chip selected" data-filter="all">همه <span id="count-all">۰</span></button><button class="filter-chip" data-filter="فیلم">فیلم</button><button class="filter-chip" data-filter="سریال">سریال</button><span class="filter-divider"></span><button class="filter-chip genre-chip" data-filter="داستانی">داستانی</button><button class="filter-chip genre-chip" data-filter="مستند">مستند</button><button class="filter-chip genre-chip" data-filter="کوتاه">کوتاه</button></div>
+        <div class="results-line"><span id="results-label">همه‌ی عناوین</span><span class="live-indicator"><i></i> فقط آثار تأییدشده</span></div>
+        <div class="movie-grid" id="movie-grid" aria-live="polite"></div>
+        <div class="empty-state adult-empty" id="empty-state"><span>＋</span><h3>کتابخانه در حال آماده‌سازی است</h3><p>هنوز عنوانی برای نمایش اضافه نشده. عنوان بعدی را می‌توانم با اطلاعات و لینک مجاز ویدئو به آرشیو اضافه کنم.</p></div>
+      </section>
+      <section class="safety-panel section-wrap" id="safety"><div class="safety-icon">18+</div><div><div class="eyebrow muted"><i></i> استانداردهای فریم</div><h2>ایمنی و احترام، شرط انتشار است.</h2><p>فقط محتوایی را فهرست می‌کنیم که مجوز انتشار آن وجود دارد، تمام اجراکنندگان هنگام ضبط ۱۸ سال یا بیشتر داشته‌اند، و رضایت آگاهانه‌ی همه‌ی افراد ثبت و تأیید شده است. محتوای مربوط به افراد زیر سن قانونی، رضایت‌نداده، خصوصیِ افشاشده یا قاچاق‌شده پذیرفته نیست.</p><p class="safety-note">این فهرست ایستا است و پنل گزارش‌دهی یا احراز سن قانونی ندارد. کلیک روی «۱۸+» فقط خوداظهاری است و برای انتشار تجاری، جایگزین راهکار قانونی age assurance، فرایند رسیدگی به شکایت یا مشاوره‌ی حقوقی نیست.</p></div></section>
+    </main>
+    <footer class="footer"><a class="brand" href="#home"><span class="brand-mark">ف</span><span>فریم<span class="brand-dot">.</span></span><span class="brand-rating">۱۸+</span></a><span>مخصوص بزرگسالان · محتوای مجاز و توافقی <span class="footer-copy">© <b id="year"></b></span></span><button class="footer-exit" id="footer-exit">خروج امن ↑</button></footer>
+  </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <dialog class="player-dialog" id="player-dialog"><button class="dialog-close" data-close="player" aria-label="بستن">×</button><div class="player-frame" id="player-frame"><div class="player-placeholder"><span>▶</span><p>برای این عنوان هنوز پیوند پخش اضافه نشده است.</p><small>از پنل مدیریت، نشانی قانونی ویدئو یا تریلر را وارد کن.</small></div></div><div class="player-caption"><div><span class="eyebrow muted">تماشای معرفی</span><h3 id="player-title">عنوان فیلم</h3></div><span class="player-source" id="player-source">پخش‌کننده‌ی رسمی</span></div></dialog>
-
-  <dialog class="admin-dialog" id="admin-dialog"><div class="admin-shell"><aside class="admin-sidebar"><a class="brand" href="#home"><span class="brand-mark">ف</span><span>فریم<span class="brand-dot">.</span></span></a><div class="admin-side-label">پنل مدیریت نمایشی</div><div class="admin-side-item active">▦ <span>کتابخانه‌ی فیلم</span></div><div class="admin-side-item">⚙ <span>تنظیمات ویترین</span></div><div class="admin-side-foot">نسخه‌ی ایستا · بدون حساب کاربری</div></aside><section class="admin-main"><div class="admin-header"><div><div class="eyebrow muted">مدیریت ویترین</div><h2>کتابخانه‌ی فیلم</h2></div><button class="dialog-close admin-close" data-close="admin" aria-label="بستن">×</button></div><div class="admin-notice"><b>نکته‌ی مهم درباره‌ی GitHub Pages</b><span>تغییرات این پنل فعلاً فقط در همین مرورگر ذخیره می‌شود. برای نمایش عمومی، خروجی JSON را دانلود کن و آن را در مخزن GitHub منتشر کن؛ بارگذاری ویدئو مستقیم روی GitHub Pages ممکن نیست.</span></div><div class="admin-toolbar"><span id="admin-count">۰ عنوان</span><div><button class="button button-outline" id="import-button">واردکردن JSON</button><button class="button button-outline" id="export-button">خروجی JSON</button><button class="button button-primary" id="new-movie">＋ افزودن عنوان</button><input type="file" id="import-file" accept="application/json,.json" hidden /></div></div><form id="movie-form" class="movie-form" hidden><div class="form-heading"><h3 id="form-title">افزودن به کتابخانه</h3><button type="button" id="cancel-form" class="text-link">انصراف</button></div><input type="hidden" name="id"/><div class="form-grid"><label>نام اثر<input name="title" required maxlength="80" placeholder="مثلاً: شهرِ دور" /></label><label>سال ساخت<input name="year" type="number" min="1900" max="2100" value="2025" required /></label><label>نوع اثر<select name="type"><option>فیلم</option><option>سریال</option></select></label><label>ژانر<input name="genre" required maxlength="50" placeholder="درام، معمایی" /></label><label>امتیاز<input name="rating" type="number" min="0" max="10" step="0.1" value="8.2" /></label><label>مدت / تعداد قسمت<input name="duration" maxlength="30" placeholder="۱۰۸ دقیقه" /></label><label class="wide">نشانی تصویر پوستر<input name="poster" type="url" placeholder="https://… (اختیاری)" /></label><label class="wide">نشانی ویدئو یا تریلر<input name="video" type="url" placeholder="YouTube / Vimeo / لینک mp4" /></label><label class="wide">خلاصه<textarea name="description" rows="3" maxlength="240" placeholder="چند کلمه درباره‌ی داستان…"></textarea></label></div><div class="form-actions"><button class="button button-primary" type="submit">ذخیره در این مرورگر</button><span>برای پخش، فقط لینک محتوایی را وارد کن که اجازه‌ی انتشار آن را داری.</span></div></form><div class="admin-list" id="admin-list"></div></section></div></dialog>
+  <dialog class="player-dialog" id="player-dialog"><button class="dialog-close" data-close="player" aria-label="بستن">×</button><div class="player-frame" id="player-frame"></div><div class="player-caption"><div><span class="eyebrow muted">محتوای محدود به بزرگسالان · ۱۸+</span><h3 id="player-title">عنوان فیلم</h3></div><a class="player-source" id="player-source" target="_blank" rel="noopener noreferrer">ادامه در میزبان ویدئو ↗</a></div><p class="player-disclaimer">با ادامه، قوانین و شرایط میزبان ویدئو نیز اعمال می‌شود. فقط محتوای مجاز و مورد رضایت را مشاهده کن.</p></dialog>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

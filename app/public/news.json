@@ -14,7 +14,9 @@
     ],
     "sourceName": "ایران‌اینترنشنال",
     "sourceUrl": "https://www.iranintl.com/202611138820",
-    "sample": false
+    "sample": false,
+    "image": "/images/news-aviation.jpg",
+    "imageAlt": "تصویرسازی از برج مراقبت و هواپیماها در فرودگاه"
   },
   {
     "id": "iranintl-202611135771",
@@ -31,7 +33,9 @@
     ],
     "sourceName": "ایران‌اینترنشنال",
     "sourceUrl": "https://www.iranintl.com/202611135771",
-    "sample": false
+    "sample": false,
+    "image": "/images/news-nuclear.jpg",
+    "imageAlt": "تصویرسازی از یک تأسیسات زیرزمینی و بازرسی هسته‌ای"
   },
   {
     "id": "iranintl-202611138213",
@@ -48,7 +52,9 @@
     ],
     "sourceName": "ایران‌اینترنشنال",
     "sourceUrl": "https://www.iranintl.com/202611138213",
-    "sample": false
+    "sample": false,
+    "image": "/images/news-press.jpg",
+    "imageAlt": "تصویرسازی از میز تحریریه و ابزار خبرنگاری"
   },
   {
     "id": "iranintl-202611132392",
@@ -65,7 +71,9 @@
     ],
     "sourceName": "ایران‌اینترنشنال",
     "sourceUrl": "https://www.iranintl.com/202611132392",
-    "sample": false
+    "sample": false,
+    "image": "/images/news-geopolitics.jpg",
+    "imageAlt": "تصویرسازی نقشه منطقه و مسیرهای دریایی"
   },
   {
     "id": "iranintl-202611130214",
@@ -82,7 +90,9 @@
     ],
     "sourceName": "ایران‌اینترنشنال",
     "sourceUrl": "https://www.iranintl.com/202611130214",
-    "sample": false
+    "sample": false,
+    "image": "/images/news-europe.jpg",
+    "imageAlt": "تصویرسازی از ساختمان پارلمان اروپا"
   },
   {
     "id": "iranintl-202611137835",
@@ -99,7 +109,9 @@
     ],
     "sourceName": "ایران‌اینترنشنال",
     "sourceUrl": "https://www.iranintl.com/202611137835",
-    "sample": false
+    "sample": false,
+    "image": "/images/news-geopolitics.jpg",
+    "imageAlt": "تصویرسازی از تحولات سیاسی منطقه"
   },
   {
     "id": "iranintl-202611137323",
@@ -116,7 +128,9 @@
     ],
     "sourceName": "ایران‌اینترنشنال",
     "sourceUrl": "https://www.iranintl.com/202611137323",
-    "sample": false
+    "sample": false,
+    "image": "/images/news-energy.jpg",
+    "imageAlt": "تصویرسازی از نفتکش در مسیر دریایی"
   },
   {
     "id": "iranintl-202611133679",
@@ -133,7 +147,9 @@
     ],
     "sourceName": "ایران‌اینترنشنال",
     "sourceUrl": "https://www.iranintl.com/202611133679",
-    "sample": false
+    "sample": false,
+    "image": "/images/news-geopolitics.jpg",
+    "imageAlt": "تصویرسازی از مسیرهای تجاری و سیاسی منطقه"
   },
   {
     "id": "iranintl-202611134028",
@@ -150,7 +166,9 @@
     ],
     "sourceName": "ایران‌اینترنشنال",
     "sourceUrl": "https://www.iranintl.com/202611134028",
-    "sample": false
+    "sample": false,
+    "image": "/images/news-press.jpg",
+    "imageAlt": "تصویرسازی از تجهیزات خبرنگاری در اتاق خبر"
   },
   {
     "id": "iranintl-202611130326",
@@ -167,6 +185,8 @@
     ],
     "sourceName": "ایران‌اینترنشنال",
     "sourceUrl": "https://www.iranintl.com/202611130326",
-    "sample": false
+    "sample": false,
+    "image": "/images/news-diplomacy.jpg",
+    "imageAlt": "تصویرسازی از سالن مذاکرات دیپلماتیک"
   }
 ]

@@ -47,6 +47,12 @@ function revealHero() {
 function normalizeText(value) {
   return String(value ?? '').normalize('NFC').replace(/[ي]/g, 'ی').replace(/[ك]/g, 'ک').toLocaleLowerCase('fa');
 }
+function safeExternalUrl(value) {
+  try {
+    const url = new URL(String(value || ''));
+    return url.protocol === 'https:' ? url.href : '';
+  } catch { return ''; }
+}
 function safeStory(item) {
   if (!item || typeof item !== 'object' || !item.id || !item.title || !Array.isArray(item.body)) return null;
   const allowed = ['خبر', 'تحلیل', 'دیدگاه'];
@@ -58,6 +64,7 @@ function safeStory(item) {
     readMinutes: Math.min(60, Math.max(1, Number(item.readMinutes) || 3)),
     topic: String(item.topic || 'ایران').slice(0, 60),
     body: item.body.slice(0, 30).map(paragraph => String(paragraph).slice(0, 4000)),
+    sourceName: String(item.sourceName || '').slice(0, 100), sourceUrl: safeExternalUrl(item.sourceUrl),
     sample: item.sample === true
   };
 }
@@ -81,7 +88,7 @@ function storyCard(item, index) {
       <svg class="cover-mark" aria-hidden="true"><use href="#ic-brand"/></svg><span class="cover-title">${title}</span><span class="cover-watermark">IRAN AZAD</span>
       ${item.sample ? '<span class="sample-label">نمونه‌ی نمایشی</span>' : ''}
     </button>
-    <div class="news-card-body"><div class="story-meta"><span class="story-type type-${item.type === 'خبر' ? 'news' : item.type === 'تحلیل' ? 'analysis' : 'opinion'}">${esc(item.type)}</span><span>${esc(item.topic)}</span><span>${esc(item.dateLabel)}</span></div>
+    <div class="news-card-body"><div class="story-meta"><span class="story-type type-${item.type === 'خبر' ? 'news' : item.type === 'تحلیل' ? 'analysis' : 'opinion'}">${esc(item.type)}</span><span>${esc(item.topic)}</span><span>${esc(item.dateLabel)}</span>${item.sourceName ? `<span>منبع: ${esc(item.sourceName)}</span>` : ''}</div>
       <button class="story-title article-open" type="button" data-story="${esc(item.id)}">${title}</button><p class="story-summary">${esc(item.summary)}</p>
       <div class="story-foot"><span class="story-author">${esc(item.author)} <i></i> ${fa(item.readMinutes)} دقیقه مطالعه</span><button class="bookmark-btn ${saved ? 'is-saved' : ''}" type="button" data-bookmark="${esc(item.id)}" aria-pressed="${saved}" aria-label="${saved ? 'حذف از' : 'افزودن به'} مطالب ذخیره‌شده"><svg><use href="#ic-bookmark"/></svg></button></div>
     </div></article>`;
@@ -98,7 +105,7 @@ function openStory(id) {
   const item = stories.find(story => story.id === id);
   if (!item) return;
   currentStoryId = id;
-  $('#article-content').innerHTML = `<header class="article-modal-head"><span class="article-kicker">${esc(item.type)}${item.sample ? ' · نمونه‌ی نمایشی' : ''}</span><h1 id="modal-title">${esc(item.title)}</h1><p>${esc(item.summary)}</p><div class="article-byline"><span>${esc(item.author)}</span><i></i><span>${esc(item.dateLabel)}</span><i></i><span>${fa(item.readMinutes)} دقیقه مطالعه</span></div></header><div class="article-modal-body">${item.body.map(p => `<p>${esc(p)}</p>`).join('')}</div><footer class="article-modal-foot"><span><svg><use href="#ic-check"/></svg> ${item.sample ? 'مطلب نمونه؛ خبر واقعی نیست' : 'منابع و توضیحات در متن'}</span><button type="button" class="btn btn-ghost btn-small" id="share-story"><svg class="btn-ico"><use href="#ic-share"/></svg> کپی پیوند</button></footer>`;
+  $('#article-content').innerHTML = `<header class="article-modal-head"><span class="article-kicker">${esc(item.type)}${item.sample ? ' · نمونه‌ی نمایشی' : ''}</span><h1 id="modal-title">${esc(item.title)}</h1><p>${esc(item.summary)}</p><div class="article-byline"><span>${esc(item.author)}</span><i></i><span>${esc(item.dateLabel)}</span><i></i><span>${fa(item.readMinutes)} دقیقه مطالعه</span></div></header><div class="article-modal-body">${item.body.map(p => `<p>${esc(p)}</p>`).join('')}</div><footer class="article-modal-foot"><span><svg><use href="#ic-check"/></svg> ${item.sample ? 'مطلب نمونه؛ خبر واقعی نیست' : item.sourceName ? `خلاصه‌ی بازنویسی‌شده از ${esc(item.sourceName)}` : 'مطالب تحریریه'}</span><div class="article-actions">${item.sourceUrl ? `<a class="btn btn-ghost btn-small" href="${esc(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">مشاهده‌ی گزارش منبع ↗</a>` : ''}<button type="button" class="btn btn-ghost btn-small" id="share-story"><svg class="btn-ico"><use href="#ic-share"/></svg> کپی پیوند</button></div></footer>`;
   $('#article-modal').showModal();
   if (location.hash !== `#story/${encodeURIComponent(id)}`) history.replaceState(null, '', `#story/${encodeURIComponent(id)}`);
   $('#share-story').addEventListener('click', shareStory, { once: true });

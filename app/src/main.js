@@ -64,6 +64,8 @@ function safeStory(item) {
     readMinutes: Math.min(60, Math.max(1, Number(item.readMinutes) || 3)),
     topic: String(item.topic || 'ایران').slice(0, 60),
     body: item.body.slice(0, 30).map(paragraph => String(paragraph).slice(0, 4000)),
+    image: /^\/images\/news-[a-z0-9-]+\.jpg$/.test(String(item.image || '')) ? item.image : '',
+    imageAlt: String(item.imageAlt || '').slice(0, 160),
     sourceName: String(item.sourceName || '').slice(0, 100), sourceUrl: safeExternalUrl(item.sourceUrl),
     sample: item.sample === true
   };
@@ -84,7 +86,8 @@ function storyCard(item, index) {
   const title = esc(item.title);
   return `<article class="news-card glass-card ${featured ? 'news-featured' : ''}" data-reveal style="--card-order:${index}">
     <button class="news-cover cover-${index % 4} article-open" type="button" data-story="${esc(item.id)}" aria-label="خواندن: ${title}">
-      <span class="cover-orbit" aria-hidden="true"></span><span class="cover-index">IA / ${String(index + 1).padStart(2, '0')}</span>
+      ${item.image ? `<img class="cover-image" src="${esc(item.image)}" alt="${esc(item.imageAlt)}" loading="lazy" decoding="async" />` : ''}
+      <span class="cover-orbit" aria-hidden="true"></span><span class="cover-index">IA / ${String(index + 1).padStart(2, '0')}</span>${item.image ? '<span class="image-credit">تصویرسازی</span>' : ''}
       <svg class="cover-mark" aria-hidden="true"><use href="#ic-brand"/></svg><span class="cover-title">${title}</span><span class="cover-watermark">IRAN AZAD</span>
       ${item.sample ? '<span class="sample-label">نمونه‌ی نمایشی</span>' : ''}
     </button>

@@ -112,6 +112,16 @@ textarea:focus{outline:none;border-color:rgba(216,180,106,.6)}
 .pn-group-manual{margin-top:10px}.pn-group-manual summary{color:var(--dim);cursor:pointer;font-size:12px}
 .mig-grid label{display:block;font-size:12.5px;color:var(--dim);margin-bottom:6px}
 .rep-h{margin:24px 0 12px;font-size:15.5px}
+/* New chat bubbles animate once; polling keeps the same DOM nodes. */
+.chat-enter{animation:chat-bubble-in .32s cubic-bezier(.2,.75,.25,1) both}
+@keyframes chat-bubble-in{from{opacity:0;transform:translateY(10px) scale(.975)}to{opacity:1;transform:translateY(0) scale(1)}}
+.bub.snap{transition:transform .28s cubic-bezier(.2,.75,.25,1)}
+.chat-receipt{display:inline-block;direction:ltr;opacity:.8;letter-spacing:-2px;padding-inline:3px}
+.chat-receipt.seen{color:#83e4d0;opacity:1}
+.chat-reply-action{display:inline-flex;align-items:center;justify-content:center;min-width:30px;min-height:27px;margin-top:3px;border:1px solid rgba(216,180,106,.23);border-radius:9px;background:rgba(255,255,255,.05);color:var(--dim);font:inherit;font-size:15px;cursor:pointer}
+.chat-reply-action:focus-visible{outline:2px solid #e8c97e;outline-offset:2px}
+.chat-send-status{color:var(--red);font-size:12px}.chat-send-status:empty{display:none}
+@media(prefers-reduced-motion:reduce){.chat-enter{animation:none}.bub.snap{transition:none}}
 </style>
 </head>
 <body>
@@ -387,6 +397,7 @@ textarea:focus{outline:none;border-color:rgba(216,180,106,.6)}
               <span class="crb-mid"><b id="chat-reply-who-admin"></b><span id="chat-reply-text-admin"></span></span>
               <button type="button" class="btn btn-ghost btn-sm" id="chat-reply-x-admin">✕</button>
             </div>
+            <p id="chat-send-status-admin" class="chat-send-status" role="status" aria-live="polite"></p>
             <form class="chat-send" id="chat-form-admin">
               <input id="chat-text" type="text" placeholder="پاسخت را بنویس…" autocomplete="off" />
               <button class="btn btn-green btn-sm" type="submit">ارسال</button>
@@ -414,7 +425,7 @@ function show(id) { document.querySelectorAll('.view').forEach((v) => v.classLis
 function msg(el, text, ok) { const e = $(el); e.textContent = text || ''; e.className = 'msg ' + (ok ? 'ok' : 'err'); }
 
 let curStatus = '', refreshTimer = null, allGroups = [], savedGroupIds = [];
-let chatTimer = null, curChatUser = null, adminMsgsCache = [], adminReplyTo = null;
+let chatTimer = null, curChatUser = null, adminMsgsCache = [], adminReplyTo = null, adminChatSeq = 0, adminChatSending = false;
 
 function showPanel(name) {
   $('#panel-main').style.display = name === 'main' ? 'block' : 'none';
@@ -777,46 +788,79 @@ function scrollChatDown(smooth) {
   const el = $('#chat-msgs-admin');
   el.scrollTo({ top: el.scrollHeight, behavior: smooth ? 'smooth' : 'auto' });
 }
+function renderAdminThread(messages, forceScroll) {
+  const box = $('#chat-msgs-admin');
+  const initial = !adminMsgsCache.length && !box.querySelector('.bub');
+  const nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 140;
+  const existing = new Map([...box.querySelectorAll('.bub[data-mid]')].map(el => [el.dataset.mid, el]));
+  const keep = new Set(messages.map(m => String(m.id)));
+  for (const [id, el] of existing) if (!keep.has(id)) el.remove();
+  box.querySelector('.empty')?.remove();
+  adminMsgsCache = messages;
+  if (!messages.length) box.innerHTML = '<p class="empty">پیامی نیست</p>';
+  messages.forEach((m, index) => {
+    let el = existing.get(String(m.id));
+    const fresh = !el;
+    if (fresh) { el = document.createElement('div'); el.dataset.mid = m.id; el.className = `bub ${m.from === 'admin' ? 'admin' : 'user'}`; }
+    const content = `${m.replyTo ? `<span class="bub-q"><b>${m.replyTo.from === 'admin' ? 'شما' : 'پیام کاربر'}</b>${esc(m.replyTo.text)}</span>` : ''}${m.ai ? '<b>🤖 پاسخ خودکار</b><br>' : ''}${esc(m.text)}<small>${faDate(m.at)}${m.from === 'admin' ? ` <span class="chat-receipt ${m.read ? 'seen' : ''}" aria-label="${m.read ? 'خوانده شد' : 'ارسال شد'}" title="${m.read ? 'خوانده شد' : 'ارسال شد'}">${m.read ? '✓✓' : '✓'}</span>` : ''}</small><button type="button" class="chat-reply-action" aria-label="پاسخ به این پیام" title="پاسخ به این پیام">↩</button>`;
+    if (el.dataset.content !== content) { el.innerHTML = content; el.dataset.content = content; }
+    const at = box.children[index];
+    if (at !== el) box.insertBefore(el, at || null);
+    if (fresh && !initial) el.classList.add('chat-enter');
+  });
+  if (forceScroll || nearBottom) scrollChatDown(false);
+}
 async function loadThread(userId, silent) {
+  if (curChatUser !== userId) {
+    curChatUser = userId; adminMsgsCache = []; clearAdminReply();
+    $('#chat-msgs-admin').innerHTML = '';
+  }
+  const seq = ++adminChatSeq;
   try {
     const r = await api(`/api/admin/chats/${userId}`);
-    curChatUser = userId;
+    if (seq !== adminChatSeq || curChatUser !== userId) return;
     $('#chat-thread').style.display = 'block';
     $('#chat-with').innerHTML = `گفت‌وگو با <bdi dir="ltr">@${esc(r.username)}</bdi>`;
-    adminMsgsCache = r.messages || [];
-    const box = $('#chat-msgs-admin');
-    const nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 140;
-    const prevCount = box.children.length;
-    box.innerHTML = r.messages.length
-      ? r.messages.map((m) => `<div class="bub ${m.from}" data-mid="${esc(m.id)}">${m.replyTo ? `<span class="bub-q"><b>${m.replyTo.from === 'admin' ? 'شما' : 'پیام کاربر'}</b>${esc(m.replyTo.text)}</span>` : ''}${m.ai ? '<b>🤖 پاسخ خودکار</b><br>' : ''}${esc(m.text)}<small>${faDate(m.at)}${m.from === 'admin' && m.read ? ' · خوانده شد ✓✓' : ''}</small></div>`).join('')
-      : '<p class="empty">پیامی نیست</p>';
-    if (!silent || nearBottom || box.children.length !== prevCount) scrollChatDown(false);
+    renderAdminThread(r.messages || [], !silent);
     if (!silent && window.innerWidth <= 760) $('#chat-list').style.display = 'none';
     pollChatsBadge();
-  } catch (e) { if (!silent) alert(e.message); }
+  } catch (e) { if (!silent && seq === adminChatSeq) alert(e.message); }
 }
 $('#chat-list').addEventListener('click', (e) => {
   const it = e.target.closest('[data-chat]');
-  if (it) loadThread(it.dataset.chat);
+  if (it && !adminChatSending) loadThread(it.dataset.chat);
 });
 $('#chat-back').onclick = () => {
-  curChatUser = null;
+  if (adminChatSending) return;
+  curChatUser = null; ++adminChatSeq; adminMsgsCache = []; clearAdminReply();
+  $('#chat-msgs-admin').innerHTML = '';
   $('#chat-thread').style.display = 'none';
   $('#chat-list').style.display = 'block';
   loadChatList();
 };
 $('#chat-form-admin').addEventListener('submit', async (e) => {
   e.preventDefault();
-  if (!curChatUser) return;
-  const inp = $('#chat-text');
+  if (!curChatUser || adminChatSending) return;
+  const inp = $('#chat-text'), btn = e.currentTarget.querySelector('button[type="submit"]');
   const text = inp.value.trim();
   if (!text) return;
-  inp.value = '';
+  const userId = curChatUser, replyId = adminReplyTo?.id;
+  const status = $('#chat-send-status-admin');
+  adminChatSending = true; btn.disabled = true; status.textContent = 'در حال ارسال…';
   try {
-    await api(`/api/admin/chats/${curChatUser}`, { method: 'POST', body: { text, replyToId: adminReplyTo ? adminReplyTo.id : undefined } });
-    clearAdminReply();
-    loadThread(curChatUser, true); loadChatList(true);
-  } catch (err) { alert(err.message); inp.value = text; }
+    const r = await api(`/api/admin/chats/${userId}`, { method: 'POST', body: { text, replyToId: replyId } });
+    if (curChatUser === userId) {
+      ++adminChatSeq;
+      if (inp.value.trim() === text) inp.value = '';
+      if (adminReplyTo?.id === replyId) clearAdminReply();
+      if (r.message) renderAdminThread(adminMsgsCache.some(m => m.id === r.message.id) ? adminMsgsCache : [...adminMsgsCache, r.message], true);
+      loadThread(userId, true);
+    }
+    status.textContent = ''; loadChatList(true);
+  } catch (err) {
+    status.textContent = 'ارسال تأیید نشد؛ گفت‌وگو را بررسی کن و در صورت نیاز دوباره بفرست.';
+    if (curChatUser === userId) loadThread(userId, true);
+  } finally { adminChatSending = false; btn.disabled = false; }
 });
 
 /* ── شروع ── */
@@ -956,6 +1000,7 @@ function clearAdminReply() {
   adminReplyTo = null;
   if (adminReplyBar) adminReplyBar.style.display = 'none';
 }
+$('#chat-msgs-admin').addEventListener('click', e => { const btn = e.target.closest('.chat-reply-action'); if (btn) setAdminReply(btn.closest('.bub')?.dataset.mid); });
 const admReplyX = $('#chat-reply-x-admin');
 if (admReplyX) admReplyX.addEventListener('click', clearAdminReply);
 (() => {
@@ -973,15 +1018,17 @@ if (admReplyX) admReplyX.addEventListener('click', clearAdminReply);
   };
   box.addEventListener('pointerdown', (e) => {
     const el = e.target.closest('.bub[data-mid]');
-    if (!el || (e.pointerType === 'mouse' && e.button !== 0)) return;
-    sw = { el, id: el.dataset.mid, x0: e.clientX, y0: e.clientY, pid: e.pointerId, on: false, pull: 0 };
+    if (!el || e.target.closest('button') || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    sw = { el, id: el.dataset.mid, x0: e.clientX, y0: e.clientY, pid: e.pointerId, on: false, vertical: false, pull: 0 };
   });
   box.addEventListener('pointermove', (e) => {
     if (!sw || e.pointerId !== sw.pid) return;
     const dx = e.clientX - sw.x0;
     const dy = e.clientY - sw.y0;
+    if (sw.vertical) return;
     if (!sw.on) {
-      if (Math.abs(dx) < 9 || Math.abs(dy) > Math.abs(dx) * 1.15) return;
+      if (Math.abs(dy) > 9 && Math.abs(dy) > Math.abs(dx)) { sw.vertical = true; return; }
+      if (dx > -9 || Math.abs(dy) > Math.abs(dx) * 1.15) return;
       sw.on = true;
       try { sw.el.setPointerCapture(e.pointerId); } catch {}
       sw.el.classList.remove('snap');
@@ -1002,7 +1049,7 @@ if (admReplyX) admReplyX.addEventListener('click', clearAdminReply);
     if (!sw || e.pointerId !== sw.pid) return;
     const { el, id, on, pull } = sw;
     sw = null;
-    if (on && -pull >= THRESH) setAdminReply(id);
+    if (e.type === 'pointerup' && on && -pull >= THRESH) setAdminReply(id);
     reset(el);
   };
   box.addEventListener('pointerup', finish);

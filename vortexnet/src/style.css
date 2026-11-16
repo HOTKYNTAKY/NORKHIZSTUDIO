@@ -829,3 +829,16 @@ body { padding-bottom: 0; }
 .svc-transfer label[hidden]{display:none}
 .svc-transfer select{background:#22232b;border:1px solid var(--glass-brd);border-radius:10px;padding:9px;color:var(--ink);font:inherit}
 .svc-transfer .btn{align-self:flex-start}
+
+/* Smooth support chat: new bubbles only, never replay on polling. */
+.chat-enter{animation:chat-bubble-in .32s cubic-bezier(.2,.75,.25,1) both}
+@keyframes chat-bubble-in{from{opacity:0;transform:translateY(10px) scale(.975)}to{opacity:1;transform:translateY(0) scale(1)}}
+.cmsg.snap{transition:transform .28s cubic-bezier(.2,.75,.25,1)}
+.chat-receipt{display:inline-block;direction:ltr;opacity:.8;letter-spacing:-2px;padding-inline:3px}
+.chat-receipt.seen{color:#83e4d0;opacity:1}
+.chat-reply-action{display:inline-flex;align-items:center;justify-content:center;min-width:30px;min-height:27px;margin-top:3px;border:1px solid rgba(216,180,106,.23);border-radius:9px;background:rgba(255,255,255,.05);color:var(--ink-dim);font:inherit;font-size:15px;cursor:pointer}
+.chat-reply-action:focus-visible{outline:2px solid #e8c97e;outline-offset:2px}
+.chat-send-status{color:#ffb3b3;font-size:12px;padding:0 14px}
+.chat-send-status:empty{display:none}
+.chat-p-form button:disabled{opacity:.55;cursor:wait}
+@media (prefers-reduced-motion:reduce){.chat-enter{animation:none}.cmsg.snap{transition:none}}

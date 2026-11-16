@@ -1032,7 +1032,7 @@ $('#service-list')?.addEventListener('click', async (e) => {
 /* ════════════════ چت پشتیبانی ════════════════ */
 const chatPanel = $('#chat-panel');
 const chatMsgs = $('#chat-msgs');
-let chatOpen = false, chatPollId = null, lastChatSig = '', chatMsgsCache = [], chatReplyTo = null;
+let chatOpen = false, chatPollId = null, lastChatSig = '', chatMsgsCache = [], chatReplyTo = null, chatLoadSeq = 0, chatSending = false;
 
 function setChatBadge(n) {
   const b = $('#bnav-chat-badge');
@@ -1052,26 +1052,42 @@ async function updateChatBadge() {
   try { const d = await api('/api/my/chat?peek=1'); if (!chatOpen) setChatBadge(d.unread || 0); } catch { /* ignore */ }
 }
 function renderChat(msgs, forceScroll) {
-  const sig = `${msgs.length}:${msgs[msgs.length - 1]?.id || ''}:${msgs.filter((m) => m.read).length}`;
+  const sig = JSON.stringify(msgs);
   if (sig === lastChatSig && !forceScroll) return;
+  const initial = !lastChatSig;
   lastChatSig = sig;
   chatMsgsCache = msgs;
   const nearBottom = chatMsgs.scrollHeight - chatMsgs.scrollTop - chatMsgs.clientHeight < 170;
-  chatMsgs.innerHTML = msgs.length
-    ? msgs.map((m) => `<div class="cmsg ${m.from === 'user' ? 'me' : 'them'}" data-mid="${esc(m.id)}">${m.replyTo ? `<span class="cmsg-q"><b>${m.replyTo.from === 'user' ? 'شما' : 'پشتیبانی ورتکس‌نت'}</b>${esc(m.replyTo.text)}</span>` : ''}${m.ai ? '<b>🤖 پاسخ خودکار هوش مصنوعی</b><br>' : ''}${esc(m.text)}<small>${faDateTime(m.at)}${m.from === 'user' && m.read ? ' · خوانده شد ✓✓' : ''}</small></div>`).join('')
-    : '<p class="chat-p-empty">سلام! 👋<br>سؤالت رو بپرس، زود جواب میدیم.</p>';
+  const existing = new Map([...chatMsgs.querySelectorAll('.cmsg[data-mid]')].map(el => [el.dataset.mid, el]));
+  const keep = new Set(msgs.map(m => String(m.id)));
+  for (const [id, el] of existing) if (!keep.has(id)) el.remove();
+  chatMsgs.querySelector('.chat-p-empty')?.remove();
+  if (!msgs.length) chatMsgs.innerHTML = '<p class="chat-p-empty">سلام! 👋<br>سؤالت رو بپرس، زود جواب میدیم.</p>';
+  msgs.forEach((m, index) => {
+    let el = existing.get(String(m.id));
+    const fresh = !el;
+    if (fresh) { el = document.createElement('div'); el.dataset.mid = m.id; el.className = `cmsg ${m.from === 'user' ? 'me' : 'them'}`; }
+    const content = `${m.replyTo ? `<span class="cmsg-q"><b>${m.replyTo.from === 'user' ? 'شما' : 'پشتیبانی ورتکس‌نت'}</b>${esc(m.replyTo.text)}</span>` : ''}${m.ai ? '<b>🤖 پاسخ خودکار هوش مصنوعی</b><br>' : ''}${esc(m.text)}<small>${faDateTime(m.at)}${m.from === 'user' ? ` <span class="chat-receipt ${m.read ? 'seen' : ''}" aria-label="${m.read ? 'خوانده شد' : 'ارسال شد'}" title="${m.read ? 'خوانده شد' : 'ارسال شد'}">${m.read ? '✓✓' : '✓'}</span>` : ''}</small><button type="button" class="chat-reply-action" aria-label="پاسخ به این پیام" title="پاسخ به این پیام">↩</button>`;
+    if (el.dataset.content !== content) { el.innerHTML = content; el.dataset.content = content; }
+    const at = chatMsgs.children[index];
+    if (at !== el) chatMsgs.insertBefore(el, at || null);
+    if (fresh && !initial) el.classList.add('chat-enter');
+  });
   if (forceScroll || nearBottom) chatMsgs.scrollTop = chatMsgs.scrollHeight;
 }
 async function loadChat(forceScroll) {
   if (!me) return;
+  const seq = ++chatLoadSeq;
   try {
     const d = await api('/api/my/chat');
+    if (seq !== chatLoadSeq || !chatOpen) return;
     renderChat(d.messages || [], forceScroll);
     setChatBadge(0);
   } catch { /* ignore */ }
 }
 function toggleChat(open) {
   chatOpen = open;
+  ++chatLoadSeq;
   if (chatPanel) chatPanel.hidden = !open;
   clearInterval(chatPollId);
   if (open) {
@@ -1119,16 +1135,28 @@ $('#chat-close')?.addEventListener('click', () => toggleChat(false));
 $('#acc-chat-open')?.addEventListener('click', () => toggleChat(true));
 $('#chat-form')?.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const inp = $('#chat-input');
+  if (chatSending) return;
+  const inp = $('#chat-input'), btn = e.currentTarget.querySelector('button[type="submit"]');
   const text = inp.value.trim();
   if (!text) return;
-  inp.value = '';
+  const replyId = chatReplyTo?.id;
+  const status = $('#chat-send-status');
+  chatSending = true; btn.disabled = true; status.textContent = 'در حال ارسال…';
   try {
-    await api('/api/my/chat', { method: 'POST', body: { text, replyToId: chatReplyTo ? chatReplyTo.id : undefined } });
-    clearChatReply();
-    lastChatSig = '';
-    loadChat(true);
-  } catch { inp.value = text; }
+    const result = await api('/api/my/chat', { method: 'POST', body: { text, replyToId: replyId } });
+    ++chatLoadSeq;
+    if (inp.value.trim() === text) inp.value = '';
+    if (chatReplyTo?.id === replyId) clearChatReply();
+    status.textContent = '';
+    if (chatOpen && result.message) {
+      const list = chatMsgsCache.some(m => m.id === result.message.id) ? chatMsgsCache : [...chatMsgsCache, result.message];
+      renderChat(list, true);
+      loadChat(false);
+    }
+  } catch {
+    status.textContent = 'ارسال تأیید نشد؛ گفت‌وگو را بررسی کن و در صورت نیاز دوباره بفرست.';
+    if (chatOpen) loadChat(false);
+  } finally { chatSending = false; btn.disabled = false; }
 });
 
 /* ════════════════ ریپلای با سوایپ در چت ════════════════ */
@@ -1150,6 +1178,7 @@ function clearChatReply() {
   if (chatReplyBar) chatReplyBar.hidden = true;
 }
 $('#chat-reply-x')?.addEventListener('click', clearChatReply);
+chatMsgs?.addEventListener('click', e => { const btn = e.target.closest('.chat-reply-action'); if (btn) setChatReply(btn.closest('.cmsg')?.dataset.mid); });
 
 /* کشیدن پیام به سمت چپ = پاسخ (انگشت و موس، با Pointer Events) */
 (() => {
@@ -1166,15 +1195,17 @@ $('#chat-reply-x')?.addEventListener('click', clearChatReply);
   };
   chatMsgs.addEventListener('pointerdown', (e) => {
     const el = e.target.closest('.cmsg[data-mid]');
-    if (!el || (e.pointerType === 'mouse' && e.button !== 0)) return;
-    sw = { el, id: el.dataset.mid, x0: e.clientX, y0: e.clientY, pid: e.pointerId, on: false, pull: 0 };
+    if (!el || e.target.closest('button') || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    sw = { el, id: el.dataset.mid, x0: e.clientX, y0: e.clientY, pid: e.pointerId, on: false, vertical: false, pull: 0 };
   });
   chatMsgs.addEventListener('pointermove', (e) => {
     if (!sw || e.pointerId !== sw.pid) return;
     const dx = e.clientX - sw.x0;
     const dy = e.clientY - sw.y0;
+    if (sw.vertical) return;
     if (!sw.on) {
-      if (Math.abs(dx) < 9 || Math.abs(dy) > Math.abs(dx) * 1.15) return;
+      if (Math.abs(dy) > 9 && Math.abs(dy) > Math.abs(dx)) { sw.vertical = true; return; }
+      if (dx > -9 || Math.abs(dy) > Math.abs(dx) * 1.15) return;
       sw.on = true;
       try { sw.el.setPointerCapture(e.pointerId); } catch { /* ignore */ }
       sw.el.classList.remove('snap');
@@ -1195,7 +1226,7 @@ $('#chat-reply-x')?.addEventListener('click', clearChatReply);
     if (!sw || e.pointerId !== sw.pid) return;
     const { el, id, on, pull } = sw;
     sw = null;
-    if (on && -pull >= THRESH) setChatReply(id);
+    if (e.type === 'pointerup' && on && -pull >= THRESH) setChatReply(id);
     reset(el, true);
   };
   chatMsgs.addEventListener('pointerup', finish);

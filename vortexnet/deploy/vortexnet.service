@@ -1,0 +1,24 @@
+[Unit]
+Description=VORTEXNET shop API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=vortexnet
+Group=vortexnet
+WorkingDirectory=/opt/vortexnet/server
+Environment=API_PORT=9273
+Environment=SITE_DOMAIN=www.vortexnett.shop
+Environment=DATA_DIR=/opt/vortexnet/server/data
+ExecStart=/usr/bin/node /opt/vortexnet/server/server.mjs
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/vortexnet/server/data
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

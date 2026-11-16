@@ -9,3 +9,11 @@ dist/
 *.zip
 # Shop backend runtime data (orders + secrets) — never commit
 server/data/
+
+# VORTEXNET runtime data and locally built delivery archive
+vortexnet/server/data/
+vortexnet-ubuntu22.tar.gz
+
+# GAVIDCHAT private runtime data and release archive
+gavidchat/data/
+gavidchat-ubuntu22.tar.gz

@@ -362,6 +362,17 @@ textarea:focus{outline:none;border-color:rgba(216,180,106,.6)}
     <div id="panel-chats" style="display:none">
       <div class="card">
         <h2>💬 گفت‌وگو با مشتری‌ها</h2>
+        <div class="card" style="margin:12px 0">
+          <b>🤖 پاسخ خودکار هوش مصنوعی</b>
+          <p class="small">در صورت فعال‌سازی، متن پیام مشتری به OpenRouter و ارائه‌دهنده مدل ارسال می‌شود و ممکن است هزینه داشته باشد. پاسخ‌ها خودکارند و جای بررسی پشتیبان را نمی‌گیرند.</p>
+          <label for="ai-key">کلید OpenRouter (برای تغییر یا ثبت اولیه)</label>
+          <input id="ai-key" type="password" dir="ltr" autocomplete="new-password" placeholder="sk-or-v1-…" />
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+            <button type="button" class="btn btn-ghost btn-sm" id="ai-save">ذخیره کلید</button>
+            <button type="button" class="btn btn-green btn-sm" id="ai-toggle">در حال دریافت وضعیت…</button>
+          </div>
+          <p class="small" id="ai-status"></p><p class="msg" id="ai-msg" role="status"></p>
+        </div>
         <div class="chat-layout">
           <div id="chat-list"><p class="empty">در حال بارگذاری…</p></div>
           <div id="chat-thread" style="display:none">
@@ -656,7 +667,7 @@ document.addEventListener('click', async (e) => {
   } catch (err) { alert(err.message); }
 });
 
-$('#btn-chats').onclick = () => { showPanel('chats'); loadChatList(); };
+$('#btn-chats').onclick = () => { showPanel('chats'); loadChatList(); loadAI(); };
 /* ── انتقال اشتراک بین پنل‌ها ── */
 async function openMigrate(code) {
   const box = document.querySelector(`[data-migrate-box="${code}"]`);
@@ -727,6 +738,24 @@ $('#btn-import').onclick = async () => {
 };
 
 /* ── چت با مشتری‌ها ── */
+let aiEnabled = false;
+function renderAI(r) {
+  aiEnabled = !!r.enabled;
+  $('#ai-toggle').textContent = aiEnabled ? 'خاموش کردن پاسخ خودکار' : 'روشن کردن پاسخ خودکار';
+  $('#ai-status').textContent = `وضعیت: ${aiEnabled ? 'روشن' : 'خاموش'} · کلید: ${r.configured ? 'ثبت شده' : 'ثبت نشده'} · مدل: ${r.model || 'openai/gpt-4o-mini'}${r.lastError ? ' · ' + r.lastError : ''}`;
+}
+async function loadAI() { try { renderAI(await api('/api/admin/support-ai')); } catch(e) { msg('#ai-msg', e.message); } }
+$('#ai-save').onclick = async () => {
+  const key = $('#ai-key').value.trim();
+  if (!key) return msg('#ai-msg', 'کلید جدید را وارد کن.');
+  try { renderAI(await api('/api/admin/support-ai', { method: 'POST', body: { key } })); $('#ai-key').value = ''; msg('#ai-msg', 'کلید ذخیره شد.', true); }
+  catch(e) { $('#ai-key').value = ''; msg('#ai-msg', e.message); }
+};
+$('#ai-toggle').onclick = async () => {
+  if (!aiEnabled && !confirm('متن پیام مشتری به OpenRouter و ارائه‌دهنده مدل فرستاده می‌شود و ممکن است هزینه داشته باشد. فعال شود؟')) return;
+  try { renderAI(await api('/api/admin/support-ai', { method: 'POST', body: { enabled: !aiEnabled } })); msg('#ai-msg', aiEnabled ? 'پاسخ خودکار روشن شد.' : 'پاسخ خودکار خاموش شد.', true); }
+  catch(e) { msg('#ai-msg', e.message); }
+};
 async function pollChatsBadge() {
   try { const r = await api('/api/admin/chats'); setChatBadge(r.totalUnread || 0); } catch {}
 }
@@ -759,7 +788,7 @@ async function loadThread(userId, silent) {
     const nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 140;
     const prevCount = box.children.length;
     box.innerHTML = r.messages.length
-      ? r.messages.map((m) => `<div class="bub ${m.from}" data-mid="${esc(m.id)}">${m.replyTo ? `<span class="bub-q"><b>${m.replyTo.from === 'admin' ? 'شما' : 'پیام کاربر'}</b>${esc(m.replyTo.text)}</span>` : ''}${esc(m.text)}<small>${faDate(m.at)}${m.from === 'admin' && m.read ? ' · خوانده شد ✓✓' : ''}</small></div>`).join('')
+      ? r.messages.map((m) => `<div class="bub ${m.from}" data-mid="${esc(m.id)}">${m.replyTo ? `<span class="bub-q"><b>${m.replyTo.from === 'admin' ? 'شما' : 'پیام کاربر'}</b>${esc(m.replyTo.text)}</span>` : ''}${m.ai ? '<b>🤖 پاسخ خودکار</b><br>' : ''}${esc(m.text)}<small>${faDate(m.at)}${m.from === 'admin' && m.read ? ' · خوانده شد ✓✓' : ''}</small></div>`).join('')
       : '<p class="empty">پیامی نیست</p>';
     if (!silent || nearBottom || box.children.length !== prevCount) scrollChatDown(false);
     if (!silent && window.innerWidth <= 760) $('#chat-list').style.display = 'none';

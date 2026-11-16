@@ -1058,7 +1058,7 @@ function renderChat(msgs, forceScroll) {
   chatMsgsCache = msgs;
   const nearBottom = chatMsgs.scrollHeight - chatMsgs.scrollTop - chatMsgs.clientHeight < 170;
   chatMsgs.innerHTML = msgs.length
-    ? msgs.map((m) => `<div class="cmsg ${m.from === 'user' ? 'me' : 'them'}" data-mid="${esc(m.id)}">${m.replyTo ? `<span class="cmsg-q"><b>${m.replyTo.from === 'user' ? 'شما' : 'پشتیبانی ورتکس‌نت'}</b>${esc(m.replyTo.text)}</span>` : ''}${esc(m.text)}<small>${faDateTime(m.at)}${m.from === 'user' && m.read ? ' · خوانده شد ✓✓' : ''}</small></div>`).join('')
+    ? msgs.map((m) => `<div class="cmsg ${m.from === 'user' ? 'me' : 'them'}" data-mid="${esc(m.id)}">${m.replyTo ? `<span class="cmsg-q"><b>${m.replyTo.from === 'user' ? 'شما' : 'پشتیبانی ورتکس‌نت'}</b>${esc(m.replyTo.text)}</span>` : ''}${m.ai ? '<b>🤖 پاسخ خودکار هوش مصنوعی</b><br>' : ''}${esc(m.text)}<small>${faDateTime(m.at)}${m.from === 'user' && m.read ? ' · خوانده شد ✓✓' : ''}</small></div>`).join('')
     : '<p class="chat-p-empty">سلام! 👋<br>سؤالت رو بپرس، زود جواب میدیم.</p>';
   if (forceScroll || nearBottom) chatMsgs.scrollTop = chatMsgs.scrollHeight;
 }

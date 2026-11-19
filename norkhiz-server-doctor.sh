@@ -26,7 +26,7 @@
 set -uo pipefail
 export DEBIAN_FRONTEND=noninteractive
 
-APP_VERSION="1.0.0"
+APP_VERSION="1.1.0"
 APP="NORKHIZ STUDIO — Server Doctor"
 LOG_FILE="${LOG_FILE:-/tmp/norkhiz-server-doctor.log}"
 REPORT_FILE="${REPORT_FILE:-/tmp/norkhiz-report.txt}"
@@ -252,25 +252,69 @@ prereqs() {
 # ═══════════════════════════════════════════════════════════════════════════
 runtimes() {
   step "۴) ران‌تایم‌ها (Node / Docker / Nginx)"
-  # Node.js 20 LTS
+  # Node.js — اولویت: NodeSource 20 → تاربال رسمی nodejs.org → مخزن Ubuntu
+  node_tarball_install() {
+    local ver="v20.18.1"
+    curl -fsSL --connect-timeout 15 "https://nodejs.org/dist/${ver}/node-${ver}-linux-x64.tar.xz" -o /tmp/node.tar.xz \
+      && tar -xJf /tmp/node.tar.xz -C /tmp \
+      && $SUDO cp -a "/tmp/node-${ver}-linux-x64/." /usr/local/ \
+      && rm -rf "/tmp/node-${ver}-linux-x64" /tmp/node.tar.xz
+  }
+  node_major() { node -v 2>/dev/null | sed 's/^v\([0-9]*\).*/\1/'; }
   if has_cmd node; then
-    local v; v=$(node -v 2>/dev/null); log "Node.js: $v"
-    [[ "$v" == v20* || "$v" == v22* ]] && ok "نسخه Node.js مناسب است" || warn "Node.js قدیمی است ($v) — نسخه 20/22 پیشنهاد می‌شود"
+    local v; v=$(node -v 2>/dev/null); log "Node.js: $v (نصب‌شده)"
+    local mj; mj=$(node_major)
+    if [[ "$mj" =~ ^[0-9]+$ ]] && [[ "$mj" -ge 18 ]]; then ok "نسخه Node.js مناسب است ($v)"
+    else
+      warn "Node.js قدیمی است ($v) — تلاش برای ارتقا…"
+      node_tarball_install && hash -r && ok "Node.js ارتقا یافت: $(node -v)" || warn "ارتقا ناموفق بود — $v قدیمی باقی ماند"
+    fi
   else
-    log "Node.js نیست — نصب نسخه 20 LTS…"
+    log "Node.js نیست — نصب Node 20 LTS…"
+    local node_ok=0 install_how=""
     if [[ "$PKG" == "apt" ]]; then
-      curl -fsSL https://deb.nodesource.com/setup_20.x | $SUDO -E bash - >/dev/null 2>&1 || true
-      pkg_install nodejs >/dev/null 2>&1 && ok "Node.js نصب شد: $(node -v 2>/dev/null)" || err "نصب Node.js ناموفق بود"
-    else pkg_install nodejs >/dev/null 2>&1 && ok "Node.js نصب شد" || warn "نصب Node.js دستی لازم است"; fi
+      if curl -fsSL --connect-timeout 15 https://deb.nodesource.com/setup_20.x -o /tmp/nodesource-setup.sh \
+         && $SUDO -E bash /tmp/nodesource-setup.sh >/tmp/nodesource-setup.log 2>&1 \
+         && pkg_install nodejs; then
+        node_ok=1; install_how="NodeSource"
+      else
+        warn "NodeSource در دسترس نبود (احتمالاً مسدود است) — تلاش با تاربال رسمی nodejs.org…"
+        if node_tarball_install; then node_ok=1; install_how="تاربال رسمی"
+        else
+          warn "nodejs.org هم در دسترس نبود — نصب نسخه‌ی مخزن Ubuntu…"
+          pkg_install nodejs npm && node_ok=1 && install_how="مخزن Ubuntu" || true
+        fi
+      fi
+    else
+      pkg_install nodejs npm && node_ok=1 && install_how="مخزن سیستم" || true
+    fi
+    if [[ $node_ok -eq 1 ]] && has_cmd node; then
+      hash -r
+      local v2; v2=$(node -v); local mj2; mj2=$(node_major)
+      if [[ "$mj2" =~ ^[0-9]+$ ]] && [[ "$mj2" -ge 18 ]]; then ok "Node.js نصب شد ($install_how): $v2"
+      else warn "Node.js نصب شد ولی قدیمی است ($v2 از $install_how) — برای اکثر پروژه‌های جدید مناسب نیست"; fi
+    else err "نصب Node.js ناموفق بود — اینترنت سرور را بررسی کن"; fi
   fi
-  has_cmd npm && ok "npm: $(npm -v 2>/dev/null)" || warn "npm نیست"
-  # Docker
+  has_cmd npm && ok "npm: $(npm -v 2>/dev/null)" || { log "نصب npm…"; pkg_install npm >/dev/null 2>&1 && ok "npm نصب شد: $(npm -v 2>/dev/null)" || warn "npm همچنان نیست"; }
+  # Docker — اولویت: اسکریپت رسمی get.docker.com → بسته‌ی docker.io مخزن Ubuntu/Debian
   if has_cmd docker; then ok "Docker: $(docker --version 2>/dev/null)"
   else
     log "Docker نیست — نصب…"
+    local docker_ok=0 install_how=""
     if [[ "$PKG" == "apt" ]]; then
-      curl -fsSL https://get.docker.com | $SUDO sh >/dev/null 2>&1 && ok "Docker نصب شد" || warn "نصب Docker ناموفق بود"
-    else pkg_install docker >/dev/null 2>&1 && ok "Docker نصب شد" || warn "نصب Docker دستی لازم است"; fi
+      if curl -fsSL --connect-timeout 15 https://get.docker.com -o /tmp/get-docker.sh && $SUDO sh /tmp/get-docker.sh >/tmp/get-docker.log 2>&1; then
+        docker_ok=1; install_how="get.docker.com"
+      else
+        warn "get.docker.com در دسترس نبود (احتمالاً مسدود است) — تلاش با بسته‌ی docker.io مخزن Ubuntu…"
+        pkg_install docker.io && docker_ok=1 && install_how="docker.io مخزن Ubuntu" || true
+      fi
+    else
+      pkg_install docker && docker_ok=1 && install_how="مخزن سیستم" || pkg_install docker.io && docker_ok=1 && install_how="docker.io" || true
+    fi
+    if [[ $docker_ok -eq 1 ]] && has_cmd docker; then
+      $SUDO systemctl enable --now docker >/dev/null 2>&1 || true
+      ok "Docker نصب شد ($install_how): $(docker --version 2>/dev/null)"
+    else warn "نصب Docker ناموفق بود — اگر لازم نداری بی‌خیال شو، برای سایت استاتیک خبری ضروری نیست"; fi
   fi
   # Nginx
   if has_cmd nginx; then

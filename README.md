@@ -33,6 +33,29 @@ npm run publish:pages
 
 GitHub Pages ایستا است؛ بنابراین انتشار مطلب جدید برای همه با ثبت و انتشار تغییر `news.json` در GitHub انجام می‌شود. API و سرور قبلی فروشگاه در این سایت خبری استفاده نمی‌شوند و تغییر نکرده‌اند.
 
+## اجرای مستقیم روی سرور (بدون آپلود دستی)
+
+`norkhiz-server-doctor.sh` را می‌توان مستقیم از همین مخزن روی سرور لینوکسی (Ubuntu 22.04 و هم‌خانواده‌ها) اجرا کرد — هیچ فایلی لازم نیست دستی آپلود شود:
+
+```bash
+# کامل و بدون سوال (آپدیت هوشمند + نصب پیش‌نیازها + دیباگ + تعمیر)
+curl -fsSL https://raw.githubusercontent.com/HOTKYNTAKY/NORKHIZSTUDIO/arena/f1c01ed2-norkhizstudio/norkhiz-server-doctor.sh | sudo bash -s -- --all --yes
+
+# فقط دیباگ و گزارش سلامت (بدون تغییر سیستم)
+curl -fsSL https://raw.githubusercontent.com/HOTKYNTAKY/NORKHIZSTUDIO/arena/f1c01ed2-norkhizstudio/norkhiz-server-doctor.sh | sudo bash
+
+# فقط دیباگ SSH و پورت ۲۲
+curl -fsSL https://raw.githubusercontent.com/HOTKYNTAKY/NORKHIZSTUDIO/arena/f1c01ed2-norkhizstudio/norkhiz-server-doctor.sh | sudo bash -s -- --ssh
+```
+
+اگر دسترسی به `raw.githubusercontent.com` ممکن نبود، نسخه‌ی دانلود-بعد-اجرا (همان نتیجه):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/HOTKYNTAKY/NORKHIZSTUDIO/arena/f1c01ed2-norkhizstudio/norkhiz-server-doctor.sh -o /tmp/norkhiz-server-doctor.sh && sudo bash /tmp/norkhiz-server-doctor.sh --all --yes
+```
+
+> لینک‌ها به‌صورت موقت از شاخه‌ی `arena/f1c01ed2-norkhizstudio` می‌خوانند؛ پس از ادغام در `main`، مسیر `.../main/norkhiz-server-doctor.sh` همان کار را با آدرس پایدار انجام می‌دهد.
+
 ## نکته‌ی منبع
 
 فایل پیوست `vortexnet-setup-v30.sh` برای نصب فروشگاه VORTEXNET بود؛ اسکریپت را اجرا نکردم. فقط فایل‌های متنیِ UI موجود در آن را با بررسی checksum برای بازیابی پوسته‌ی قبلی خواندم؛ کد نصب/سرور را اجرا یا به سایت خبری متصل نکردم.

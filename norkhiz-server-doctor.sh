@@ -99,9 +99,9 @@ if [[ "${EUID}" -ne 0 ]]; then
   fi
 fi
 run() { if [[ $ASSUME_YES -eq 1 || "${DRY:-0}" == "1" ]]; then "$@"; else
-  printf "  ادامه بدهم؟ [y/N] "; read -r ans; [[ "$ans" =~ ^[Yy]$ ]] && "$@" || log "رد شد."; fi; }
+  printf "  ادامه بدهم؟ [y/N] "; read -r ans </dev/tty 2>/dev/null || ans="n"; [[ "$ans" =~ ^[Yy]$ ]] && "$@" || log "رد شد."; fi; }
 
-confirm() { [[ $ASSUME_YES -eq 1 ]] && return 0; printf "  %s [y/N] " "$1"; read -r a; [[ "$a" =~ ^[Yy]$ ]]; }
+confirm() { [[ $ASSUME_YES -eq 1 ]] && return 0; printf "  %s [y/N] " "$1"; read -r a </dev/tty 2>/dev/null || a="n"; [[ "$a" =~ ^[Yy]$ ]]; }
 
 # ── تشخیص سیستم‌عامل ─────────────────────────────────────────────────────
 DISTRO="unknown"; DISTRO_VER=""; PKG=""

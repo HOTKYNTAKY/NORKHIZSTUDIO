@@ -16,9 +16,12 @@
 #
 #  چه چیزی نصب می‌شود؟
 #    ۱) Node.js ≥ 18 (در صورت نبود)     ۲) فروشگاه → /var/www/golistahome
-#    ۳) سرویس API فروشگاه (systemd)      ۴) Nginx + دامنه
-#    ۵) فایروال (80/443)                 ۶) HTTPS رایگان Let's Encrypt
+#    ۳) سرویس API فروشگاه (systemd)      ۴) Nginx + دامنه (apex و www)
+#    ۵) فایروال (80/443)                 ۶) HTTPS رایگان Let's Encrypt + ریدایرکت
 #    ۷) دیتابیس اولیه با ۲ دسته و ۱۲ محصول نمونه
+#
+#  پیش‌نیاز DNS: رکورد A دامنه به IP این سرور اشاره کند؛
+#  (اختیاری) CNAME برای www → دامنه اصلی. اسکریپت هنگام نصب DNS را چک می‌کند.
 # ═══════════════════════════════════════════════════════════════════════
 set -euo pipefail
 export DEBIAN_FRONTEND=noninteractive
@@ -165,6 +168,13 @@ fi
 # ═══════════════════════════════════════════════════════════════════════
 step "۴/۷ — سرویس API فروشگاه (systemd)"
 NODE_BIN="$(command -v node)"
+
+# سرویس قدیمی نصب‌های قبلی (همان مسیر را اشغال می‌کرد) — غیرفعال می‌شود
+if command -v systemctl >/dev/null 2>&1 && systemctl list-unit-files 2>/dev/null | grep -q '^norkhiz-api'; then
+  warn "سرویس قدیمی norkhiz-api پیدا شد — برای جلوگیری از تعارض پورت، غیرفعال می‌شود."
+  $SUDO systemctl disable --now norkhiz-api >/dev/null 2>&1 || true
+fi
+
 if command -v systemctl >/dev/null 2>&1 && [[ -f "$SCRIPT_DIR/deploy/golistahome-api.service" ]]; then
   TMPUNIT="$(mktemp)"
   sed -e "s#__APPDIR__#${SCRIPT_DIR}#g" -e "s#__NODE__#${NODE_BIN}#g" \
@@ -192,9 +202,11 @@ if ! command -v nginx >/dev/null 2>&1; then
   log "نصب Nginx…"
   pkg_install nginx
 fi
-log "نوشتن vhost برای دامنه: ${DOMAIN}"
+if [[ "$DOMAIN" == "_" ]]; then SERVER_NAME="_"; else SERVER_NAME="${DOMAIN} www.${DOMAIN}"; fi
+log "نوشتن vhost برای دامنه: ${SERVER_NAME}"
 TMPCONF="$(mktemp)"
-sed -e "s#__DOMAIN__#${DOMAIN}#g" -e "s#__ROOT__#${WEB_ROOT}#g" -e "s#__APIPORT__#${API_PORT}#g" \
+sed -e "s#__SERVERNAME__#${SERVER_NAME}#g" -e "s#__DOMAIN__#${DOMAIN}#g" \
+    -e "s#__ROOT__#${WEB_ROOT}#g" -e "s#__APIPORT__#${API_PORT}#g" \
   "$SCRIPT_DIR/deploy/nginx-site.conf" > "$TMPCONF"
 
 if [[ -d /etc/nginx/sites-available ]]; then
@@ -208,6 +220,20 @@ else
   $SUDO install -m 644 "$TMPCONF" "/etc/nginx/conf.d/${APP_NAME}.conf"
 fi
 rm -f "$TMPCONF"
+
+# ── رفع تعارض با پیکربندی‌های قبلی همین دامنه (مثلاً vhost قدیمی aether) ──
+# بدون این مرحله، server_name تکراری باعث می‌شود سایت قدیمی برنده شود.
+if [[ "$DOMAIN" != "_" ]]; then
+  for f in /etc/nginx/sites-enabled/* /etc/nginx/conf.d/*.conf; do
+    [[ -f "$f" ]] || continue
+    base="$(basename "$f")"
+    [[ "$base" == "$APP_NAME" || "$base" == "${APP_NAME}.conf" ]] && continue
+    if awk -v d="$DOMAIN" 'tolower($0) ~ /^[[:space:]]*server_name/ && index($0, d) {found=1} END {exit !found}' "$f" 2>/dev/null; then
+      warn "تعارض: ${f} نیز دامنه ${DOMAIN} را دارد — برای اولویت فروشگاه غیرفعال می‌شود."
+      $SUDO rm -f "$f"
+    fi
+  done
+fi
 
 $SUDO nginx -t
 if command -v systemctl >/dev/null 2>&1; then
@@ -246,6 +272,29 @@ else
   echo "SITE_DOMAIN=${DOMAIN}" >> "$SCRIPT_DIR/server/.env"
   chmod 600 "$SCRIPT_DIR/server/.env" 2>/dev/null || true
 
+  # ── پیش‌بررسی DNS: دامنه باید به همین سرور اشاره کند ──────────────
+  SERVER_IP="$(curl -fsS --max-time 5 https://api.ipify.org 2>/dev/null || true)"
+  DOMAIN_IPS="$(getent ahostsv4 "$DOMAIN" 2>/dev/null | awk '{print $1}' | sort -u | tr '\n' ' ' | sed 's/ *$//' || true)"
+  if [[ -z "$DOMAIN_IPS" ]]; then
+    warn "DNS دامنه ${DOMAIN} هنوز resolve نمی‌شود؛ رکورد A بسازید و دوباره اجرا کنید."
+    warn "  A  @  →  ${SERVER_IP:-IP-SERVER}"
+  elif [[ -n "$SERVER_IP" ]] && ! tr ' ' '\n' <<< "$DOMAIN_IPS" | grep -qxF "$SERVER_IP"; then
+    warn "DNS دامنه (${DOMAIN} → ${DOMAIN_IPS}) با IP این سرور (${SERVER_IP}) یکی نیست."
+    warn "رکورد A باید به ${SERVER_IP} اشاره کند تا گواهی HTTPS خودکار صادر شود."
+  else
+    ok "DNS دامنه به IP این سرور اشاره می‌کند (${SERVER_IP})"
+  fi
+
+  # ── دامنه‌های گواهی: apex + www (فقط اگر www در DNS موجود باشد) ──
+  CERT_DOMAIN_ARGS=(-d "$DOMAIN")
+  if getent ahostsv4 "www.${DOMAIN}" >/dev/null 2>&1; then
+    CERT_DOMAIN_ARGS+=(-d "www.${DOMAIN}")
+    ok "www.${DOMAIN} هم resolve می‌شود — گواهی برای هر دو درخواست می‌شود"
+  else
+    warn "www.${DOMAIN} در DNS نیست (اختیاری). برای فعال‌سازی: رکورد CNAME  www → ${DOMAIN}"
+    warn "پس از افزودن رکورد، دوباره همین اسکریپت را اجرا کنید تا گواهی www هم صادر شود."
+  fi
+
   CERT_READY=1
   if [[ "$PKG" == "apt" ]]; then
     pkg_install certbot python3-certbot-nginx || CERT_READY=0
@@ -256,13 +305,13 @@ else
   CERT_OK=0
   if [[ "$CERT_READY" == "1" ]]; then
     if [[ -n "$SSL_EMAIL" ]]; then
-      log "درخواست گواهی برای ${DOMAIN} (ایمیل: ${SSL_EMAIL})…"
-      if $SUDO certbot --nginx -d "$DOMAIN" --non-interactive --agree-tos -m "$SSL_EMAIL" --redirect; then
+      log "درخواست گواهی برای ${CERT_DOMAIN_ARGS[*]} (ایمیل: ${SSL_EMAIL})…"
+      if $SUDO certbot --nginx --expand "${CERT_DOMAIN_ARGS[@]}" --non-interactive --agree-tos -m "$SSL_EMAIL" --redirect; then
         CERT_OK=1
       fi
     else
       log "تلاش خودکار برای گواهی ${DOMAIN} (ثبت بدون ایمیل)…"
-      if $SUDO certbot --nginx -d "$DOMAIN" --non-interactive --agree-tos \
+      if $SUDO certbot --nginx --expand "${CERT_DOMAIN_ARGS[@]}" --non-interactive --agree-tos \
            --register-unsafely-without-email --redirect; then
         CERT_OK=1
       fi

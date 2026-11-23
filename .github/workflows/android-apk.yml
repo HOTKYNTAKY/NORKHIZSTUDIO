@@ -1,0 +1,131 @@
+name: Build NEON TIDE APK
+
+# Turns the packaged web build of NEON TIDE (Three.js/WebGL) into a signed,
+# installable Android APK.
+#
+# Input:  the web build zip in Google Drive (or any direct HTTPS url)
+# Output: android-shell APK committed to this branch under apk/ + a workflow
+#         artifact. The game files are served to the WebView from assets/www
+#         over https://appassets.androidplatform.net (same-origin, secure).
+
+on:
+  workflow_dispatch:
+    inputs:
+      drive_file_id:
+        description: 'Google Drive file id of the web-build zip'
+        required: false
+        default: '1cdqQnfbGNhGYOniMZLw4To2RSKxMcNWE'
+      source_url:
+        description: 'Direct HTTPS url of the web-build zip (overrides the Drive id)'
+        required: false
+        default: ''
+      version_name:
+        description: 'versionName'
+        required: false
+        default: '1.0.0'
+      version_code:
+        description: 'versionCode'
+        required: false
+        default: '1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apk-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install build-tools and platform
+        run: |
+          sdkmanager --install "platforms;android-34" "build-tools;34.0.0" > /dev/null
+          yes | sdkmanager --licenses > /dev/null || true
+          echo "build-tools: $(ls "$ANDROID_HOME/build-tools")"
+
+      - name: Fetch the NEON TIDE web build
+        env:
+          DRIVE_FILE_ID: ${{ inputs.drive_file_id }}
+          SOURCE_URL: ${{ inputs.source_url }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/src
+          if [ -n "${SOURCE_URL}" ]; then
+            curl -fL --retry 3 -o /tmp/src/build.zip "$SOURCE_URL"
+          else
+            python3 -m pip install --quiet --upgrade gdown
+            gdown --fuzzy "https://drive.google.com/uc?id=${DRIVE_FILE_ID}" -O /tmp/src/build.zip
+          fi
+          ls -lh /tmp/src/build.zip
+          unzip -q -o /tmp/src/build.zip -d /tmp/src/unpacked
+          GAME=/tmp/src/unpacked/game
+          if [ ! -f "$GAME/index.html" ]; then
+            echo "game/index.html is missing in the archive"; find /tmp/src/unpacked -maxdepth 2 | head -40; exit 1
+          fi
+          echo "GAME_DIR=$GAME" >> "$GITHUB_ENV"
+          du -sh "$GAME"
+
+      - name: Build the signed APK
+        env:
+          VERSION_NAME: ${{ inputs.version_name }}
+          VERSION_CODE: ${{ inputs.version_code }}
+        run: |
+          set -euo pipefail
+          chmod +x android/build-apk.sh
+          ./android/build-apk.sh "$GAME_DIR" "$PWD/apk/neon-tide-android-${VERSION_NAME}.apk" \
+            "$VERSION_NAME" "$VERSION_CODE"
+
+      - name: Inspect the APK
+        run: |
+          set -euo pipefail
+          APK=$(ls apk/*.apk | head -1)
+          "$ANDROID_HOME/build-tools/34.0.0/aapt2" dump badging "$APK" | head -10
+          "$ANDROID_HOME/build-tools/34.0.0/apksigner" verify --print-certs "$APK" | head -4
+          unzip -l "$APK" | tail -3
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: neon-tide-apk
+          path: apk/*.apk
+          retention-days: 30
+
+      - name: Commit the APK to this branch
+        run: |
+          set -euo pipefail
+          git config user.name "neon-tide-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cat > apk/README.md <<EOF
+          # NEON TIDE — Android build
+
+          Signed APK of the NEON TIDE web build, produced by \`.github/workflows/android-apk.yml\`.
+
+          | | |
+          |---|---|
+          | package | \`com.norkhiz.neontide\` |
+          | version | \`${{ inputs.version_name }}\` (\`${{ inputs.version_code }}\`) |
+          | source zip | \`${{ inputs.source_url != '' && inputs.source_url || inputs.drive_file_id }}\` |
+          | commit | \`${{ github.sha }}\` |
+          | built (UTC) | \`$(date -u +%Y-%m-%dT%H:%M:%SZ)\` |
+
+          Install: copy the \`.apk\` to the phone, allow installing unknown apps for your file
+          manager, then tap the file. Android 7.0+ (API 24).
+          EOF
+          git add -f apk/
+          git commit -m "build(android): NEON TIDE ${{ inputs.version_name }} APK [skip ci]"
+          git push origin HEAD:${{ github.ref_name }}

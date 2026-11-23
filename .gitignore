@@ -9,3 +9,6 @@ dist/
 *.zip
 # Shop backend runtime data (orders + secrets) — never commit
 server/data/
+
+# Android build scratch space (the signed APK itself is tracked in android/apk/)
+android/build/

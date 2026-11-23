@@ -45,6 +45,18 @@ echo "==> staging game files ($(du -sh "$GAME_DIR" | cut -f1))"
 cp -a "$GAME_DIR/." "$WORK/webroot/www/"
 rm -f "$WORK/webroot/www/_headers" "$WORK/webroot/www/vercel.json"
 
+# ---------------------------------------------------------------------------
+# Mobile tuning layer (android/patches/). The game ships as a minified web
+# build, so behaviour that should differ on a phone (no developer checkpoint,
+# beach start in daylight, no debug console) is applied by appending a small
+# readable patch to the bundle instead of editing the minified code.
+# NEON_TIDE_PATCHES=0 builds the untouched web build.
+# ---------------------------------------------------------------------------
+if [ "${NEON_TIDE_PATCHES:-1}" != "0" ]; then
+  echo "==> applying mobile patches"
+  python3 "$HERE/tools/apply-patches.py" "$WORK/webroot/www/assets"
+fi
+
 echo "==> stamping version $VERSION_NAME ($VERSION_CODE)"
 sed -e "s/android:versionCode=\"[0-9]*\"/android:versionCode=\"$VERSION_CODE\"/" \
     -e "s/android:versionName=\"[^\"]*\"/android:versionName=\"$VERSION_NAME\"/" \

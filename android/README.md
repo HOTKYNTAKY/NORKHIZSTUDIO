@@ -16,7 +16,7 @@
 | مسیر فایل‌های بازی در APK | `assets/www/` (سرو از `https://appassets.androidplatform.net/`) |
 | مجوزها | `INTERNET` (رزرو)، `VIBRATE` (بازخورد لمسی بازی) |
 
-بازی همان بیلد وب است و بدون تغییر اجرا می‌شود؛ فقط داخل یک `WebView` تمام‌صفحه بسته‌بندی شده است:
+بازی همان بیلد وب است و داخل یک `WebView` تمام‌صفحه بسته‌بندی شده است. فقط چند رفتار مخصوص موبایل با یک «لایهٔ اصلاح» اضافه می‌شود (بخش «لایهٔ اصلاح موبایل» پایین‌تر).
 
 - فایل‌های بازی در `assets/www/` قرار می‌گیرند (همان `game/` داخل زیپ).
 - یک `WebViewClient` سفارشی (`AssetClient.java`) درخواست‌های مبدا مجازی `https://appassets.androidplatform.net/` را از روی assets سرو می‌کند.
@@ -27,10 +27,28 @@
 
 ## فایل آماده
 
-`android/apk/neon-tide-android-1.0.1.apk` — همین فایل در گوگل‌درایو هم هست:
-`NEON-TIDE-v1.0.1-android-FIXED.apk` در پوشهٔ «فایل های بازی جی تی ای».
+`android/apk/neon-tide-android-1.0.2.apk` — همین فایل در گوگل‌درایو هم هست:
+`NEON-TIDE-v1.0.2-android.apk` (id: `19Jakph9bva7VLtJlHyYSI5OOgxtAtAUx`) در پوشهٔ «فایل های بازی جی تی ای».
 
-SHA-256 فایل APK: `0034cca3c884ed45076f35bfb6706ee4c457c04fd68794213d42a71e2c4b2d27`
+SHA-256 فایل APK: `c1b72a83ea350ca8bb2e71e8b75956760cec6c8be1e54ee3bda924bff3aea10f`
+
+نسخهٔ قبلی (`NEON-TIDE-v1.0.1-android-FIXED.apk`) هم در درایو می‌ماند؛ بازی در آن از وسط
+مأموریت سرقت شروع می‌شد.
+
+## لایهٔ اصلاح موبایل (`android/patches/`)
+
+بیلد وب مینیفای‌شده است و سورس جدا ندارد، پس تغییرها در زمان اجرا و از فایل خوانا اعمال می‌شوند:
+`android/tools/apply-patches.py` فایل `assets/__nt-patches.js` را می‌سازد و در انتهای باندل بازی
+یک فراخوانی به آن اضافه می‌کند (بعد از `boot()`، با دسترسی به خودِ `engine`).
+
+| پچ | کار |
+|---|---|
+| `10-mobile-tuning.js` | ۱) مقدمهٔ اسکریپت‌شده حذف: بیلد وب به‌صورت پیش‌فرض یک چک‌پوینت دیباگ (`low_tide`/`escape`) را اجرا می‌کند و بازیکن تازه را وسط مأموریت سرقت با پلیس، رادیو و پول مأموریت می‌اندازد؛ با `neon.devStart=off` خاموش می‌شود. ۲) شروع بازی آزاد از ساحل کنار جاده (`480.1, -483.6`) ساعت ۱۰:۳۰ صبح — فقط برای بازی جدید، نه «ادامه». ۳) کنسول و پنل دیباگ کامل غیرفعال: نه باز می‌شوند نه دستوری اجرا می‌کنند. |
+| `20-persian-touch.js` | برچسب دکمه‌های لمسی فارسی/درست‌تر، حذف متن‌های مربوط به کیبورد و دسته (مثل `Click to play`)، و اضافه‌کردن دکمه‌های «نقشه» و «توقف» به نوار پایین. |
+
+بدون پچ: `NEON_TIDE_PATCHES=0 bash android/build-apk.sh ...` بیلد دست‌نخورده می‌سازد.
+تست: `node android/tools/smoke-patches.mjs <assets-dir>` (موتور بازی را شبیه‌سازی می‌کند و
+می‌سنجد که چک‌پوینت دیباگ خاموش، کنسول بسته، اسپاون ساحل و ساعت ۱۰:۳۰ باشد).
 
 > **نسخهٔ ۱.۰.۰ خراب بود** (صفحهٔ `404 not found: /index.html`): اسکریپت بیلد فایل‌های
 > بازی را با نام `www/...` در ریشهٔ ZIP می‌گذاشت، نه زیر `assets/www/...`؛ در نتیجه
@@ -54,7 +72,7 @@ SHA-256 فایل APK: `0034cca3c884ed45076f35bfb6706ee4c457c04fd68794213d42a71e2
 ```bash
 export ANDROID_HOME=$HOME/Android/Sdk      # build-tools 34 + platforms/android-34
 unzip neon-tide-mobile.zip -d /tmp/nt      # پوشهٔ game/ داخلش
-./android/build-apk.sh /tmp/nt/game ./android/apk/neon-tide-android-1.0.0.apk 1.0.0 1
+./android/build-apk.sh /tmp/nt/game ./android/apk/neon-tide-android-1.0.2.apk 1.0.2 3
 ```
 
 ### کلید امضا
@@ -65,7 +83,7 @@ unzip neon-tide-mobile.zip -d /tmp/nt      # پوشهٔ game/ داخلش
 
 ## نصب روی گوشی
 
-1. فایل `neon-tide-android-1.0.0.apk` را روی گوشی کپی کن (دانلود از درایو یا کابل).
+1. فایل `neon-tide-android-1.0.2.apk` را روی گوشی کپی کن (دانلود از درایو یا کابل).
 2. اگر پرسید، برای فایل‌منیجر/مرورگر «نصب برنامه‌های ناشناس» را روشن کن.
 3. روی فایل بزن → Install → Open. گوشی را افقی بگیر.
 

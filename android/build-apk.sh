@@ -69,7 +69,7 @@ test -f "$R_JAVA" || { echo "R.java was not generated" >&2; find "$WORK/gen" -na
 
 echo "==> compiling java"
 find "$HERE/java" -path "*/BuildConfig.java" -prune -o -name '*.java' -print > "$WORK/sources.txt"
-echo "$HERE/java/$PKG/BuildConfig.java" >> "$WORK/sources.txt"
+echo "$HERE/java/$(echo "$PKG" | tr "." "/")/BuildConfig.java" >> "$WORK/sources.txt"
 echo "$R_JAVA" >> "$WORK/sources.txt"
 javac -source 8 -target 8 -nowarn -encoding UTF-8 \
   -bootclasspath "$ANDROID_JAR" \

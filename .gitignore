@@ -12,3 +12,4 @@ server/data/
 
 # Android build scratch space (the signed APK itself is tracked in android/apk/)
 android/build/
+*.idsig

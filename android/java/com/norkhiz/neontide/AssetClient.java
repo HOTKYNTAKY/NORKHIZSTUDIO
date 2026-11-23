@@ -30,7 +30,8 @@ public class AssetClient extends WebViewClient {
     private static final String TAG = "NeonTide";
     public static final String HOST = "appassets.androidplatform.net";
     public static final String ORIGIN = "https://" + HOST;
-    private static final String BASE = "www";
+    /** AssetManager root of the game inside the APK (resolved in resolveBase()). */
+    private final String base;
 
     private static final Map<String, String> MIME = new HashMap<String, String>();
 
@@ -74,6 +75,50 @@ public class AssetClient extends WebViewClient {
 
     public AssetClient(Activity activity) {
         this.assets = activity.getAssets();
+        this.base = resolveBase();
+    }
+
+    /**
+     * Finds where the game actually lives inside the APK.
+     *
+     * A correct build puts it at {@code assets/www/}. Older/broken packaging
+     * wrote the files at the archive root ({@code assets/www/index.html} on
+     * disk became {@code www/index.html} in the zip), which AssetManager
+     * exposes as a *folder* named "www" → assets.open("www/...") 404s.
+     * Trying the candidates keeps such an APK playable instead of showing an
+     * error page, and the log line tells us which layout was used.
+     */
+    private String resolveBase() {
+        String[] candidates = {"www", "assets/www", ""};
+        for (String candidate : candidates) {
+            String probe = candidate.isEmpty() ? "index.html" : candidate + "/index.html";
+            InputStream in = null;
+            try {
+                in = assets.open(probe, AssetManager.ACCESS_STREAMING);
+                Log.i(TAG, "game assets resolved at: assets/" + probe);
+                return candidate;
+            } catch (IOException ignored) {
+                // try the next layout
+            } finally {
+                if (in != null) try { in.close(); } catch (IOException ignored) { }
+            }
+        }
+        Log.e(TAG, "no index.html under assets/www, assets/assets/www or assets/");
+        return "www";
+    }
+
+    /** Diagnostics used by the fallback page. */
+    public String describeLayout() {
+        try {
+            String[] top = assets.list("");
+            StringBuilder sb = new StringBuilder();
+            if (top != null) for (String t : top) sb.append(t).append(t.endsWith("/") ? "" : "/").append(' ');
+            String[] www = assets.list("www");
+            sb.append(" | www/: ").append(www == null ? 0 : www.length).append(" entries");
+            return "base=" + base + " top=[" + sb.toString().trim() + "]";
+        } catch (IOException e) {
+            return "base=" + base + " (list failed: " + e.getMessage() + ")";
+        }
     }
 
     /** Blocks traversal/URL tricks before a path ever reaches the asset manager. */
@@ -171,7 +216,8 @@ public class AssetClient extends WebViewClient {
             Log.w(TAG, "blocked asset path: " + path);
             return new WebResourceResponse("text/plain", "utf-8", stream("bad path"));
         }
-        String assetPath = BASE + path;
+        String root = base.isEmpty() ? "" : base + "/";
+        String assetPath = root + path.substring(1);
         try {
             InputStream in = assets.open(assetPath, AssetManager.ACCESS_STREAMING);
             String charset = isTextual(mime) ? "utf-8" : null;
@@ -181,11 +227,26 @@ public class AssetClient extends WebViewClient {
             return response;
         } catch (IOException e) {
             Log.e(TAG, "missing asset: " + assetPath + " (" + e.getMessage() + ")");
-            WebResourceResponse missing = new WebResourceResponse("text/plain", "utf-8",
-                    stream("404 not found: " + path));
+            boolean shell = path.equals("/index.html") || path.equals("/");
+            WebResourceResponse missing = new WebResourceResponse(
+                    shell ? "text/html" : "text/plain", "utf-8",
+                    stream(shell ? fallbackHtml() : "404 not found: " + path));
             missing.setStatusCodeAndReasonPhrase(404, "Not Found");
             return missing;
         }
+    }
+
+    /** Shown only when the packaged game is genuinely missing/broken. */
+    private String fallbackHtml() {
+        return "<!doctype html><html lang=\"fa\" dir=\"rtl\"><head><meta charset=\"utf-8\">"
+                + "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
+                + "<style>body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;"
+                + "background:#05070d;color:#e8f6ff;font-family:system-ui,-apple-system,sans-serif;text-align:center}"
+                + "div{max-width:34rem;padding:2rem}h1{font-size:1.35rem;margin:0 0 .8rem;color:#5cf0ff}"
+                + "p{line-height:1.8;color:#9fb3c8;font-size:.95rem}code{color:#ff5ea8;direction:ltr;display:inline-block}"
+                + "</style></head><body><div><h1>فایل‌های بازی داخل برنامه پیدا نشد</h1>"
+                + "<p>این نسخه از برنامه ناقص نصب شده است. برنامه را حذف و نسخهٔ درست APK را دوباره نصب کنید.</p>"
+                + "<p><code>" + describeLayout().replace("<", "&lt;") + "</code></p></div></body></html>";
     }
 
     private static InputStream stream(String text) {

@@ -37,12 +37,13 @@ done
 
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
-mkdir -p "$WORK/classes" "$WORK/gen" "$WORK/assets/www" "$WORK/dex"
+mkdir -p "$WORK/classes" "$WORK/gen" "$WORK/webroot/www" "$WORK/dex"
 
 echo "==> staging game files ($(du -sh "$GAME_DIR" | cut -f1))"
-cp -a "$GAME_DIR/." "$WORK/assets/www/"
-# hosting-only files are not part of the app
-rm -f "$WORK/assets/www/_headers" "$WORK/assets/www/vercel.json"
+# Inside the APK the files MUST live under assets/www/... : "assets/" is the
+# AssetManager root and "www/" is the root of the virtual https origin.
+cp -a "$GAME_DIR/." "$WORK/webroot/www/"
+rm -f "$WORK/webroot/www/_headers" "$WORK/webroot/www/vercel.json"
 
 echo "==> stamping version $VERSION_NAME ($VERSION_CODE)"
 sed -e "s/android:versionCode=\"[0-9]*\"/android:versionCode=\"$VERSION_CODE\"/" \
@@ -90,9 +91,15 @@ fi
 echo "==> packaging apk"
 cp "$WORK/base.apk" "$WORK/unsigned.apk"
 (cd "$WORK/dex" && zip -q -9 -X "$WORK/unsigned.apk" classes.dex)
-(cd "$WORK/assets" && zip -q -r -9 -X "$WORK/unsigned.apk" www)
+# Append assets/ in sorted order with directory entries. aapt2 sorts every
+# archive it produces and AssetManager relies on that ordering; plain "zip -r"
+# would append filesystem order and silently hide files behind the 404 path.
+python3 "$HERE/tools/add-assets.py" --deflate "$WORK/unsigned.apk" "$WORK/webroot"
 
-echo "==> aligning"
+echo "==> packaging sanity checks"
+node "$HERE/tools/check-apk.mjs" "$WORK/unsigned.apk"
+
+echo "==> aligning${ALIGN_NOTE:-}"
 "$ZIPALIGN" -p -f 4 "$WORK/unsigned.apk" "$WORK/aligned.apk"
 
 echo "==> signing"
@@ -109,11 +116,12 @@ fi
 mkdir -p "$(dirname "$OUT_APK")"
 "$APKSIGNER" sign \
   --ks "$KS" --ks-pass "pass:$KS_PASS" --key-pass "pass:$KS_PASS" --ks-key-alias "$KEY_ALIAS" \
-  --v1-signing-enabled true --v2-signing-enabled true --v3-signing-enabled true \
+  --v1-signing-enabled false --v2-signing-enabled true --v3-signing-enabled true \
   --min-sdk-version "$MIN_SDK" \
   --out "$OUT_APK" "$WORK/aligned.apk"
 
 echo "==> verifying"
+node "$HERE/tools/check-apk.mjs" "$OUT_APK" ${ALIGN_SKIP:-}
 "$APKSIGNER" verify --min-sdk-version "$MIN_SDK" --print-certs "$OUT_APK" | head -4
 "$AAPT2" dump badging "$OUT_APK" | head -5
 echo "APK: $OUT_APK"
